@@ -3,8 +3,8 @@
     <id>ocDashboard</id>
     <name>Dashboard</name>
     <description>There are some widgets, that you can use to show your informations quick and easy. NO COMMERCIAL USE</description>
-    <version>0.10</version>
+    <version>1.1</version>
     <licence>AGPL</licence>
     <author>Florian Steffens</author>
-    <require>5.0.10 and MySQL</require>
+    <require>5.0.10 or greater and MySQL</require>
 </info>

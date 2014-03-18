@@ -1,9 +1,7 @@
 <form id="ocDashboardSettings"> 
 	<fieldset class="personalblock"> 
-	<legend>
-		<strong><?php p($l->t('Dashboard Settings')); ?></strong>
-	</legend> 
-	
+    <h2><?php p($l->t('Dashboard Settings')); ?></h2>
+
 	<?php 
 		foreach ($_['widgets'] as $widget) {
 			$id = $widget['widget']['id'];

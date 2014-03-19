@@ -68,7 +68,8 @@ class widget {
 		$return['icon'] = $this->icon;
 		$return['link'] = $this->link;
 		$return['name'] = $this->name;
-		return $return;
+
+        return $return;
 	}
 		
 // --- PROTECTED --------------------------------------

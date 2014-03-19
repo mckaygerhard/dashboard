@@ -9,8 +9,6 @@
  */
 class activity extends widget implements interfaceWidget {
 
-	private $tasks = Array();
-	
 	// ======== INTERFACE METHODS ================================
 	
 	/*
@@ -18,7 +16,9 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-		return "test";
+        $test = OCA\Activity\OCS::getActivities();
+        $test = \OC_Util::sanitizeHTML($test->getData()[0]['subject']);
+		return Array("activitys" => Array($test));
 	}	
 	
 	// ======== END INTERFACE METHODS =============================

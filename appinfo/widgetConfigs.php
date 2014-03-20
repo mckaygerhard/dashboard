@@ -115,7 +115,7 @@ class widgets {
                                 'conf'		=>	'[{"name":"Tags (comma seperated)","type":"string","id":"tags","default":"dashboard"}]',
                                 'cond' 		=>	"bookmarks",
                                 'scripts'	=>	"",
-                                'styles'	=>	"",
+                                'styles'	=>	"bookmarks",
                                 'link'		=>	"index.php/apps/bookmarks"
                             )
 					  );

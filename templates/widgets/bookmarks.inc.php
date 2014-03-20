@@ -1,17 +1,22 @@
 <div class='ocDashboard bookmarks items'>
 
     <?php
+    $style = "";
     foreach ($additionalparams['bookmarks'] as $bookmark) { ?>
         <div class='ocDashboard bookmarks item' <?php print_unescaped($style); ?>>
-            <a href="<?php p($bookmark['url']); ?>"><?php p($bookmark['title']); ?></a>
+            <?php
+                if ($bookmark['title'] == "") {
+                    $titel = $bookmark['url'];
+                } else {
+                    $titel = $bookmark['title'];
+                }
+            ?>
+            <a href="<?php p($bookmark['url']); ?>"><?php p($titel); ?></a>
         </div>
     <?php }	?>
 </div>
 
 <style type="text/css">
-    .dashboardItem {
-        overflow: auto;
-    }
     .ocDashboard.bookmarks {
         text-align: left;
         font-weight: bold;

@@ -19,10 +19,10 @@ class bookmarks extends widget implements interfaceWidget {
      * this array will be routed to the subtemplate for this widget
      */
     public function getWidgetData() {
-        if(empty($this->bookmarks))
+        if(empty($this->bookmarks)) {
             $this->getBookmarks();
-        return Array("bookmarks" => Array());
-//        return Array("bookmarks" => $this->bookmarks);
+        }
+        return Array("bookmarks" => $this->bookmarks);
     }
 
     // ======== END INTERFACE METHODS =============================

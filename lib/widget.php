@@ -92,7 +92,7 @@ class widget {
 	 * loads all styles that are defined in the config Array
 	 */
 	private function loadStyles() {
-		if(isset($this->styles)) {
+		if(isset($this->styles) && $this->scripts != "") {
 			foreach (explode(",", $this->styles) as $style) {
     				OCP\Util::addStyle('ocDashboard', 'widgets/'.$this->id.'/'.$style);
 			}

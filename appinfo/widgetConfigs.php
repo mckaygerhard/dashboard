@@ -106,6 +106,17 @@ class widgets {
                                 'scripts'	=>	"",
                                 'styles'	=>	"activity",
                                 'link'		=>	"index.php/apps/activity/"
+                            ),
+                            Array(
+                                'id' 		=>	"bookmarks",
+                                'name'		=>	"Bookmarks",
+                                'refresh'	=>	360,
+                                'icon'		=>	"icons/83.png",
+                                'conf'		=>	'[{"name":"Tags (comma seperated)","type":"string","id":"tags","default":"dashboard"}]',
+                                'cond' 		=>	"bookmarks",
+                                'scripts'	=>	"",
+                                'styles'	=>	"",
+                                'link'		=>	"index.php/apps/bookmarks"
                             )
 					  );
 		

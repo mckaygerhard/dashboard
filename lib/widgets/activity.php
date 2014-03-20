@@ -16,10 +16,8 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        $test = OCA\Activity\OCS::getActivities();
-        $test = \OC_Util::sanitizeHTML($test->getData()[0]['subject']);
-		return Array("activitys" => Array($test));
-	}	
+        return Array("activitys" => OCA\Activity\Data::read(0, 8));
+	}
 	
 	// ======== END INTERFACE METHODS =============================
 

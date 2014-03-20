@@ -102,9 +102,9 @@ class widgets {
                                 'refresh'	=>	120,
                                 'icon'		=>	"icons/87.png",
                                 'conf'		=>	'',
-                                'cond' 		=>	"",
+                                'cond' 		=>	"activity",
                                 'scripts'	=>	"",
-                                'styles'	=>	"",
+                                'styles'	=>	"activity",
                                 'link'		=>	"index.php/apps/activity/"
                             )
 					  );

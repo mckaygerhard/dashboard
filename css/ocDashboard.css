@@ -172,3 +172,9 @@ top: -25px;
 	opacity:0.6;
 	filter:alpha(opacity=60); /* For IE8 and earlier */
 }
+
+.h30break {
+    clear: both;
+    height: 30px;
+    width: 100%;
+}

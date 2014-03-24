@@ -11,7 +11,7 @@
                     $titel = $bookmark['title'];
                 }
             ?>
-            <a href="<?php p($bookmark['url']); ?>"><?php p($titel); ?></a>
+            <a target="_blank" href="<?php p($bookmark['url']); ?>"><?php p($titel); ?></a>
         </div>
     <?php }	?>
 </div>

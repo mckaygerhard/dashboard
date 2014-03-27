@@ -21,14 +21,4 @@ class activity extends widget implements interfaceWidget {
 	
 	// ======== END INTERFACE METHODS =============================
 
-	
-	/*
-	 * called by ajaxService
-	 * 
-	 * @param $id
-	 * @return if success
-	 */
-	public function dummy($id) {
-	}
-
 }

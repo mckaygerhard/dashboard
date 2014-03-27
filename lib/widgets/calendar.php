@@ -376,14 +376,5 @@ class calendar extends widget implements interfaceWidget {
 		}
 		return "";
 	}
-
-    private function cleanSpecialCharacter($str) {
-        //$str = str_replace('\\', '#=#', $str);
-        $str = str_replace('\r', '<br>', $str);
-        $str = str_replace('\n', '<br>', $str);
-        $str = str_replace('\,', ',', $str);
-        //$str = str_replace('#=#', '&#92;', $str);
-        return $str;
-    }
 	
 }

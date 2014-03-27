@@ -114,7 +114,7 @@ class tasks extends widget implements interfaceWidget {
 					$task['priority'] = $tmp[1];
 				}
 			}
-			$task['summary'] = $row['summary'];
+			$task['summary'] = $this->cleanSpecialCharacter($row['summary']);
 			$task['tid'] = $row['tid'];
 			$this->tasks[] = $task;
 		}

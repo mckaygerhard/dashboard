@@ -22,7 +22,7 @@ if (OCP\Config::getUserValue($user, "ocDashboard", "ocDashboard_".$id) == "yes")
 		$result = $widget->$method($value);
 	}
 	
-	if ($result!="") {
+	if ($result) {
 		$RESPONSE["response"] = $result;
 		$RESPONSE["success"] = true;
 	} else {
@@ -32,5 +32,3 @@ if (OCP\Config::getUserValue($user, "ocDashboard", "ocDashboard_".$id) == "yes")
 	$RESPONSE["success"] = false;
 }
 die(json_encode($RESPONSE));
-
-?>

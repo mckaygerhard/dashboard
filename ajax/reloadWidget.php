@@ -36,5 +36,3 @@ if (OCP\Config::getUserValue($user, "ocDashboard", "ocDashboard_".$id) == "yes")
 
 $RESPONSE["id"] = $id;
 die(json_encode($RESPONSE));
-
-?>

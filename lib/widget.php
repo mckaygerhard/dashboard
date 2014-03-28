@@ -82,7 +82,9 @@ class widget {
 	private function loadScripts() {
 		if(isset($this->scripts) && $this->scripts != "") {
 			foreach (explode(",", $this->scripts) as $script) {
+                if($script != "") {
     				OCP\Util::addscript('ocDashboard', 'widgets/'.$this->id.'/'.$script);
+                }
 			}
 		}
 	}
@@ -92,10 +94,12 @@ class widget {
 	 * loads all styles that are defined in the config Array
 	 */
 	private function loadStyles() {
-		if(isset($this->styles)) {
+		if(isset($this->styles) && $this->styles != "") {
 			foreach (explode(",", $this->styles) as $style) {
+                if($style != "") {
     				OCP\Util::addStyle('ocDashboard', 'widgets/'.$this->id.'/'.$style);
-			}
+                }
+            }
 		}
 	}
 	

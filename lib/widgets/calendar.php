@@ -122,11 +122,11 @@ class calendar extends widget implements interfaceWidget {
 		// --------------------------------------------------------
 	
 		// no birthday, normal events
-		$event['title'] = $e['title'];
+		$event['title'] = $this->cleanSpecialCharacter($e['title']);
 		$event['color'] = $e['color'];
 		$event['calendar'] = $e['calendar'];
 	
-		$event['location'] = $this->getProperty('LOCATION', $e['data']);
+		$event['location'] = $this->cleanSpecialCharacter($this->getProperty('LOCATION', $e['data']));
 	
 		// all day event => one day (no time output, one date)
 		// start and end time = 00:00:00
@@ -376,5 +376,14 @@ class calendar extends widget implements interfaceWidget {
 		}
 		return "";
 	}
+
+    private function cleanSpecialCharacter($str) {
+        //$str = str_replace('\\', '#=#', $str);
+        $str = str_replace('\r', '<br>', $str);
+        $str = str_replace('\n', '<br>', $str);
+        $str = str_replace('\,', ',', $str);
+        //$str = str_replace('#=#', '&#92;', $str);
+        return $str;
+    }
 	
 }

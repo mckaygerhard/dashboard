@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.activity-entry span {
+    white-space: nowrap;
+    padding-left: 10px;
+    font-size: 0.7em;
+}
+
+.priority30 {
+    color: darkgreen;
+}
+
+.priority20 {
+    color: darkblue;
+}
+
+.priority10 {
+    color: darkred;
+}

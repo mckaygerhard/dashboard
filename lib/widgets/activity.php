@@ -16,7 +16,7 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        return Array("activitys" => OCA\Activity\Data::read(0, 8));
+        return Array("activitys" => OCA\Activity\Data::read(0, 9));
 	}
 	
 	// ======== END INTERFACE METHODS =============================

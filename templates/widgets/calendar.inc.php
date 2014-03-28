@@ -20,12 +20,12 @@
 			?>
 		
 				<?php // no birthday, normal events ?>
-				<div class="calendarItem"><?php p($e['event']['title']); ?> <span style="color:<?php p($e['event']['color']); ?>; font-style: italic; opacity: 0.6; filter:alpha(opacity=60);"><?php p($e['event']['calendar']); ?></span></div>
+				<div class="calendarItem"><?php print_unescaped($e['event']['title']); ?> <span style="color:<?php p($e['event']['color']); ?>; font-style: italic; opacity: 0.6; filter:alpha(opacity=60);"><?php p($e['event']['calendar']); ?></span></div>
 			
 				<?php 
 				if($e['event']['location'] != "") {
 					?>
-					<div class="calendarItem location" style="font-style: italic; opacity: 0.75; filter:alpha(opacity=75);"><?php p($e['event']['location']); ?></div>
+					<div class="calendarItem location" style="font-style: italic; opacity: 0.75; filter:alpha(opacity=75);"><?php print_unescaped($e['event']['location']); ?></div>
 					<?php 
 				}
 				?>

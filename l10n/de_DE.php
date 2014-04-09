@@ -66,5 +66,7 @@ $TRANSLATIONS = array(
 "Dashboard Settings"=>"Dashboard Einstellungen",
 "Protocol"=>"Protokoll",
 "There are %d new mails..."=> "Insgesamt %d neue E-Mails...",
-		"display order" => "Anzeigereihenfolge"
+"display order" => "Anzeigereihenfolge",
+"Max age of activitys to show (hours)" => "Maximales Alter der angezeigten Aktivitäten (in Stunden)",
+"Max 100 items will be showed."=>"Es werden maximal 100 Aktivitäten angezeigt."
 );

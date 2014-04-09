@@ -101,7 +101,7 @@ class widgets {
                                 'name'		=>	"Activity",
                                 'refresh'	=>	120,
                                 'icon'		=>	"icons/87.png",
-                                'conf'		=>	'',
+                                'conf'		=>	'[{"name":"Max age of activitys to show (hours)","type":"string","id":"maxAge","default":"1"},{"name":"Max 100 items will be showed.","type":"label"}]',
                                 'cond' 		=>	"activity",
                                 'scripts'	=>	"",
                                 'styles'	=>	"activity",

@@ -9,8 +9,6 @@
  */
 class tasks extends widget implements interfaceWidget {
 
-	private $tasks = Array();
-	
 	// ======== INTERFACE METHODS ================================
 	
 	/*
@@ -18,9 +16,7 @@ class tasks extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-		if(empty($this->tasks))
-			$this->getTasks();
-		return Array("tasks" => $this->tasks);
+        return Array("tasks" => $this->getTasks());
 	}	
 	
 	// ======== END INTERFACE METHODS =============================
@@ -33,91 +29,47 @@ class tasks extends widget implements interfaceWidget {
 	 * @return if success
 	 */
 	public function markAsDone($id) {
-		$sql = 'SELECT * FROM `*PREFIX*clndr_objects` as obj,`*PREFIX*clndr_calendars` as cal WHERE obj.id = ? AND cal.id = obj.calendarid LIMIT 1';
-		$params = Array($id);
-		$query = \OCP\DB::prepare($sql);
-		$result = $query->execute($params)->fetchRow();
-		if (\OCP\DB::isError($result)) {
-			$this->errorMsg = "SQL Error";
-			\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
-		}
-		
-		// is there already an value about PERCENT-COMPLETE
-		$isAlreadyPrepared = false;
-		foreach (explode("\n", $result['calendardata']) as $d) {
-			if(substr($d, 0,17) == "PERCENT-COMPLETE:") {
-				$isAlreadyPrepared = true;
-			}
-		}
-		
-		if(!$isAlreadyPrepared) {
-			$tmp = "";
-			foreach (explode("\n", $result['calendardata']) as $d) {
-				$tmp .= $d."\n";
-				if(substr($d, 0,8) == "SUMMARY:") {
-					$tmp .= "PERCENT-COMPLETE:100\n";
-					$tmp .= "COMPLETED;VALUE=DATE-TIME;TZID=UTC:".date("Ymd",time())."T".date("hms",time())."\n";
-				}
-			}
-		} else {
-			$tmp = "";
-			foreach (explode("\n", $result['calendardata']) as $d) {
-				if(substr($d, 0,17) == "PERCENT-COMPLETE:") {
-					$tmp .= "PERCENT-COMPLETE:100\n";
-					//$tmp .= "COMPLETED;VALUE=DATE-TIME;TZID=UTC:".date("Ymd",time())."T".date("hms",time())."\n";
-				} else {
-					$tmp .= $d."\n";
-				}
-			}
-		}
-		
-		$sql = 'UPDATE `*PREFIX*clndr_objects`
-		SET `calendardata` = ? 
-		WHERE `id` = ?';
-		$params = Array($tmp,$id);
-		$query = \OCP\DB::prepare($sql);
-		$result = $query->execute($params);
-		if (\OCP\DB::isError($result)) {
-			$this->errorMsg = "SQL Error";
-			\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
-		}
-		
-		if($result) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	
-	/*
-	 * gets and holds all open tasks local
-	*/
-	private function getTasks () {
-		$sortValue = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_tasks_sort",$this->getDefaultValue("sort"));
-		$sql = 'SELECT *, obj.id as tid FROM `*PREFIX*clndr_objects` as obj,`*PREFIX*clndr_calendars` as cal WHERE objecttype = ? AND NOT calendardata LIKE ? AND userid = ? AND cal.id = obj.calendarid ORDER BY lastmodified '.$sortValue.';';
-		$args = array("VTODO","%PERCENT-COMPLETE:100%",$this->user);
+        //$id = $_POST['id'];
+        //$property = $_POST['type'];
+        $vcalendar = OC_Calendar_App::getVCalendar( $id );
 
-		$query = \OCP\DB::prepare($sql);
-		$result = $query->execute($args);
-		if (\OCP\DB::isError($result)) {
-			$this->errorMsg = "SQL Error";
-			\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
-		}
-		
-		while($row = $result->fetchRow()) {
-			$task = Array();
-	
-			foreach (explode("\n", $row['calendardata']) as $d) {
-				if(substr($d, 0,9) == "PRIORITY:") {
-					$tmp = explode(":", $d);
-					$task['priority'] = $tmp[1];
-				}
-			}
-			$task['summary'] = $this->cleanSpecialCharacter($row['summary']);
-			$task['tid'] = $row['tid'];
-			$this->tasks[] = $task;
-		}
+        $vtodo = $vcalendar->VTODO;
+
+        //$checked = $_POST['checked'];
+        OC_Task_App::setComplete($vtodo, '100', null);
+        return true;
 	}
+	
+
+    private function getTasks() {
+        $calendars = OC_Calendar_Calendar::allCalendars(OCP\User::getUser(), true);
+        $user_timezone = OC_Calendar_App::getTimezone();
+
+        $calendarTasks = array();
+        foreach( $calendars as $calendar ) {
+            $calendar_tasks = OC_Calendar_Object::all($calendar['id']);
+            $tasks = array();
+            foreach( $calendar_tasks as $task ) {
+                if($task['objecttype']!='VTODO') {
+                    continue;
+                }
+                if(is_null($task['summary'])) {
+                    continue;
+                }
+                $object = OC_VObject::parse($task['calendardata']);
+                $vtodo = $object->VTODO;
+                try {
+                    $t = OC_Task_App::arrayForJSON($task['id'], $vtodo, $user_timezone);
+                    if($t['complete'] != "100") {
+                        $tasks[] = $t;
+                    }
+                } catch(Exception $e) {
+                    OCP\Util::writeLog('tasks', $e->getMessage(), OCP\Util::ERROR);
+                }
+            }
+            $calendarTasks[$calendar['displayname']] = $tasks;
+        }
+        return $calendarTasks;
+    }
 	
 }

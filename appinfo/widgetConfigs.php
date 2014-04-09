@@ -71,7 +71,7 @@ class widgets {
 									'conf'		=>	'[{"id":"sort","type":"radio","options":[{"id":"DESC","name":"new tasks first"},{"id":"ASC","name":"old tasks first"}],"name":"display order","default":"DESC"}]',
 									'cond' 		=>	"tasks",
 									'scripts'	=>	"tasks",
-									'styles'	=>	"",
+									'styles'	=>	"tasks",
 									'link'		=>	"index.php/apps/tasks"
 								),
 							Array(

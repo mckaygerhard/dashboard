@@ -29,14 +29,10 @@ class tasks extends widget implements interfaceWidget {
 	 * @return if success
 	 */
 	public function markAsDone($id) {
-        //$id = $_POST['id'];
-        //$property = $_POST['type'];
         $vcalendar = OC_Calendar_App::getVCalendar( $id );
-
         $vtodo = $vcalendar->VTODO;
-
-        //$checked = $_POST['checked'];
         OC_Task_App::setComplete($vtodo, '100', null);
+        OC_Calendar_Object::edit($id, $vcalendar->serialize());
         return true;
 	}
 	

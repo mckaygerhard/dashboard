@@ -20,7 +20,7 @@ function bindMarkAsRead() {
 // ajax action for mar as read
 function markAsRead(id) {
 	showWaitSymbol('tasks');
-	$("#task-" + id).fadeOut();
+	$("#task-" + id).parent().fadeOut();
 	ajaxService('tasks',
 				'markAsDone',
 				id,

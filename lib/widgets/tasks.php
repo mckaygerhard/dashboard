@@ -16,7 +16,13 @@ class tasks extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        return Array("tasks" => $this->getTasks());
+        $calendars = OC_Calendar_Calendar::allCalendars($this->user, true);
+
+        $return = Array(
+            "tasks" => $this->getTasks(),
+            "calendars" => $calendars
+        );
+        return $return;
 	}	
 	
 	// ======== END INTERFACE METHODS =============================
@@ -35,6 +41,30 @@ class tasks extends widget implements interfaceWidget {
         OC_Calendar_Object::edit($id, $vcalendar->serialize());
         return true;
 	}
+
+    public function newTask($data) {
+        $split = explode("#|#",$data);
+        $sumary = $split[0];
+        $priority = $split[1];
+        $calendarId = $split[2];
+
+        $calendars = OC_Calendar_Calendar::allCalendars(OCP\User::getUser(), true);
+        //$first_calendar = reset($calendars);
+        //$cid = $first_calendar['id'];
+
+        $request = array();
+        $request['summary'] = $sumary;
+        $request["categories"] = null;
+        $request['priority'] = $priority;
+        $request['percent_complete'] = null;
+        $request['completed'] = null;
+        $request['location'] = null;
+        $request['due'] = null;
+        $request['description'] = null;
+        $vcalendar = OC_Task_App::createVCalendarFromRequest($request);
+        $id = OC_Calendar_Object::add($calendarId, $vcalendar->serialize());
+        return true;
+    }
 	
 
     private function getTasks() {

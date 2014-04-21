@@ -58,7 +58,7 @@ class newsreader extends widget implements interfaceWidget {
 
         $lastId = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_newsreader_lastItemId",0);
 
-        $items = $this->itembusinesslayer->findAllNew(0, \OCA\News\Db\FeedType::SUBSCRIPTIONS , 0, false,  "Florian");
+        $items = $this->itembusinesslayer->findAllNew(0, \OCA\News\Db\FeedType::SUBSCRIPTIONS , 0, false,  $this->user);
         $items = array_reverse($items);
 
         $newsitemfound = false;

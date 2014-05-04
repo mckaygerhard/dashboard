@@ -45,6 +45,7 @@ function markAsRead(id) {
 function newTask() {
     showWaitSymbol('tasks');
     var value = $("#addTaskSummary").val() + "#|#" + $("#addTaskPriority").val() + "#|#" + $("#addTaskCalendarId").val();
+    alert(value);
     ajaxService('tasks',
         'newTask',
         value,

@@ -26,7 +26,35 @@ class tasks extends widget implements interfaceWidget {
 	
 	// ======== END INTERFACE METHODS =============================
 
-	
+
+
+    /*
+     * called by ajaxService
+     *
+     * @param data for new task
+     * @return boolean if success
+     */
+    public function newTask($data) {
+        $split = explode("#|#",$data);
+        $sumary = $split[0];
+        $priority = $split[1];
+        $calendarId = $split[2];
+
+        $request = array();
+        $request['summary'] = $sumary;
+        $request["categories"] = null;
+        $request['priority'] = $priority;
+        $request['percent_complete'] = null;
+        $request['completed'] = null;
+        $request['location'] = null;
+        $request['due'] = null;
+        $request['description'] = null;
+        $vcalendar = OC_Task_App::createVCalendarFromRequest($request);
+        OC_Calendar_Object::add($calendarId, $vcalendar->serialize());
+        return true;
+    }
+
+
 	/*
 	 * called by ajaxService
 	 * 

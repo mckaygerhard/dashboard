@@ -16,8 +16,13 @@ class tasks extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        return Array("tasks" => $this->getTasks());
-	}	
+        $calendars = OC_Calendar_Calendar::allCalendars($this->user, true);
+        $return = Array(
+            "tasks" => $this->getTasks(),
+            "calendars" => $calendars
+        );
+        return $return;
+	}
 	
 	// ======== END INTERFACE METHODS =============================
 

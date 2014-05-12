@@ -1,4 +1,7 @@
-$(document).ready(function() { bindMarkAsRead(); });
+$(document).ready(function() {
+    bindMarkAsRead();
+    bindNewTask();
+});
 
 
 // bind mark as read action
@@ -7,17 +10,26 @@ function bindMarkAsRead() {
 			tmp = current.id.split("-");
 			id = tmp[1];
             // TODO use on() instead of live()
-			$("#task-" + id).live('click',function(){
-					tmp = this.id.split("-");
-					id = tmp[1];
-					markAsRead(id);
-				}
-			);
-		}
+            $("#task-" + id).unbind('click');
+            bindSingleMarkAsRead(id);
+        }
 	);
+}
 
+
+function bindSingleMarkAsRead(id) {
+    $("#task-" + id).live('click',function(){
+            markAsRead(id);
+        }
+    );
+}
+
+
+// bind function for adding new tasks
+function bindNewTask() {
     $('#addTask').live('click', function(event) {
         $(".newtask").slideDown();
+        $('#addTaskSummary').focus();
     });
 
     $('#addTaskSubmit').live('click', function(event) {
@@ -35,21 +47,24 @@ function markAsRead(id) {
 				'markAsDone',
 				id,
 				function(res) {
-					//loadWidget('tasks');
-                    bindMarkAsRead();
+                    //bindMarkAsRead();
 				}
 	);
     hideWaitSymbol('tasks');
 }
 
+
+// ajax action for adding  new task
 function newTask() {
     showWaitSymbol('tasks');
     var value = $("#addTaskSummary").val() + "#|#" + $("#addTaskPriority").val() + "#|#" + $("#addTaskCalendarId").val();
-    alert(value);
+    //alert(value);
     ajaxService('tasks',
         'newTask',
         value,
         function(res) {
+            //TODO bind markAsRead
+            bindSingleMarkAsRead($("#addTaskCalendarId").val());
             loadWidget('tasks');
         }
     );

@@ -7,9 +7,10 @@
         <form action="" method="">
             <input type="text" size="20" id="addTaskSummary" name="addTaskSummary" />
             <select id="addTaskPriority" name="addTaskPriority">
-                <option value="9">normal</option>
-                <option value="5">important</option>
-                <option value="1">more important</option>
+                <option value="0">normal</option>
+                <option value="9">important</option>
+                <option value="5">more important</option>
+                <option value="1">most important</option>
             </select>
             <select id="addTaskCalendarId" name="addTaskCalendarId">
             <?php

@@ -178,3 +178,9 @@ top: -25px;
     height: 30px;
     width: 100%;
 }
+
+.h20break {
+    clear: both;
+    height: 20px;
+    width: 100%;
+}

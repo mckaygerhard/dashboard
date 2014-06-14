@@ -1,5 +1,4 @@
-ocDashboard
-===========
+#ocDashboard
 
 This is some kind of framework for widgets (inclusive standard widgets) in a dashboard for owncloud.
 
@@ -8,5 +7,13 @@ Download and information: freans.de/owncloud
 
 System requirements
 developed and tested  with 
-	owncloud 5.0.10
+	owncloud 6.0.3
 	mysql (sqlite will not work)
+
+
+## Knowen Bugs
+
+###Widgets
+####Tasks
+If you add a new task, you can not mark it as done before you reload the page.
+The js click bind is missing.

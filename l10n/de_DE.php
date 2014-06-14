@@ -68,5 +68,8 @@ $TRANSLATIONS = array(
 "There are %d new mails..."=> "Insgesamt %d neue E-Mails...",
 "display order" => "Anzeigereihenfolge",
 "Max age of activitys to show (hours)" => "Maximales Alter der angezeigten Aktivitäten (in Stunden)",
-"Max 100 items will be showed."=>"Es werden maximal 100 Aktivitäten angezeigt."
+"Max 100 items will be showed."=>"Es werden maximal 100 Aktivitäten angezeigt.",
+    "Bookmarks"=>"Lesezeichen",
+    "City Code"=>"Städte Code",
+    "Tags (comma seperated)"=>"Tags (getrennt durch Kommata)"
 );

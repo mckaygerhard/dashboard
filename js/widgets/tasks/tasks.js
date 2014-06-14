@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 // bind mark as read action
 function bindMarkAsRead() {
-	$('.ocDashboard.tasks.item span').each(function(i, current){
+	$('.ocDashboard.tasks.item span').each(function(i, current) {
 			tmp = current.id.split("-");
 			id = tmp[1];
             // TODO use on() instead of live()
@@ -18,7 +18,7 @@ function bindMarkAsRead() {
 
 
 function bindSingleMarkAsRead(id) {
-    $("#task-" + id).live('click',function(){
+    $("#task-" + id).live('click',function() {
             markAsRead(id);
         }
     );
@@ -54,7 +54,7 @@ function markAsRead(id) {
 }
 
 
-// ajax action for adding  new task
+// ajax action for adding new task
 function newTask() {
     showWaitSymbol('tasks');
     var value = $("#addTaskSummary").val() + "#|#" + $("#addTaskPriority").val() + "#|#" + $("#addTaskCalendarId").val();
@@ -63,8 +63,7 @@ function newTask() {
         'newTask',
         value,
         function(res) {
-            //TODO bind markAsRead
-            bindSingleMarkAsRead($("#addTaskCalendarId").val());
+            //TODO bind markAsDone
             loadWidget('tasks');
         }
     );

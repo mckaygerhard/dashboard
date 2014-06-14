@@ -20,7 +20,6 @@ class newsreader extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-		//$this->getNextNews();
 		return $this->getNews();
 	}	
 	

@@ -46,7 +46,6 @@ function loadWidget(id) {
 	    url:  OC.filePath('ocDashboard', 'ajax', 'reloadWidget.php') + '?widget=' + id,
 	    success: function(res) {
 			if (res.success) {
-				//alert(res.HTML);
 				$('#' + res.id).children().fadeOut("fast", function () {
 						$('#' + res.id).children().remove();
 						$('#' + res.id).append(res.HTML);

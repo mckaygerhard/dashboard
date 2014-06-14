@@ -197,12 +197,13 @@ class calendar extends widget implements interfaceWidget {
 								`*PREFIX*contacts_cards_properties`
 							WHERE
 								value LIKE ? AND
-								name = ?
+								name = ? AND
+								userid = ?
 							)
 					AND
 						name = 'FN'
 					;";
-			$params = Array("%".$day,"BDAY");
+			$params = Array("%".$day,"BDAY",$this->user);
 			$query = \OCP\DB::prepare($sql);
 				$result = $query->execute($params);
 				if (\OCP\DB::isError($result)) {
@@ -237,12 +238,13 @@ class calendar extends widget implements interfaceWidget {
 							`*PREFIX*contacts_cards_properties`
 						WHERE
 							value LIKE ? AND
-							name = ?
+							name = ? AND
+							userid = ?
 						)
 				AND
 					name = 'FN'
 				;";
-			$params = Array("%".$day,"BDAY");
+			$params = Array("%".$day,"BDAY",$this->user);
 			$query = \OCP\DB::prepare($sql);
 			$result = $query->execute($params);
 			if (\OCP\DB::isError($result)) {

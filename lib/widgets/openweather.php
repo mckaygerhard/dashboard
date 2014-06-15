@@ -42,8 +42,8 @@ class openweather extends widget implements interfaceWidget {
 	public function getWidgetData() {
         if(!$this->getCity()) {
             $this->errorMsg = 'City not valid.';
-            OCP\Util::writeLog('ocDashboard',"openweather - city not valid: ".$city, \OCP\Util::ERROR);
-            return Array();
+            OCP\Util::writeLog('ocDashboard',"openweather - city not valid: ".$this->city, \OCP\Util::ERROR);
+            return Array("weatherData" => Array());
         }
 
         $unit = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_openweather_unit","f");
@@ -101,7 +101,14 @@ class openweather extends widget implements interfaceWidget {
             }
 
             $reader->close();
-            $this->weatherData = $data;
+
+            if(count($data) > 0) {
+                $this->weatherData = $data;
+            } else {
+                OCP\Util::writeLog('ocDashboard',"openweather - could not fetch data for ".$this->city, \OCP\Util::ERROR);
+                $this->errorMsg = $this->l->t("Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>", Array($this->city, \OCP\Util::linkToRoute('settings_personal')));
+            }
+
         }
     }
 

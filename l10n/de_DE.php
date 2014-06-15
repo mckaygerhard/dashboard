@@ -32,7 +32,6 @@ $TRANSLATIONS = array(
 "July" => "Juli",
 "October" => "Oktober",
 "December" => "Dezember",
-"User" => "Benutzer",
 "Username" => "Benutzername",
 "Connection error. <br />Are the settings correct?" => "Verbindungsfehler. <br />Sind die einstellungen korrekt?",
 "Now" => "Jetzt",
@@ -81,5 +80,6 @@ $TRANSLATIONS = array(
     "Light breeze" => "Leichte Briese",
     "Gentle Breeze" => "Briese",
     "Direction" => "Richtung",
-    "Cloudiness" => "Bewölkung"
+    "Cloudiness" => "Bewölkung",
+    "Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>" => "Die Stadt \"%s\"<br>konnte nicht gefunden werden.<br>Bitte geben Sie eine andere Stadt an.<br><a href=\"%s\">&raquo;&nbsp;Einstellungen</a>"
 );

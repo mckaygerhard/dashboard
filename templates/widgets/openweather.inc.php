@@ -64,14 +64,32 @@
             print_unescaped("<td colspan='".($cols+1)."'><h2>".$l->t( "Wind" )."</h2></td></tr><tr>");
             print_unescaped("<td class='right'>");
             print_unescaped($l->t( "Speed" )."<br>");
-            print_unescaped($l->t( "Name" )."<br><br>");
-            print_unescaped($l->t( "Direction" ));
             print_unescaped("</td>");
 
             for($i=0; $i < $cols; $i++) {
                 print_unescaped("<td class='right'>");
                 print_unescaped($data[$i]['windSpeed']['mps'].$data[$i]['windSpeed']['unit']."<br>");
-                print_unescaped(str_replace(" ","<br>",$data[$i]['windSpeed']['name']."<br>"));
+                print_unescaped("</td>");
+            }
+            print_unescaped("</tr><tr>");
+
+            print_unescaped("<td class='right'>");
+            print_unescaped($l->t( "" )."<br><br>");
+            print_unescaped("</td>");
+
+            for($i=0; $i < $cols; $i++) {
+                print_unescaped("<td class='right'>");
+                print_unescaped(str_replace(" ","<br>",$l->t($data[$i]['windSpeed']['name'])."<br>"));
+                print_unescaped("</td>");
+            }
+            print_unescaped("</tr><tr>");
+
+            print_unescaped("<td class='right'>");
+            print_unescaped($l->t( "Direction" ));
+            print_unescaped("</td>");
+
+            for($i=0; $i < $cols; $i++) {
+                print_unescaped("<td class='right'>");
                 print_unescaped($data[$i]['windDirection']['code']);
                 print_unescaped("</td>");
             }

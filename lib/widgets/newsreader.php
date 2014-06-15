@@ -96,7 +96,9 @@ class newsreader extends widget implements interfaceWidget {
         $mapper = new \OCA\News\Db\ItemMapper($api);
         $statusflag = new \OCA\News\Db\StatusFlag();
         $timefactory = new \OCA\AppFramework\Utility\TimeFactory();
-        $this->itembusinesslayer = new \OCA\News\BusinessLayer\ItemBusinessLayer($mapper, $statusflag, $timefactory);
+        $logger = new OCA\News\Core\Logger("news");
+        $config = new \OCA\News\Utility\Config(null, $logger);
+        $this->itembusinesslayer = new \OCA\News\BusinessLayer\ItemBusinessLayer($mapper, $statusflag, $timefactory, $config);
     }
 			
 }

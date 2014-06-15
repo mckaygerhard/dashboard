@@ -11,6 +11,7 @@ developed and tested  with
  * owncloud 6.0.3
  * mysql (sqlite will not work)
  * PHP >= 5
+ * for the newsreader widget you need news app >= 2.002
 
 
 ## Knowen Bugs

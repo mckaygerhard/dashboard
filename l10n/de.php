@@ -72,5 +72,16 @@ $TRANSLATIONS = array(
     "Max 100 items will be showed."=>"Es werden maximal 100 Aktivitäten angezeigt.",
 "Bookmarks"=>"Lesezeichen",
     "City Code"=>"Städte Code",
-    "Tags (comma seperated)"=>"Tags (getrennt durch Kommata)"
+    "Tags (comma seperated)"=>"Tags (getrennt durch Kommata)",
+    "today" => "Heute",
+    "tomorrow" => "Morgen",
+    "in two days" => "Übermorgen",
+    "day" => "Tag",
+    "night" => "Nacht",
+    "Speed" => "Geschwindigkeit",
+    "Light breeze" => "Leichte Briese",
+    "Gentle Breeze" => "Briese",
+    "Direction" => "Richtung",
+    "Cloudiness" => "Bewölkung"
+
 );

@@ -1,5 +1,19 @@
 @CHARSET "UTF-8";
 
+#ocDashboard h1 {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#ocDashboard h2 {
+    font-size: 1.3em;
+}
+
+#ocDashboard h3 {
+    font-size: 1.2em;
+}
+
 .dashboardItem {
 	border: 0px rgb(230,230,230) solid;
 	float: left;
@@ -75,7 +89,7 @@
 	cursor: pointer;
 }
 	
-.ocDashboard.tasks.items, .ocDashboard.mailCheck.items, .ocDashboard.newsreader.items, .ocDashboard.calendar.items{	
+.ocDashboard.items {
 	text-align: left;
 	overflow: auto;
 	height: 184px;

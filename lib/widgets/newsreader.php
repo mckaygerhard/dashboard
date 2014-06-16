@@ -92,8 +92,8 @@ class newsreader extends widget implements interfaceWidget {
     }
 
     private function getNewsapi() {
-        $api = new \OCA\AppFramework\Core\API("News");
-        $mapper = new \OCA\News\Db\ItemMapper($api);
+        $db = new \OCA\News\Core\db;
+        $mapper = new \OCA\News\Db\ItemMapper($db);
         $statusflag = new \OCA\News\Db\StatusFlag();
         $timefactory = new \OCA\AppFramework\Utility\TimeFactory();
         $logger = new OCA\News\Core\Logger("news");

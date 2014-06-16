@@ -2,9 +2,9 @@
 <info>
     <id>ocDashboard</id>
     <name>Dashboard</name>
-    <description>There are some widgets, that you can use to show your informations quick and easy. NO COMMERCIAL USE</description>
-    <version>1.1</version>
+    <description>There are some widgets, that you can use to show information quick and easy. Some widgets are not commercial free, please look at the settings page. Pleaser report ideas and bugs at https://github.com/fjies/ocDashboard.</description>
+    <version>1.2</version>
     <licence>AGPL</licence>
     <author>Florian Steffens</author>
-    <require>5.0.10 or greater and MySQL</require>
+    <require>owncloud 5 or 6 and greater and MySQL</require>
 </info>

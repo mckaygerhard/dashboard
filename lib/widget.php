@@ -39,6 +39,9 @@ class widget {
 		$this->cond = $widgetConf['cond'];
 		$this->scripts = $widgetConf['scripts'];
 		$this->styles = $widgetConf['styles'];
+
+        //print_r(Array(OC_App::getAppPath('ocDashboard')."/l10n/widgets/".$this->id."/".OC_L10N::findLanguage().".php"));
+        //$this->l->load("");
 	}
 	
 	
@@ -211,4 +214,19 @@ class widget {
 		}
 		return true;
 	}
+
+    /*
+     * clean escaped characters
+     *
+     * @param string input
+     * @return clean string output
+     */
+    protected function cleanSpecialCharacter($str) {
+        //$str = str_replace('\\', '#=#', $str);
+        $str = str_replace('\r', '<br>', $str);
+        $str = str_replace('\n', '<br>', $str);
+        $str = str_replace('\,', ',', $str);
+        //$str = str_replace('#=#', '&#92;', $str);
+        return $str;
+    }
 }

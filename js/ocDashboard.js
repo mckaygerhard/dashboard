@@ -40,12 +40,12 @@ function bindReload(id) {
 
 //load widget via ajax and set in html
 function loadWidget(id) {
+    //alert(OC.filePath('ocDashboard', 'ajax', 'reloadWidget.php') + '?widget=' + id);
 	$.ajax({
 	    dataType: "json",
 	    url:  OC.filePath('ocDashboard', 'ajax', 'reloadWidget.php') + '?widget=' + id,
 	    success: function(res) {
 			if (res.success) {
-				//alert(res.HTML);
 				$('#' + res.id).children().fadeOut("fast", function () {
 						$('#' + res.id).children().remove();
 						$('#' + res.id).append(res.HTML);
@@ -57,17 +57,18 @@ function loadWidget(id) {
 				//set new status
                 $('#' + id).data('status',res.STATUS);
 			    setBgShadowColor(id,$('#' + id).data('status'));
-			}
-			else {
+			} else {
 				// set error color
 				setBgShadowColor(id,4);
 				console.log("no success from server");
+                hideWaitSymbol(id);
 			}
 		},
         error: function(xhr, status, error) {
         	// set error color
 			setBgShadowColor(id,4);
 			console.log("ajax error");
+            hideWaitSymbol(id);
         }
     });
 }

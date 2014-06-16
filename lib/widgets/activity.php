@@ -16,19 +16,47 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        return Array("activitys" => OCA\Activity\Data::read(0, 9));
+        $act = OCA\Activity\Data::read(0, 100);
+        $act = $this->deleteOldItems($act);
+        $act = $this->distinctItems($act);
+        return Array("activitys" => $act);
 	}
 	
 	// ======== END INTERFACE METHODS =============================
 
-	
-	/*
-	 * called by ajaxService
-	 * 
-	 * @param $id
-	 * @return if success
-	 */
-	public function dummy($id) {
-	}
+    /*
+     * delete all items with the same subject,
+     * only display the last change for one item
+     *
+     * @param array of activitys
+     * @return array of activitys
+     */
+    private function distinctItems($act) {
+        foreach($act as $k => $v) {
+           foreach($act as $k2 => $v2) {
+               if($k != $k2 && $act[$k]['subject'] == $act[$k2]['subject']) {
+                   unset($act[$k2]);
+               }
+           }
+        }
+        return $act;
+    }
+
+
+    /*
+     * delete all items, that are older than in the settings defined
+     *
+     * @param array of activitys
+     * @return array of activitys
+     */
+    private function deleteOldItems($act) {
+        $oldestAccepted = time() - ( OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_activity_maxAge",1) * 60 * 60 );
+        foreach($act as $k => $v) {
+            if($act[$k]['timestamp'] < $oldestAccepted) {
+                unset($act[$k]);
+            }
+        }
+        return $act;
+    }
 
 }

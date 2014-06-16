@@ -66,23 +66,32 @@ class mailcheck extends widget implements interfaceWidget {
 	 * @return alls new mails, newest first
 	 */
 	private function getNewMails() {
-		$strConnect = "";
 		$user = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_user","");
 		$host = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_server","");
 		$pass = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_password","");
 		$port = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_port",$this->getDefaultValue("port"));
-		$folder = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_folder",$this->getDefaultValue("folder"));
+		//$folder = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_folder",$this->getDefaultValue("folder"));
 		$security = (OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_ssl")=='yes')? "ssl": "none";
 		$protocol = OCP\Config::getUserValue($this->user, "ocDashboard", "ocDashboard_mailcheck_protocol",$this->getDefaultValue("protocol"));
 		
 		if($host != "" && $user != "" && $pass != "") {
 			// connect to mailbox
 			$connString = "{".$host.":".$port."/".$protocol.($security != "none" ? "/".$security."/novalidate-cert" : "")."}";
-			\OCP\Util::writeLog("ocDashboard",$connString,\OCP\Util::DEBUG);
+			//\OCP\Util::writeLog("ocDashboard",$connString,\OCP\Util::DEBUG);
 			$mailbox = imap_open($connString,$user,$pass);
 				
 			if($mailbox) {
-				$mails = array_reverse(imap_fetch_overview($mailbox,"1:*", FT_UID)); // fetch a overview about mails
+				//$mails = array_reverse(imap_fetch_overview($mailbox,"1:*", FT_UID)); // fetch a overview about mails
+
+                $index = "";
+                $unseen = imap_search($mailbox, 'UNSEEN'); // fetch only unseen mails... much faster
+                if($unseen) {
+                    foreach($unseen as $umail) {
+                        $index .= $umail.",";
+                    }
+                }
+                $mails = array_reverse(imap_fetch_overview($mailbox, "$index"));
+
 				imap_close($mailbox);
 			
 				foreach($mails as $mail) {

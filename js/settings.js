@@ -42,13 +42,20 @@ $(document).ready(function() {
 		});
 	});
 
-	// bind onChange Ajax safe setting for password-fields
-	$('#ocDashboardSettings input:password').each( function (i, current) {
-		console.log(current);
-		$('#' + current.id).bind('change', function() {
-				OC.AppUserConfig.setValue('ocDashboard', current.id, $('#' + current.id).val());
-		});
-	});
+    // bind onChange Ajax safe setting for password-fields
+    $('#ocDashboardSettings input:password').each( function (i, current) {
+        console.log(current);
+        $('#' + current.id).bind('change', function() {
+            OC.AppUserConfig.setValue('ocDashboard', current.id, $('#' + current.id).val());
+        });
+    });
 
-	
+    // bind onChange Ajax safe setting for selections
+    $('#ocDashboardSettings select').each( function (i, current) {
+        console.log(current);
+        $('#' + current.id).bind('change', function() {
+            OC.AppUserConfig.setValue('ocDashboard', current.id, $('#' + current.id).val());
+        });
+    });
+
 });

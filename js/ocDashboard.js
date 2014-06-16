@@ -19,6 +19,10 @@ $(document).ready(function() {
     	    bindReload(current.id);
 	    }
 	});
+
+    /* Make all dashboard Items dragable / resizable. In the weekend i will look for saving positions / size */
+    $('.dashboardItem').draggable().resizable();
+
 });
 
 

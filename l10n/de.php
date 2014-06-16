@@ -88,6 +88,7 @@ $TRANSLATIONS = array(
     "Search Engine Language" => "Sprache der Suchmaschine",
     "City" => "Stadt",
     "German" => "Deutsch",
+    "English" => "Englisch",
     "This widget uses the data from yahoo. It is not commercial free." => "Dieses Widget nutzt die Daten von Yahoo. Darf nicht kommerziell genutzt werden.",
     "This widget uses the data from open openweathermap." => "Dieses Widget nutzt die Daten von openweathermap."
 );

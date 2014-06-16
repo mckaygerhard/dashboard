@@ -11,6 +11,12 @@
 	$base = $y[0];
 
 	foreach ( $_['widgets'] as $widget) {
+
+        $last = "";
+        if($widget == end($_['widgets'])) {
+            $last = " lastItem";
+        }
+
 		// add icon if availible
 		if($widget['icon'] != "") {
 			$style = "background-image: url('".$base."apps/ocDashboard/img/".$widget['icon']."'); background-repeat: no-repeat; background-position: 280px 0px; background-size: 35px 35px;";
@@ -19,7 +25,7 @@
 		} ?>
 
 		
-		<div class="dashboardItem" id="<?php print_unescaped($widget['id']); ?>" style="display: none; <?php print_unescaped($style); ?>"  data-interval="<?php print_unescaped($widget['interval']); ?>" data-status="<?php print_unescaped($widget['status']); ?>">
+		<div class="dashboardItem<?php print_unescaped($last); ?>" id="<?php print_unescaped($widget['id']); ?>" style="display: none; <?php print_unescaped($style); ?>"  data-interval="<?php print_unescaped($widget['interval']); ?>" data-status="<?php print_unescaped($widget['status']); ?>">
 		
 		<?php 
 			// for single widget output --------------------------------------------------------------------------
@@ -71,4 +77,3 @@
 	} ?>
 	
 </div>
-<div class="h20break">&nbsp;</div>

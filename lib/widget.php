@@ -39,6 +39,9 @@ class widget {
 		$this->cond = $widgetConf['cond'];
 		$this->scripts = $widgetConf['scripts'];
 		$this->styles = $widgetConf['styles'];
+
+        //print_r(Array(OC_App::getAppPath('ocDashboard')."/l10n/widgets/".$this->id."/".OC_L10N::findLanguage().".php"));
+        //$this->l->load("");
 	}
 	
 	

@@ -187,14 +187,6 @@ top: -25px;
 	filter:alpha(opacity=60); /* For IE8 and earlier */
 }
 
-.h30break {
-    clear: both;
-    height: 30px;
-    width: 100%;
-}
-
-.h20break {
-    clear: both;
-    height: 20px;
-    width: 100%;
+#ocDashboard .lastItem {
+    margin-bottom: 40px;
 }

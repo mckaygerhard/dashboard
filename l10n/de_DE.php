@@ -81,5 +81,12 @@ $TRANSLATIONS = array(
     "Gentle Breeze" => "Briese",
     "Direction" => "Richtung",
     "Cloudiness" => "Bewölkung",
-    "Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>" => "Die Stadt \"%s\"<br>konnte nicht gefunden werden.<br>Bitte geben Sie eine andere Stadt an.<br><a href=\"%s\">&raquo;&nbsp;Einstellungen</a>"
+    "Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>" => "Die Stadt \"%s\"<br>konnte nicht gefunden werden.<br>Bitte geben Sie eine andere Stadt an.<br><a href=\"%s\">&raquo;&nbsp;Einstellungen</a>",
+    "Search" => "Suche",
+"Default Search Engine" => "Vorausgewählte Suchmaschine",
+    "Search Engine Language" => "Sprache der Suchmaschine",
+    "City" => "Stadt",
+    "German" => "Deutsch",
+    "This widget uses the data from yahoo. It is not commercial free." => "Dieses Widget nutzt die Daten von Yahoo. Darf nicht kommerziell genutzt werden.",
+    "This widget uses the data from open openweathermap." => "Dieses Widget nutzt die Daten von openweathermap."
 );

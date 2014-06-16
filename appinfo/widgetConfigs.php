@@ -57,7 +57,7 @@ class widgets {
                                 'name'		=>	"Weather",
                                 'refresh'	=>	3600,
                                 'icon'		=>	"icons/165.png",
-                                'conf'		=>	'[{"name":"City Code","type":"string","id":"city","default":"xxxxxx","tooltip":"You can get the code for your city here: <a href=\"http://weather.yahoo.com\" target=\"_blank\">http://weather.yahoo.com/</a><br />Look for your city and open the weather information for it.<br />Look at the URL. It should end like /city-xxxxxx/.<br />Type in here the City Code \"xxxxxx\"."},{"id":"unit","type":"radio","options":[{"id":"f","name":"°F / mph"},{"id":"c","name":"°C / kmh"}],"name":"Unit","default":"f"}]',
+                                'conf'		=>	'[{"name":"City Code","type":"string","id":"city","default":"xxxxxx","tooltip":"You can get the code for your city here: <a href=\"http://weather.yahoo.com\" target=\"_blank\">http://weather.yahoo.com/</a><br />Look for your city and open the weather information for it.<br />Look at the URL. It should end like /city-xxxxxx/.<br />Type in here the City Code \"xxxxxx\"."},{"id":"unit","type":"radio","options":[{"id":"f","name":"°F / mph"},{"id":"c","name":"°C / kmh"}],"name":"Unit","default":"f"},{"name":"This widget uses the data from yahoo. It is not commercial free.","type":"label"}]',
                                 'cond' 		=>	"",
                                 'scripts'	=>	"",
                                 'styles'	=>	"",
@@ -123,11 +123,22 @@ class widgets {
                                 'name'		=>	"Weather",
                                 'refresh'	=>	360,
                                 'icon'		=>	"icons/165.png",
-                                'conf'		=>	'[{"name":"City","type":"string","id":"city","default":"Berlin"},{"id":"unit","type":"radio","options":[{"id":"f","name":"°F / mph"},{"id":"c","name":"°C / kmh"}],"name":"Unit","default":"f"}]',
+                                'conf'		=>	'[{"name":"City","type":"string","id":"city","default":"Berlin"},{"id":"unit","type":"radio","options":[{"id":"f","name":"°F / mph"},{"id":"c","name":"°C / kmh"}],"name":"Unit","default":"f"},{"name":"This widget uses the data from open openweathermap.","type":"label"}]',
                                 'cond' 		=>	"",
                                 'scripts'	=>	"",
                                 'styles'	=>	"openweather",
                                 'link'		=>	"http://openweathermap.org"
+                            ),
+                            Array(
+                                'id' 		=>	"search",
+                                'name'		=>	"Search",
+                                'refresh'	=>	0,
+                                'icon'		=>	"icons/12.png",
+                                'conf'		=>	'[{"name":"Default Search Engine","type":"select","id":"defaultSearchEngine","default":"0","options":[{"id":"0","name":"Google"},{"id":"1","name":"Yahoo"},{"id":"2","name":"Bing"},{"id":"3","name":"DuckDuckGo"},{"id":"4","name":"Ask"},{"id":"5","name":"eBay"},{"id":"6","name":"Amazon"}]},{"name":"Search Engine Language","type":"select","id":"defaultSearchEngineLanguage","default":"0","options":[{"id":"0","name":"Englisch"},{"id":"1","name":"German"}]}]',
+                                'cond' 		=>	"",
+                                'scripts'	=>	"search",
+                                'styles'	=>	"search",
+                                'link'		=>	""
                             )
 					  );
 		

@@ -64,7 +64,7 @@ function newTask() {
         value,
         function(res) {
             loadWidget('tasks');
-            bindMarkAsRead();
+            setTimeout(function(){ bindMarkAsRead(); },500)
         }
     );
 }

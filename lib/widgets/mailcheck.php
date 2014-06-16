@@ -77,7 +77,7 @@ class mailcheck extends widget implements interfaceWidget {
 		if($host != "" && $user != "" && $pass != "") {
 			// connect to mailbox
 			$connString = "{".$host.":".$port."/".$protocol.($security != "none" ? "/".$security."/novalidate-cert" : "")."}";
-			\OCP\Util::writeLog("ocDashboard",$connString,\OCP\Util::DEBUG);
+			//\OCP\Util::writeLog("ocDashboard",$connString,\OCP\Util::DEBUG);
 			$mailbox = imap_open($connString,$user,$pass);
 				
 			if($mailbox) {
@@ -85,8 +85,10 @@ class mailcheck extends widget implements interfaceWidget {
 
                 $index = "";
                 $unseen = imap_search($mailbox, 'UNSEEN'); // fetch only unseen mails... much faster
-                foreach($unseen as $umail) {
-                    $index .= $umail.",";
+                if($unseen) {
+                    foreach($unseen as $umail) {
+                        $index .= $umail.",";
+                    }
                 }
                 $mails = array_reverse(imap_fetch_overview($mailbox, "$index"));
 

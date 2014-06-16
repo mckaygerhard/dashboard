@@ -70,7 +70,7 @@ class openweather extends widget implements interfaceWidget {
             }
 
             $url = $this->basicUrl.$this->city.$this->fixUrlParameter.$additionalParameter;
-            OCP\Util::writeLog('ocDashboard',"openweather xml url: ".$url, \OCP\Util::DEBUG);
+            //OCP\Util::writeLog('ocDashboard',"openweather xml url: ".$url, \OCP\Util::DEBUG);
 
             $reader = new XMLReader();
             $reader->open($url);

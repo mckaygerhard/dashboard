@@ -65,6 +65,7 @@ function newTask() {
         function(res) {
             //TODO bind markAsDone
             loadWidget('tasks');
+            bindMarkAsRead();
         }
     );
 }

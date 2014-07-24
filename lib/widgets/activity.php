@@ -16,7 +16,9 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        $act = OCA\Activity\Data::read(0, 100);
+
+        $result = \OCA\Activity\Api::get(null);
+        $act = $result->getData();
         $act = $this->deleteOldItems($act);
         $act = $this->distinctItems($act);
         return Array("activitys" => $act);

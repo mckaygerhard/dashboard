@@ -91,7 +91,7 @@ class widgets {
                                 'refresh'	=>	120,
                                 'icon'		=>	"icons/98.png",
                                 'conf'		=>	'[{"name":"correct time (add x hours)","type":"string","id":"timezoneAdd","default":"0"},{"name":"Max age of news to show (hours)","type":"string","id":"maxAge","default":"2"}]',
-                                'cond' 		=>	"news,appframework",
+                                'cond' 		=>	"news",
                                 'scripts'	=>	"newsreader",
                                 'styles'	=>	"",
                                 'link'		=>	"index.php/apps/news/"

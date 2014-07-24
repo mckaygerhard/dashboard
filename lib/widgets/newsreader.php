@@ -9,6 +9,7 @@
  * @author Florian Steffens (flost@live.no)
  */
 
+
 class newsreader extends widget implements interfaceWidget {
 
     private $itembusinesslayer;
@@ -20,6 +21,11 @@ class newsreader extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
+
+
+
+
+        //return null;
 		return $this->getNews();
 	}	
 	
@@ -92,13 +98,9 @@ class newsreader extends widget implements interfaceWidget {
     }
 
     private function getNewsapi() {
-        $db = new \OCA\News\Core\db;
-        $mapper = new \OCA\News\Db\ItemMapper($db);
-        $statusflag = new \OCA\News\Db\StatusFlag();
-        $timefactory = new \OCA\AppFramework\Utility\TimeFactory();
-        $logger = new OCA\News\Core\Logger("news");
-        $config = new \OCA\News\Utility\Config(null, $logger);
-        $this->itembusinesslayer = new \OCA\News\BusinessLayer\ItemBusinessLayer($mapper, $statusflag, $timefactory, $config);
+        $app = new \OCA\News\App\News();
+        $container = $app->getContainer();
+        $this->itembusinesslayer = $container->query('ItemBusinessLayer');
     }
 			
 }

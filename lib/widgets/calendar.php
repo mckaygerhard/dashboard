@@ -7,7 +7,7 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class calendar extends widget implements interfaceWidget {
+class calendar extends ocdWidget implements interfaceWidget {
 	
 	private $events = Array();
 	private $numEvents = 20; // max number of showen events

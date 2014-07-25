@@ -7,7 +7,7 @@
  * @date 18-03-2014
  * @author Florian Steffens (flost@live.no)
  */
-class activity extends widget implements interfaceWidget {
+class activity extends ocdWidget implements interfaceWidget {
 
 	// ======== INTERFACE METHODS ================================
 	

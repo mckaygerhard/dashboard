@@ -1,6 +1,6 @@
 <?php
 
-class widgets {
+class ocdWidgets {
 	
 		/* all availible widgets
 		* 
@@ -69,7 +69,7 @@ class widgets {
                                 'refresh'	=>	60,
                                 'icon'		=>	"icons/49.png",
                                 'conf'		=>	'[{"id":"sort","type":"radio","options":[{"id":"DESC","name":"new tasks first"},{"id":"ASC","name":"old tasks first"}],"name":"display order","default":"DESC"}]',
-                                'cond' 		=>	"tasks",
+                                'cond' 		=>	"tasks_enhanced",
                                 'scripts'	=>	"tasks",
                                 'styles'	=>	"tasks",
                                 'link'		=>	"index.php/apps/tasks"
@@ -147,7 +147,7 @@ class widgets {
 		 * @return widgetArray
 		 */
 		public static function getWidgetConfigById ($id) {
-			foreach (widgets::$widgets as $w) {
+			foreach (ocdWidgets::$widgets as $w) {
 				if($w['id'] == $id) {
 					return $w;
 				}

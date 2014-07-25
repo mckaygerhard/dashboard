@@ -57,8 +57,8 @@ function markAsRead(id) {
 // ajax action for adding new task
 function newTask() {
     showWaitSymbol('tasks');
-    var value = $("#addTaskSummary").val() + "#|#" + $("#addTaskPriority").val() + "#|#" + $("#addTaskCalendarId").val();
-    //alert(value);
+    var value = $("#addTaskSummary").val() + "#|#" + $("input[name=addTaskStarred]:checked").val() + "#|#" + $("#addTaskCalendarId").val();
+    alert(value);
     ajaxService('tasks',
         'newTask',
         value,

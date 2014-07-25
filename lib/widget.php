@@ -7,7 +7,7 @@
  * @author Florian Steffens
  * 
  */
-class widget {
+class ocdWidget {
 	
 	protected $id = "";
 	protected $name = "";

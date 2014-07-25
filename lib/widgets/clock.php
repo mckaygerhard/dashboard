@@ -11,7 +11,7 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class clock extends widget implements interfaceWidget {
+class clock extends ocdWidget implements interfaceWidget {
 
 
 	// ======== INTERFACE METHODS ================================

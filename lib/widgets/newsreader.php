@@ -10,7 +10,7 @@
  */
 
 
-class newsreader extends widget implements interfaceWidget {
+class newsreader extends ocdWidget implements interfaceWidget {
 
     private $itembusinesslayer;
 

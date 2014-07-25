@@ -12,10 +12,10 @@ $tmpl = new OCP\Template('ocDashboard', 'settings');
 
 
 $w = Array();
-OC::$CLASSPATH['widgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
-OC::$CLASSPATH['factory'] = 'ocDashboard/lib/factory.php';
+OC::$CLASSPATH['ocdWidgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
+OC::$CLASSPATH['ocdFactory'] = 'ocDashboard/lib/factory.php';
 
-foreach (widgets::$widgets as $widget) {
+foreach (ocdWidgets::$widgets as $widget) {
 	$confs = json_decode($widget['conf'], true);
 	if(isset($confs) && !empty($confs)) {
 		foreach ($confs as $k => $config) {

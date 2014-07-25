@@ -8,7 +8,7 @@
             "<div class='priority".$activity['priority']." activity-entry'>
                 <a href='".$activity["link"]."' title='".$activity['subject']."'>".\OC_Util::sanitizeHTML(getNiceSmallText($activity['subject'])).
                 "</a><br /><span> ".
-                    \OCP\relative_modified_date($activity['timestamp']).
+                    \OCP\relative_modified_date(date("U",strtotime($activity['date']))).
                 "</span>
             </div>
         ");

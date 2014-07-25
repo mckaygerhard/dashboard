@@ -19,8 +19,6 @@ class activity extends widget implements interfaceWidget {
 
         $result = \OCA\Activity\Api::get(null);
         $act = $result->getData();
-        $act = $this->deleteOldItems($act);
-        $act = $this->distinctItems($act);
         return Array("activitys" => $act);
 	}
 	

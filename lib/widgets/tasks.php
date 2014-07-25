@@ -7,7 +7,10 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class tasks extends widget implements interfaceWidget {
+
+
+class tasks extends ocdWidget implements interfaceWidget {
+
 
 	// ======== INTERFACE METHODS ================================
 	
@@ -16,10 +19,10 @@ class tasks extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        $calendars = OC_Calendar_Calendar::allCalendars($this->user, true);
+        //$this->newTask("neu#|#0#|#1");
         $return = Array(
             "tasks" => $this->getTasks(),
-            "calendars" => $calendars
+            "calendars" => $this->getCalendars()
         );
         return $return;
 	}
@@ -27,31 +30,41 @@ class tasks extends widget implements interfaceWidget {
 	// ======== END INTERFACE METHODS =============================
 
 
+    private function getCalendars() {
+        $calendars = Array();
+        foreach( OC_Calendar_Calendar::allCalendars($this->user, true) as $cal ) {
+            $calendars[$cal['id']] = $cal['displayname'];
+        }
+        return $calendars;
+    }
+
 
     /*
      * called by ajaxService
      *
+     * @NoAdminRequired
      * @param data for new task
      * @return boolean if success
      */
     public function newTask($data) {
         $split = explode("#|#",$data);
-        $sumary = $split[0];
-        $priority = $split[1];
-        $calendarId = $split[2];
 
-        $request = array();
-        $request['summary'] = $sumary;
-        $request["categories"] = null;
-        $request['priority'] = $priority;
-        $request['percent_complete'] = null;
-        $request['completed'] = null;
-        $request['location'] = null;
-        $request['due'] = null;
-        $request['description'] = null;
-        $vcalendar = OC_Task_App::createVCalendarFromRequest($request);
-        OC_Calendar_Object::add($calendarId, $vcalendar->serialize());
-        return true;
+        $param = Array(
+            'name'          => $split[0],
+            'calendarID'    => $split[2],
+            'starred'       => $split[1],
+            'due'           => null,
+            'start'         => date('c', time())
+        );
+
+        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher($param);
+        $tasksContainer = $tasksApp->getContainer();
+        $tasksController = $tasksContainer->query('TasksController');
+
+        if( $tasksController->addTask() != null ) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -62,50 +75,23 @@ class tasks extends widget implements interfaceWidget {
 	 * @return boolean if success
 	 */
 	public function markAsDone($id) {
-        //$id = $_POST['id'];
-        //$property = $_POST['type'];
-        OCP\Util::writeLog('ocD tasks', "Try to set complete task with id ".$id, OCP\Util::DEBUG);
-
-        $vcalendar = OC_Calendar_App::getVCalendar( $id );
-        $vtodo = $vcalendar->VTODO;
-
-        OCP\Util::writeLog('ocD tasks', "Try to set complete task with id ".$id, OCP\Util::DEBUG);
-
-        OC_Task_App::setComplete($vtodo, '100', null);
-        OC_Calendar_Object::edit($id, $vcalendar->serialize());
+        $param = Array( "taskID" => $id );
+        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher($param);
+        $tasksContainer = $tasksApp->getContainer();
+        $tasksController = $tasksContainer->query('TasksController');
+        $tasksController->completeTask();
         return true;
 	}
-	
 
+
+    /**
+     * @return Array with tasks as array
+     */
     private function getTasks() {
-        $calendars = OC_Calendar_Calendar::allCalendars(OCP\User::getUser(), true);
-        $user_timezone = OC_Calendar_App::getTimezone();
-
-        $calendarTasks = array();
-        foreach( $calendars as $calendar ) {
-            $calendar_tasks = OC_Calendar_Object::all($calendar['id']);
-            $tasks = array();
-            foreach( $calendar_tasks as $task ) {
-                if($task['objecttype']!='VTODO') {
-                    continue;
-                }
-                if(is_null($task['summary'])) {
-                    continue;
-                }
-                $object = OC_VObject::parse($task['calendardata']);
-                $vtodo = $object->VTODO;
-                try {
-                    $t = OC_Task_App::arrayForJSON($task['id'], $vtodo, $user_timezone);
-                    if($t['complete'] != "100") {
-                        $tasks[] = $t;
-                    }
-                } catch(Exception $e) {
-                    OCP\Util::writeLog('tasks', $e->getMessage(), OCP\Util::ERROR);
-                }
-            }
-            $calendarTasks[$calendar['displayname']] = $tasks;
-        }
-        return $calendarTasks;
+        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher(null);
+        $tasksContainer = $tasksApp->getContainer();
+        $tasksController = $tasksContainer->query('TasksController');
+        return $tasksController->getTasks()->getData()['data']['tasks'];
     }
 	
 }

@@ -91,7 +91,8 @@ class tasks extends ocdWidget implements interfaceWidget {
         $tasksApp = new \OCA\Tasks_enhanced\Dispatcher(null);
         $tasksContainer = $tasksApp->getContainer();
         $tasksController = $tasksContainer->query('TasksController');
-        return $tasksController->getTasks()->getData()['data']['tasks'];
+        $data = $tasksController->getTasks()->getData();
+        return $data['data']['tasks'];
     }
 	
 }

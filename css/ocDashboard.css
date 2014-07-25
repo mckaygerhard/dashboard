@@ -34,7 +34,7 @@
 	position: absolute;
 	margin-left: 5px;
 	margin-top: 190px;
-	background-image: url('%appswebroot%/ocDashboard/img/ajax-loader.gif'); 
+	background-image: url('../img/ajax-loader.gif');
 	background-repeat: no-repeat; 
 	background-position: 0px 0px; 
 	background-size: 16px 11px;
@@ -176,7 +176,7 @@ top: -25px;
 	top: 5px;
 	padding-left: 20px;
 	position: relative;
-	background-image: url('%appswebroot%/ocDashboard/img/icons/43.png'); 
+	background-image: url('../img/img/icons/43.png');
 	background-repeat: no-repeat; 
 	background-position: 0px 2px; background-size: 15px 15px;";
 }

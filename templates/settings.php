@@ -1,4 +1,4 @@
-<form id="ocDashboardSettings"> 
+<form id="ocDashboardSettings" class="section">
 	<fieldset class="personalblock"> 
     <h2><?php p($l->t('Dashboard Settings')); ?></h2>
 

@@ -11,7 +11,7 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class search extends widget implements interfaceWidget {
+class search extends ocdWidget implements interfaceWidget {
     private $searchEngines = Array("Google","Yahoo","Bing","DuckDuckGo","Ask","eBay","Amazon");
 
 	// ======== INTERFACE METHODS ================================

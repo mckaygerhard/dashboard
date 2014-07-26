@@ -1,6 +1,6 @@
 <?php
 
-class factory {
+class ocdFactory {
 	
 	/*
 	 * get a instance of a widget
@@ -9,7 +9,7 @@ class factory {
 	 */
 	static function getWidget($widgetConf) {
 		$id = $widgetConf['id'];
-		OC::$CLASSPATH['widget'] = 'ocDashboard/lib/widget.php'; //load superclass
+		OC::$CLASSPATH['ocdWidget'] = 'ocDashboard/lib/widget.php'; //load superclass
 		OC::$CLASSPATH['interfaceWidget'] = 'ocDashboard/lib/interfaceWidget.php'; //load interface for widget
 		OC::$CLASSPATH[$id] = 'ocDashboard/lib/widgets/'.$id.'.php'; // load widget class
 		return new $id($widgetConf);

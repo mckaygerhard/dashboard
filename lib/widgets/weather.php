@@ -12,7 +12,7 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class weather extends widget implements interfaceWidget {
+class weather extends ocdWidget implements interfaceWidget {
 	private $cityUrl = "http://weather.yahooapis.com/forecastrss?w=###code###&u=###unit###";
 	private $luftdruckZeichen = Array("&rarr;","&uarr;","&darr;");
 	private $xml;

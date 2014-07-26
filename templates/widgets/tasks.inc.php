@@ -3,47 +3,40 @@
 ?>
 
 <div class='ocDashboard tasks items'>
-    <div class="newtask">
+    <!--<div class="newtask">
         <form action="" method="">
             <input type="text" size="20" id="addTaskSummary" name="addTaskSummary" />
-            <select id="addTaskPriority" name="addTaskPriority">
-                <option value="0">normal</option>
-                <option value="9">important</option>
-                <option value="5">more important</option>
-                <option value="1">most important</option>
-            </select>
+            <label>normal<input class="addTaskStarred" type="radio" name="addTaskStarred" value="0" checked /></label>
+            <label>favorite<input class="addTaskStarred" type="radio" name="addTaskStarred" value="1" /></label>
             <select id="addTaskCalendarId" name="addTaskCalendarId">
             <?php
-            foreach ($additionalparams['calendars'] as $k => $v) {
-                    print_unescaped('<option value="'.$v['id'].'">'.$v['displayname'].'</option>');
+            foreach ($additionalparams['calendars'] as $key => $cal) {
+                    print_unescaped('<option value="'.$key.'">'.$cal.'</option>');
                 }
             ?>
             </select>
             <input type="submit" value="Add" id="addTaskSubmit">
         </form>
-    </div>
+    </div>-->
 
     <?php
-	foreach ($additionalparams['tasks'] as $k => $calendarTasks) {
-        if(count($calendarTasks) > 0) {
-            print_unescaped('<div class="task calendar">'.$k.'</div>');
-        }
-        foreach($calendarTasks as $task) {
-            if(isset($task['priority']) && $task['priority'] != "") {
-                $style = ' style="color: '.$colors[$task['priority']].'" ';
-            } else {
-                $style = "";
+    //print_r($additionalparams['tasks']);
+	foreach ($additionalparams['tasks'] as $task) {
+        if($task['completed'] != 1) {
+            if(count($additionalparams['tasks']) > 0 && isset($additionalparams['calendars'][$task['calendarid']])) {
+                print_unescaped('<div class="task calendar" style="color: '.$task['calendarcolor'].'">'.$additionalparams['calendars'][$task['calendarid']].'</div>');
+                unset($additionalparams['calendars'][$task['calendarid']]);
             }
-?>
-		
-		<div class='ocDashboard tasks item' <?php print_unescaped($style); ?>>
-        	<span id="task-<?php p($task['id']); ?>">&#10003;&nbsp;</span>
-        	<?php p($task['summary']); ?>
-        </div>
-        <?php
-	    }
+            ?>
+
+            <div class='ocDashboard tasks item' >
+                <!--<span id="task-<?php p($task['id']); ?>" >&#10003;&nbsp;</span>-->
+                <?php if($task['starred'] == 1) {print_unescaped('&#10038;&nbsp;');} ?><?php p($task['name']); ?>
+            </div>
+            <?php
+        }
     }
 	?>
 </div>
 
-<div id="addTask">+</div>
+<!--<div id="addTask">+</div>-->

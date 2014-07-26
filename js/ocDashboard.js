@@ -19,12 +19,16 @@ $(document).ready(function() {
     	    bindReload(current.id);
 	    }
 	});
+
+    /* Make all dashboard Items dragable / resizable. In the weekend i will look for saving positions / size */
+    //$('.dashboardItem').draggable().resizable();
+    $('.dashboardItem').draggable();
 });
 
 
 //set bg color for widgetItem
 function setBgShadowColor(id, status) {
-	colors = new Array("black","black","darkgreen","#FF8000","red");
+	colors = new Array("rgba(0, 0, 0, 0.5)","rgba(0, 0, 0, 0.5)","darkgreen","#FF8000","red");
 	$('#' + id).css('-webkit-box-shadow','0px 5px 15px -7px ' + colors[status]);
 	$('#' + id).css('-moz-box-shadow','0px 5px 15px -7px ' + colors[status]);
 	$('#' + id).css('box-shadow','0px 5px 15px -7px ' + colors[status]);

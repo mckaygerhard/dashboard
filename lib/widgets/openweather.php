@@ -10,7 +10,7 @@
  * @date 16-06-2014
  * @author Florian Steffens (flost@live.no)
  */
-class openweather extends widget implements interfaceWidget {
+class openweather extends ocdWidget implements interfaceWidget {
     private $city = "";
     private $weatherData = Array();
     private $fixUrlParameter = "&mode=xml&cnt=3";

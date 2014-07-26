@@ -8,7 +8,7 @@
  * @author Florian Steffens (flost@live.no)
  * @author Simeon Ackermann (amseon@web.de)
  */
-class bookmarks extends widget implements interfaceWidget {
+class bookmarks extends ocdWidget implements interfaceWidget {
 
     private $bookmarks = Array();
 

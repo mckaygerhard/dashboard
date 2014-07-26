@@ -7,7 +7,7 @@
  * @date 18-03-2014
  * @author Florian Steffens (flost@live.no)
  */
-class activity extends widget implements interfaceWidget {
+class activity extends ocdWidget implements interfaceWidget {
 
 	// ======== INTERFACE METHODS ================================
 	
@@ -16,9 +16,9 @@ class activity extends widget implements interfaceWidget {
 	 * this array will be routed to the subtemplate for this widget 
 	 */
 	public function getWidgetData() {
-        $act = OCA\Activity\Data::read(0, 100);
-        $act = $this->deleteOldItems($act);
-        $act = $this->distinctItems($act);
+
+        $result = \OCA\Activity\Api::get(null);
+        $act = $result->getData();
         return Array("activitys" => $act);
 	}
 	

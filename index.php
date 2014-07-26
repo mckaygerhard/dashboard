@@ -12,13 +12,13 @@ OCP\Util::addStyle('ocDashboard', 'ocDashboard');
 $user = OCP\User::getUser();
 
 $w = Array();
-OC::$CLASSPATH['widgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
-OC::$CLASSPATH['factory'] = 'ocDashboard/lib/factory.php';
+OC::$CLASSPATH['ocdWidgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
+OC::$CLASSPATH['ocdFactory'] = 'ocDashboard/lib/factory.php';
 
-foreach (widgets::$widgets as $widget) {
+foreach (ocdWidgets::$widgets as $widget) {
 	// if widget is enabled
 	if (OCP\Config::getUserValue($user, "ocDashboard", "ocDashboard_".$widget['id']) == "yes") {
-		$w[] = factory::getWidget($widget)->getData();
+		$w[] = ocdFactory::getWidget($widget)->getData();
 	}
 }
 

@@ -8,7 +8,7 @@
  * @date 01-08-2013
  * @author Florian Steffens (flost@live.no)
  */
-class mailcheck extends widget implements interfaceWidget {
+class mailcheck extends ocdWidget implements interfaceWidget {
 
 	private $maxStrLenReference = 23; // character
 	private $maxStrLenFrom = 18; // character

@@ -4,17 +4,17 @@ OCP\User::checkLoggedIn();
 OCP\App::checkAppEnabled('ocDashboard');
 OCP\JSON::callCheck();
 
-OC::$CLASSPATH['widgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
+OC::$CLASSPATH['ocdWidgets'] = 'ocDashboard/appinfo/widgetConfigs.php';
 $id = str_replace(array('/', '\\'), '',  $_GET['widget']);
 $user = OCP\User::getUser();
 
-$widgetArray = widgets::getWidgetConfigById($id);
+$widgetArray = ocdWidgets::getWidgetConfigById($id);
 
-OC::$CLASSPATH['factory'] = 'ocDashboard/lib/factory.php';
+OC::$CLASSPATH['ocdFactory'] = 'ocDashboard/lib/factory.php';
 
 if (OCP\Config::getUserValue($user, "ocDashboard", "ocDashboard_".$id) == "yes") {
 	
-	$widgetData = factory::getWidget($widgetArray)->getData();
+	$widgetData = ocdFactory::getWidget($widgetArray)->getData();
 	$tpl = new OCP\Template("ocDashboard", "main", "user");
 	$tpl->assign('widgets', Array($widgetData));
 	$tpl->assign('singleOutput', true);

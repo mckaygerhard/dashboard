@@ -92,7 +92,8 @@ class tasks extends ocdWidget implements interfaceWidget {
         $tasksContainer = $tasksApp->getContainer();
         $tasksController = $tasksContainer->query('TasksController');
         $data = $tasksController->getTasks()->getData();
-        return $data['data']['tasks'];
+        return $data
+        ['data']['tasks'];
     }
 	
 }

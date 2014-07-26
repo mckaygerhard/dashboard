@@ -72,7 +72,7 @@ class ocdWidgets {
                                 'cond' 		=>	"tasks_enhanced",
                                 'scripts'	=>	"tasks",
                                 'styles'	=>	"tasks",
-                                'link'		=>	"index.php/apps/tasks"
+                                'link'		=>	"index.php/apps/tasks_enhanced/"
 								),
 							Array(
                                 'id' 		=>	"mailcheck",

@@ -1,7 +1,9 @@
 <?php
+namespace OCA\ocDashboard\AppInfo;
 
-$this->create('ocDashboard_index', '/')->action(
-    function($params){
-        require __DIR__ . '/../index.php';
-    }
-);
+$application = new Application();
+$application->registerRoutes($this, array(
+    'routes' => array(
+        array('name' => 'page#index', 'url' => '/', 'verb' => 'GET'),
+    )
+));

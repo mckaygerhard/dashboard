@@ -2,9 +2,18 @@
 <info>
     <id>ocDashboard</id>
     <name>Dashboard</name>
-    <description>Widgets will show you some information quick and easy.</description>
+    <description>Widgets will show you some information quick and easy. For some are other app needed.</description>
     <version>2.0.0 alpha</version>
     <licence>AGPL</licence>
     <author>Florian Steffens</author>
-    <require>5.0.6</require>
+    <requiremin>6</requiremin>
+
+
+
+    <documentation>
+        <user>https://github.com/fjies/ocDashboard/wiki/User-Manual</user>
+        <admin>https://github.com/fjies/ocDashboard/wiki/Administrator-Manual</admin>
+    </documentation>
+
+    <website>http://freans.de/owncloud</website>
 </info>

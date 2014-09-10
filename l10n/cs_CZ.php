@@ -8,7 +8,7 @@ $TRANSLATIONS = array(
 "Edit the availible widgets" => "Editovat dostupné widgety",
 "Some more" => "Několik dalších",
 "Go to your personal settings" => "Jít do osobních nastavení",
-"Go to admin settings" => "Jít do administráských nastavení",
+"Go to admin settings" => "Jít do administrátorských nastavení",
 "Dashboard Settings" => "Nastavení nástěnky",
 "<p style=\"padding-top: 20px;\">There are some background colors for the widgets.<ul><li>red: Error</li><li>orange: missconfiguration</li><li>green: there is something new</li><li></li></ul></p>" => "<p style=\"padding-top: 20px;\">Pro pozadí widgetů jsou použity některé barvy.<ul><li>červená: Chyba</li><li>oranžová: nesprávná konfigurace</li><li>zelená: je zde něco nového</li><li></li></ul></p>",
 "Yesterday" => "Včera",

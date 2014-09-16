@@ -4,6 +4,7 @@ $TRANSLATIONS = array(
 "Welcome to your personal dashboard" => "あなたのダッシュボードへようこそ",
 "This screen is shown, because no widgets are activated. Go to your personal settings and activate some. You can also set some configurations in there." => "この画面が見えている場合、ウィジットが一つも有効になっていません。個人設定ページで有効にしてください。その他の設定もそちらで可能です。",
 "You are admin, so you can edit generel settings:" => "管理者権限です。デフォルト設定を編集できます。",
+"Set if non-commercial widgets are not allowed" => "非商用ウィジットが許可されていない場合に設定",
 "Edit the availible widgets" => "有効なウィジットを編集",
 "Some more" => "その他",
 "Go to your personal settings" => "個人設定へ",

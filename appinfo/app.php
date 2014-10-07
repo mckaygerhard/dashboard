@@ -1,4 +1,7 @@
 <?php
+$l=new OC_L10N('ocDashboard');
+
+\OCP\App::registerPersonal( 'ocDashboard', 'settings' );
 
 \OCP\App::addNavigationEntry(array(
 
@@ -10,13 +13,13 @@
     'order' => 0,
 
     // the route that will be shown on startup
-    'href' => \OCP\Util::linkToRoute('dashboard'),
+    'href' => \OCP\Util::linkToRoute('ocDashboard_index'),
 
     // the icon that will be shown in the navigation
     // this file needs to exist in img/example.png
-    'icon' => \OCP\Util::imagePath('ocDashboard', 'img/icon.svg'),
+    'icon' => \OCP\Util::imagePath('ocDashboard', 'icon.svg'),
 
     // the title of your application. This will be used in the
     // navigation or on the settings page of your app
-    'name' => \OC_L10N::get('ocDashboard')->t('Dashboard')
+    'name' => 'Dashboard'
 ));

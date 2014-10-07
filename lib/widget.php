@@ -7,13 +7,13 @@
  * @author Florian Steffens
  * 
  */
-class widget {
+class ocdWidget {
 	
 	protected $id = "";
 	protected $name = "";
 	protected $l;
 	protected $user;
-	protected $confArr;
+	protected $conf;
 	protected $status;
 	protected $errorMsg;
 	protected $interval;
@@ -23,28 +23,43 @@ class widget {
 	protected $scripts;
 	protected $styles;
 	
-	function __construct() {
+	function __construct($widgetConf) {
+		$this->id = $widgetConf['id'];
+		$this->name = $widgetConf['name'];
+		$this->l = OC_L10N::get('ocDashboard');
+		$this->user = OCP\User::getUser();
+		$this->conf = json_decode($widgetConf['conf'], true);
+		$this->status = 0;
+		$this->errorMsg = "";
+		$this->htmlHash = "";
+		$this->html = "";
+		$this->interval = $widgetConf['refresh']*1000; // in seconds
+		$this->icon = $widgetConf['icon'];
+		$this->link = $widgetConf['link'];
+		$this->cond = $widgetConf['cond'];
+		$this->scripts = $widgetConf['scripts'];
+		$this->styles = $widgetConf['styles'];
+
+        //print_r(Array(OC_App::getAppPath('ocDashboard')."/l10n/widgets/".$this->id."/".OC_L10N::findLanguage().".php"));
+        //$this->l->load("");
 	}
 	
 	
 // --- PUBLIC ----------------------------------------
-	
-	public function getId() { return $this->id; }
-	public function getName() { return $this->name; }
-	public function getConfigurationArray() { return $this->confArr; }
-	public function getStatus() { return $this->status; }
-	public function getInterval() { return $this->interval; }
-	public function getIconPath() { return ($this->icon) ? "path".$this->icon: ""; }
-	
 	
 	/*
 	 * @return returns all data for the actual widget
 	 */
 	public function getData() {
 		if($this->checkConditions()) {
-			$widgetData = $this->getWidgetData();
-			$this->loadScripts();
-			$this->loadStyles();
+			$return = $this->getWidgetData();
+			if($this->errorMsg != "") {
+				$return = Array("error"=>$this->errorMsg);
+				$this->status = 3;
+			} else {
+				$this->loadScripts();
+				$this->loadStyles();
+			}
 		} else {
 			$return = Array("error"=>"Missing required app.");
 			$this->status = 4;
@@ -56,7 +71,8 @@ class widget {
 		$return['icon'] = $this->icon;
 		$return['link'] = $this->link;
 		$return['name'] = $this->name;
-		return $return;
+
+        return $return;
 	}
 		
 // --- PROTECTED --------------------------------------
@@ -69,7 +85,9 @@ class widget {
 	private function loadScripts() {
 		if(isset($this->scripts) && $this->scripts != "") {
 			foreach (explode(",", $this->scripts) as $script) {
-				OCP\Util::addscript('ocDashboard', 'widgets/'.$this->id.'/'.$script);
+                if($script != "") {
+    				OCP\Util::addscript('ocDashboard', 'widgets/'.$this->id.'/'.$script);
+                }
 			}
 		}
 	}
@@ -81,8 +99,10 @@ class widget {
 	private function loadStyles() {
 		if(isset($this->styles) && $this->styles != "") {
 			foreach (explode(",", $this->styles) as $style) {
-				OCP\Util::addStyle('ocDashboard', 'widgets/'.$this->id.'/'.$style);
-			}
+                if($style != "") {
+    				OCP\Util::addStyle('ocDashboard', 'widgets/'.$this->id.'/'.$style);
+                }
+            }
 		}
 	}
 	
@@ -109,15 +129,17 @@ class widget {
 	
 	
 	/*
-	 * delete all hashs older than 1 day
+	 * delete all hashs older than 24 hours
 	 */
 	private function cleanHashs() {
-		//$sql = "DELETE FROM `*PREFIX*ocDashboard_usedHashs` WHERE `timestamp` < '".(time()-60*60*24)."'";
-		$sql = "DELETE FROM `*PREFIX*ocDashboard_usedHashs` WHERE `timestamp` < ?";
+		$sql = 'DELETE FROM `*PREFIX*ocDashboard_usedHashs` WHERE `user` = ? AND `timestamp` < ?;';
 		$query = \OCP\DB::prepare($sql);
-		$params = Array(time()-60*60*24);
-		if(!$query->execute($params)) {
-			OCP\Util::writeLog('ocDashboard',"Can't delete usedHashs", \OCP\Util::WARN);
+		$params = Array($this->user, time()-60*60*24);
+		$result = $query->execute($params);
+			
+		if (\OCP\DB::isError($result)) {
+			\OCP\Util::writeLog('ocDashboard',"Could not clean hashs.", \OCP\Util::WARN);
+			\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
 		}
 	}
 	
@@ -136,17 +158,28 @@ class widget {
 		$params = Array($hash,$this->id,$this->user);
 		$query = \OCP\DB::prepare($sql);
 		$result = $query->execute($params)->fetchRow();
+		//if (\OCP\DB::isError($result)) {
+		//		\OCP\Util::writeLog('ocDashboard',"Could not find hash in db.", \OCP\Util::WARN);
+		//		\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
+		//}
 				
-		// if not in DB, write to DB
-		if(!$result) {
-			$sql2 = 'INSERT INTO `*PREFIX*ocDashboard_usedHashs` (id,usedHash,widget,user,timestamp) VALUES (\'\',?,?,?,?); ';
+        $all = $query->execute($params)->fetchAll();
+        //var_dump($all);
+        $resultNum = count($all);
+
+        // if not in DB, write to DB
+		if( $resultNum == 0 ) {
+			$sql2 = 'INSERT INTO `*PREFIX*ocDashboard_usedHashs` (usedHash,widget,user,timestamp) VALUES (?,?,?,?); ';
 			$params = Array($hash,$this->id,$this->user,time());
 			$query2 = \OCP\DB::prepare($sql2);
 			$result2 = $query2->execute($params);
-			if($this->status < 3) {
-				$this->status = 2;
-				OCP\Util::writeLog('ocDashboard',"Could not write hash to db.", \OCP\Util::WARN);
+			if (\OCP\DB::isError($result2)) {
+				\OCP\Util::writeLog('ocDashboard',"Could not write hash to db.", \OCP\Util::WARN);
+				\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
 			}
+            $this->status = 2;
+		} else {
+            $this->status = 0;
 		}
 	}
 	
@@ -158,11 +191,18 @@ class widget {
 	protected function getDefaultValue ($field) {
 		foreach ($this->conf as $conf) {
 			if($conf['id'] == $field) {
-				return $conf['default'];
-			} else {
-				return null;
+				if(isset($conf['options']) && isset($conf['default'])) {
+					foreach ($conf['options'] as $option) {
+						if($option['id'] == $conf['default']) {
+							return $option['id'];
+						}
+					}
+				} elseif(isset($conf['default'])) {
+					return $conf['default'];
+				}
 			}
 		}
+		return null;
 	}
 
 	
@@ -172,9 +212,28 @@ class widget {
 	 */
 	private function checkConditions() {
 		if(isset($this->cond) && $this->cond != "") {
-			return \OCP\App::isEnabled($this->cond);
-		} else {
-			return true;
+			foreach(explode(",",$this->cond) as $cond) {
+				if(\OCP\App::isEnabled($cond) != 1) {
+					OCP\Util::writeLog('ocDashboard',"App ".$cond." missing for ".$this->name, \OCP\Util::WARN);
+					return false;
+				}
+			}
 		}
+		return true;
 	}
+
+    /*
+     * clean escaped characters
+     *
+     * @param string input
+     * @return clean string output
+     */
+    protected function cleanSpecialCharacter($str) {
+        //$str = str_replace('\\', '#=#', $str);
+        $str = str_replace('\r', '<br>', $str);
+        $str = str_replace('\n', '<br>', $str);
+        $str = str_replace('\,', ',', $str);
+        //$str = str_replace('#=#', '&#92;', $str);
+        return $str;
+    }
 }

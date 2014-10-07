@@ -163,9 +163,13 @@ class ocdWidget {
 		//		\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
 		//}
 				
-		// if not in DB, write to DB
-		if(!$result) {
-			$sql2 = 'INSERT INTO `*PREFIX*ocDashboard_usedHashs` (id,usedHash,widget,user,timestamp) VALUES (\'\',?,?,?,?); ';
+        $all = $query->execute($params)->fetchAll();
+        //var_dump($all);
+        $resultNum = count($all);
+
+        // if not in DB, write to DB
+		if( $resultNum == 0 ) {
+			$sql2 = 'INSERT INTO `*PREFIX*ocDashboard_usedHashs` (usedHash,widget,user,timestamp) VALUES (?,?,?,?); ';
 			$params = Array($hash,$this->id,$this->user,time());
 			$query2 = \OCP\DB::prepare($sql2);
 			$result2 = $query2->execute($params);
@@ -173,6 +177,9 @@ class ocdWidget {
 				\OCP\Util::writeLog('ocDashboard',"Could not write hash to db.", \OCP\Util::WARN);
 				\OCP\Util::writeLog('ocDashboard', \OC_DB::getErrorMessage($result), \OC_Log::ERROR);
 			}
+            $this->status = 2;
+		} else {
+            $this->status = 0;
 		}
 	}
 	

@@ -98,9 +98,18 @@ class newsreader extends ocdWidget implements interfaceWidget {
     }
 
     private function getNewsapi() {
-        $app = new \OCA\News\App\News();
-        $container = $app->getContainer();
-        $this->itembusinesslayer = $container->query('ItemBusinessLayer');
+
+        $app = null;
+        if (class_exists('\OCA\News\App\News')) {
+            $app = new \OCA\News\App\News();
+        } elseif (class_exists('\OCA\News\AppInfo\Application')) {
+            $app = new \OCA\News\AppInfo\Application();
+        }
+
+        if( $app ) {
+            $container = $app->getContainer();
+            $this->itembusinesslayer = $container->query('ItemBusinessLayer');
+        }
     }
-			
+
 }

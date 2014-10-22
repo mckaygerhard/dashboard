@@ -72,8 +72,23 @@ class openweather extends ocdWidget implements interfaceWidget {
             $url = $this->basicUrl.$this->city.$this->fixUrlParameter.$additionalParameter;
             //OCP\Util::writeLog('ocDashboard',"openweather xml url: ".$url, \OCP\Util::DEBUG);
 
-            $reader = new XMLReader();
-            $reader->open($url);
+	    // Make it ready for system proxy if it is set
+            if(OCP\Config::getSystemValue("proxy","") != "") {
+                $aContext = array(
+                    'http' => array(
+                        'proxy' => 'tcp://'.OCP\Config::getSystemValue("proxy",""),
+                        'request_fulluri' => true,
+                    ),
+                );
+            	$cxContext = stream_context_create($aContext);
+            	$sFile = file_get_contents($url, False, $cxContext);
+            	$reader = new XMLReader();
+            	$reader->xml($sFile);
+	    }
+	    else {
+                $reader = new XMLReader();
+                $reader->open($url);
+            }
 
             $data = Array();
 

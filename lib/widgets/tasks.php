@@ -57,7 +57,7 @@ class tasks extends ocdWidget implements interfaceWidget {
             'start'         => date('c', time())
         );
 
-        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher($param);
+        $tasksApp = new \OCA\Tasks\AppInfo\Application($param);
         $tasksContainer = $tasksApp->getContainer();
         $tasksController = $tasksContainer->query('TasksController');
 
@@ -76,7 +76,7 @@ class tasks extends ocdWidget implements interfaceWidget {
 	 */
 	public function markAsDone($id) {
         $param = Array( "taskID" => $id );
-        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher($param);
+        $tasksApp = new \OCA\Tasks\AppInfo\Application($param);
         $tasksContainer = $tasksApp->getContainer();
         $tasksController = $tasksContainer->query('TasksController');
         $tasksController->completeTask();
@@ -88,7 +88,7 @@ class tasks extends ocdWidget implements interfaceWidget {
      * @return Array with tasks as array
      */
     private function getTasks() {
-        $tasksApp = new \OCA\Tasks_enhanced\Dispatcher(null);
+        $tasksApp = new \OCA\Tasks\AppInfo\Application(null);
         $tasksContainer = $tasksApp->getContainer();
         $tasksController = $tasksContainer->query('TasksController');
         $data = $tasksController->getTasks()->getData();

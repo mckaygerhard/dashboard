@@ -9,7 +9,7 @@ OC.L10N.register(
     "<p style=\"padding-top: 20px;\">There are some background colors for the widgets.<ul><li>red: Error</li><li>orange: missconfiguration</li><li>green: there is something new</li><li></li></ul></p>" : "<p style=\"padding-top: 20px;\">Pro pozadí widgetů jsou použity některé barvy.<ul><li>červená: Chyba</li><li>oranžová: nesprávná konfigurace</li><li>zelená: je zde něco nového</li><li></li></ul></p>",
     "From" : "Od",
     "About" : "O aplikaci",
-    "There are %d new mails..." : "Máte %d nových e-mailů...",
+    "There are %d new mails..." : "Máte %d nových emailů...",
     "today" : "dnes",
     "tomorrow" : "zítra",
     "in two days" : "za dva dny",

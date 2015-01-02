@@ -4,7 +4,7 @@ OC.L10N.register(
     "Yesterday" : "Вчера",
     "Today" : "Сегодня",
     "Tomorrow" : "Завтра",
-    "Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>" : "Невозможно получить данные о \"%s\".<br>Пожалуйста, попробуйте другое значение.<br><a href='%s'>&raquo;&nbsp;settings</a>",
+    "Could not fetch data for \"%s\".<br>Please try another value.<br><a href='%s'>&raquo;&nbsp;settings</a>" : "Невозможно получить данные о \"%s\".<br>Укажите другое значение.<br><a href='%s'>&raquo;&nbsp;settings</a>",
     "Dashboard Settings" : "Настройки панели",
     "<p style=\"padding-top: 20px;\">There are some background colors for the widgets.<ul><li>red: Error</li><li>orange: missconfiguration</li><li>green: there is something new</li><li></li></ul></p>" : "<p style=\"padding-top: 20px;\">Для виджетов применимы такие цвета фона:<ul><li>красный: ошибка</li><li>оранжевый: неверная конфигурация</li><li>зеленый: есть что-то новое</li><li></li></ul></p>",
     "From" : "С",

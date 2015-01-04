@@ -7,7 +7,7 @@
     "<p style=\"padding-top: 20px;\">There are some background colors for the widgets.<ul><li>red: Error</li><li>orange: missconfiguration</li><li>green: there is something new</li><li></li></ul></p>" : "<p style=\"padding-top: 20px;\">Hay algunos colores de fondo para los controles.<ul><li>red: Error</li><li>naranja: configuración incorrecta</li><li>verde: no hay nada nuevo</li><li></li></ul></p>",
     "From" : "Desde",
     "About" : "Acerca de",
-    "There are %d new mails..." : "Hay %d nuevos correos electronicos",
+    "There are %d new mails..." : "Hay %d nuevos correos electrónicos",
     "today" : "hoy",
     "tomorrow" : "mañana",
     "in two days" : "en dos días",

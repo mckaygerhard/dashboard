@@ -1,4 +1,4 @@
 <?php 
-echo("<p id='last'>".$additionalparams["last"]." USD</p>"); 
-echo("<p id='low'>".$additionalparams["low"]." USD</p>"); 
-echo("<p id='high'>".$additionalparams["high"]." USD</p>"); ?>
+print_unescaped("<p id='last'>".$additionalparams["last"]." USD</p>"); 
+print_unescaped("<p id='low'>".$additionalparams["low"]." USD</p>"); 
+print_unescaped("<p id='high'>".$additionalparams["high"]." USD</p>"); ?>

@@ -26,13 +26,13 @@ class ActivityTemplate extends WidgetTemplate implements IWidgetTemplate {
 
         // if problem exists
         if( isset($data['msg']) ) {
-            return '<div class="msg">'.$data['msg'].'</div>';
+            return '<div class="msg">'.$this->p($data['msg']).'</div>';
         }
 
         $html = '';
         $html .= '<table>';
         foreach ($data['activities'] as $activity) {
-            $html .= '<tr><td><div class="priority-'.$activity['priority'].' subject"><a href="'.$activity['link'].'" title="'.$activity['subject'].'">'.\OC_Util::sanitizeHTML($this->getNiceSmallText($activity['subject'])).'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$this->getRelativeTime($activity['date']).'</span></div></td></tr>';
+            $html .= '<tr><td><div class="priority-'.$this->p($activity['priority']).' subject"><a href="'.$this->p($activity['link']).'" title="'.$this->p($activity['subject']).'">'.\OC_Util::sanitizeHTML($this->getNiceSmallText($this->p($activity['subject']))).'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$this->getRelativeTime($this->p($activity['date'])).'</span></div></td></tr>';
         }
         $html .= '</table>';
         return $html;

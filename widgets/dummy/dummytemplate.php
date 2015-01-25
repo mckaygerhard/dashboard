@@ -37,7 +37,7 @@ class DummyTemplate extends WidgetTemplate implements IWidgetTemplate
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><i>settingOne: ' . $data['settingOne'] . '</i></td>
+                        <td><i>settingOne: ' . $this->p($data['settingOne']) . '</i></td>
                     </tr>
                 </table>';
     }

@@ -18,8 +18,8 @@ class MailTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html = '<table>';
         foreach ($data['mails'] as $mail) {
             $html .= '<tr>
-                        <td><div class="subject">'.$mail['subject'].'</div>
-                        <div class="from">'.$this->l10n->t('from').' '.$mail['from'].'</div>
+                        <td><div class="subject">'.$this->p($mail['subject']).'</div>
+                        <div class="from">'.$this->l10n->t('from').' '.$this->p($mail['from']).'</div>
                         <div class="datetime">'.$this->l10n->l('datetime', $mail['datetime']).'</div>
                         </td>
                       </tr>';

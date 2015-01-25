@@ -15,7 +15,7 @@ use OCA\Dashboard\Widgets\WidgetTemplate;
 class IframeTemplate extends WidgetTemplate implements IWidgetTemplate {
 
     function getContentHtml($data = array()) {
-        return '<iframe src="'.$data['url'].'" class="iframe"></iframe>';
+        return '<iframe src="'.$this->p($data['url']).'" class="iframe"></iframe>';
     }
 
     function getSettingsArray()

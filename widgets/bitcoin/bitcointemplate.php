@@ -22,9 +22,9 @@ class BitcoinTemplate extends WidgetTemplate implements IWidgetTemplate
         }
 
         return '
-            <div class="last">'.$data['last'].' USD</div>
-            <div class="high"><span class="icon-triangle-n">&nbsp;&nbsp;&nbsp;</span>&nbsp;'.$data['high'].' USD</div>
-            <div class="low"><span class="icon-triangle-s">&nbsp;&nbsp;&nbsp;</span>&nbsp;'.$data['low'].' USD</div>
+            <div class="last">'.$this->p($data['last']).' USD</div>
+            <div class="high"><span class="icon-triangle-n">&nbsp;&nbsp;&nbsp;</span>&nbsp;'.$this->p($data['high']).' USD</div>
+            <div class="low"><span class="icon-triangle-s">&nbsp;&nbsp;&nbsp;</span>&nbsp;'.$this->p($data['low']).' USD</div>
         ';
     }
 

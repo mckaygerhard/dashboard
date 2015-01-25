@@ -23,7 +23,7 @@ class BookmarksTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html  = '';
         $html .= '<table>';
         foreach ($data['bookmarks'] as $bookmark) {
-            $html .= '<tr><td><a target="_blank" href="'.$bookmark['url'].'" title="'.$bookmark['url'].'">'.$bookmark['title'].'</a></td></tr>';
+            $html .= '<tr><td><a target="_blank" href="'.$this->p($bookmark['url']).'" title="'.$this->p($bookmark['url']).'">'.$this->p($bookmark['title']).'</a></td></tr>';
         }
         $html .= '</table>';
         return $html;

@@ -17,7 +17,7 @@ class TasksTemplate extends WidgetTemplate implements IWidgetTemplate {
     function getContentHtml($data = array()) {
         // if problem exists
         if( isset($data['msg']) ) {
-            return '<div class="msg">'.$data['msg'].'</div>';
+            return '<div class="msg">'.$this->p($data['msg']).'</div>';
         }
 
         $html  = '<table>';
@@ -25,7 +25,7 @@ class TasksTemplate extends WidgetTemplate implements IWidgetTemplate {
             // heading calendar
             $style = (isset($cal['color']) && $cal['color']!='') ? 'style="border-left: 5px solid '.$cal['color'].'; padding-left: 5px;" ': '';
             $html .= '<tr>
-                        <td><div class="calendar" '.$style.'>'.$cal['name'].'</div></td>
+                        <td><div class="calendar" '.$style.'>'.$this->p($cal['name']).'</div></td>
                     </tr>';
 
             foreach ($data['tasks'] as $task) {

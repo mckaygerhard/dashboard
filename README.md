@@ -77,7 +77,6 @@ You can call method inside the widget controller method like this:
         alert(response.success);
     });
 
-
 ## widget controller
 The widget controller is a typical controller that extends WidgetController and has to implement the IWidgetController interface.
 You have to set the namespace for your widget.
@@ -92,11 +91,17 @@ The getData()-method collect all the data that are needed in the template as an 
 ### encrypted config values
 Some values (for example password) should be encrypted stored in the database. All values with the key 'password' will be encrypted. You can add your own config-key for encryption. You just have to add your key like this (inside the widget controller object) $this->encryptAttributes[] = [key].
  
+ 
 ## widget template
 This class is a template generation-tool for widgets. This class extends the WidgetTemplate class and implement the IWidgetTemplate. There are two methods that have to be implemented.
 
 ### content
 The getContentHtml($data = array())-method create the html-code for the content part of a widget. You can use the data-array, that has been specified in the getData()-method in the widgetController object.
+
+To avoid XSS and other security stuff you have to pass ALL strings and values through the p([string])-method. This is like you are using p() inside a owncloud-app-template.
+    
+    $this->p([string]);
+    $this is a widgettemplate object.
 
 ### settings
 The second method is the getSettingsArray(). This returns an array with all the widget-specific settings. The template object will parse this automatically.

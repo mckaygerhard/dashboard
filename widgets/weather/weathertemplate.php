@@ -61,8 +61,8 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '<td colspan="3"><br>';
         foreach( $list as $item) {
             $html .= '<div class="forecastItem">';
-            $html .= '  <img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($item['weather'][0]['icon']) ).'" alt="weather icon" /><br>';
-            $html .= '  <div class="forecastTemp">'.substr($this->l10n->l('date', $item['dt']), 0, -4).'<br>'.$this->round($item['temp']['day']).$this->getTemperatureUnit($data['unit']).'</div>';
+            $html .= '  <img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($this->p($item['weather'][0]['icon'])) ).'" alt="weather icon" /><br>';
+            $html .= '  <div class="forecastTemp">'.substr($this->l10n->l('date', $this->p($item['dt'])), 0, -4).'<br>'.$this->round($this->p($item['temp']['day'])).$this->getTemperatureUnit($this->p($data['unit'])).'</div>';
             $html .= '</div>';
         }
         $html .= '</td>';
@@ -76,7 +76,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '<table>';
         $html .= '    <tr>';
         $html .= '        <td colspan="3">';
-        $html .= '          <div class="align-center hoverInfo" data-opacitynormal="0.5">'.$weather['weather'][0]['description'].'</div><br>';
+        $html .= '          <div class="align-center hoverInfo" data-opacitynormal="0.5">'.$this->p($weather['weather'][0]['description']).'</div><br>';
         $html .= '        </td>';
         $html .= '    </tr>';
         $html .= '    <tr>';
@@ -84,7 +84,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '          '.$this->l10n->t('Temperature');
         $html .= '        </td>';
         $html .= '        <td>';
-        $html .= '          <div class="text-align-right">'.$this->round($weather['main']['temp']).'</div>';
+        $html .= '          <div class="text-align-right">'.$this->round($this->p($weather['main']['temp'])).'</div>';
         $html .= '        </td>';
         $html .= '        <td>';
         $html .= '          '.$this->getTemperatureUnit($data['unit']);
@@ -95,7 +95,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '          '.$this->l10n->t('Pressure');
         $html .= '        </td>';
         $html .= '        <td>';
-        $html .= '          <div class="text-align-right">'.$weather['main']['pressure'].'</div>';
+        $html .= '          <div class="text-align-right">'.$this->p($weather['main']['pressure']).'</div>';
         $html .= '        </td>';
         $html .= '        <td>';
         $html .= '          '.$this->getPressureUnit($data['unit']);
@@ -106,7 +106,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '          '.$this->l10n->t('Humidity');
         $html .= '        </td>';
         $html .= '        <td>';
-        $html .= '          <div class="text-align-right">'.$weather['main']['humidity'].'</div>';
+        $html .= '          <div class="text-align-right">'.$this->p($weather['main']['humidity']).'</div>';
         $html .= '        </td>';
         $html .= '        <td>';
         $html .= '          &nbsp;%';
@@ -117,7 +117,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '          '.$this->l10n->t('Wind');
         $html .= '        </td>';
         $html .= '        <td>';
-        $html .= '          <div class="text-align-right">'.$this->getWindSpeed($weather['wind']['speed'], $data['unit']).'</div>';
+        $html .= '          <div class="text-align-right">'.$this->getWindSpeed($this->p($weather['wind']['speed']), $this->p($data['unit'])).'</div>';
         $html .= '        </td>';
         $html .= '        <td>';
         $html .= '          '.$this->getWindUnit($data['unit']);
@@ -128,7 +128,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '          '.$this->l10n->t('Cloud coverage');
         $html .= '        </td>';
         $html .= '        <td>';
-        $html .= '          <div class="text-align-right">'.$weather['clouds']['all'].'</div>';
+        $html .= '          <div class="text-align-right">'.$this->p($weather['clouds']['all']).'</div>';
         $html .= '        </td>';
         $html .= '        <td>';
         $html .= '          &nbsp;%';
@@ -175,8 +175,8 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html = '';
         $html .= '<td>';
         $html .=    '<div class="h2">'.$this->l10n->t('today').'</div>';
-        $html .=    $this->l10n->t('Min').' '.$this->round($data['weatherData']['list'][0]['temp']['min']).$this->getTemperatureUnit($data['unit']).'<br>';
-        $html .=    $this->l10n->t('Max').' '.$this->round($data['weatherData']['list'][0]['temp']['max']).$this->getTemperatureUnit($data['unit']).'<br>';
+        $html .=    $this->l10n->t('Min').' '.$this->round($this->p($data['weatherData']['list'][0]['temp']['min'])).$this->getTemperatureUnit($data['unit']).'<br>';
+        $html .=    $this->l10n->t('Max').' '.$this->round($this->p($data['weatherData']['list'][0]['temp']['max'])).$this->getTemperatureUnit($data['unit']).'<br>';
         $html .= '</td>';
         return $html;
     }
@@ -188,8 +188,8 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html = '';
         $html .= '<td>';
         $html .=    '<div class="h2">'.$this->l10n->t('tomorrow').'</div>';
-        $html .=    $this->l10n->t('Min').' '.$this->round($data['weatherData']['list'][1]['temp']['min']).$this->getTemperatureUnit($data['unit']).'<br>';
-        $html .=    $this->l10n->t('Max').' '.$this->round($data['weatherData']['list'][1]['temp']['max']).$this->getTemperatureUnit($data['unit']).'<br>';
+        $html .=    $this->l10n->t('Min').' '.$this->round($this->p($data['weatherData']['list'][1]['temp']['min'])).$this->getTemperatureUnit($data['unit']).'<br>';
+        $html .=    $this->l10n->t('Max').' '.$this->round($this->p($data['weatherData']['list'][1]['temp']['max'])).$this->getTemperatureUnit($data['unit']).'<br>';
         $html .= '</td>';
         return $html;
     }
@@ -202,9 +202,9 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html .= '<td>';
         $html .=    '<div class="h1">'.$data['city'].'</div>';
         $html .=    '<div class="align-center">';
-        $html .=        '<img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($data['weatherData']['list'][0]['weather'][0]['icon']) ).'" alt="weather icon" />';
+        $html .=        '<img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($this->p($data['weatherData']['list'][0]['weather'][0]['icon'])) ).'" alt="weather icon" />';
         $html .=        '&nbsp;&nbsp;&nbsp;';
-        $html .=        '<img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($data['weatherData']['list'][1]['weather'][0]['icon']) ).'" alt="weather icon" />';
+        $html .=        '<img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($this->p($data['weatherData']['list'][1]['weather'][0]['icon'])) ).'" alt="weather icon" />';
         $html .=    '</div>';
         $html .= '</td>';
         return $html;
@@ -260,6 +260,7 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
      * @return float|string
      */
     private function round($value) {
+        $value = intval($value);
         $v = round($value);
         if($v == '-0') {
             $v = '0';

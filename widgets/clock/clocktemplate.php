@@ -15,8 +15,8 @@ use OCA\Dashboard\Widgets\WidgetTemplate;
 class ClockTemplate extends WidgetTemplate implements IWidgetTemplate {
 
     function getContentHtml($data = array()) {
-        return '<canvas class="CoolClock:'.$data['clock'].':70" width="100" height="100" style="width: 100px; height: 100px; "></canvas>
-                <script>CoolClock.findAndCreateClocks();</script><br><div class="date hoverInfo" data-opacitynormal="0.5">'.$data['date'].'</div>';
+        return '<canvas class="CoolClock:'.$this->p($data['clock']).':70" width="100" height="100" style="width: 100px; height: 100px; "></canvas>
+                <script>CoolClock.findAndCreateClocks();</script><br><div class="date hoverInfo" data-opacitynormal="0.5">'.$this->p($data['date']).'</div>';
     }
 
     function getSettingsArray()

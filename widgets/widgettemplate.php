@@ -9,6 +9,7 @@
 namespace OCA\Dashboard\Widgets;
 
 
+use OC_Util;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCP\IL10N;
 use OCP\Util;
@@ -54,6 +55,21 @@ abstract class WidgetTemplate {
         $html .= '</div>';
         return $html;
     }
+
+    /**
+     *
+     * all output strings and values should be passed by this
+     * to avoid XSS and other security things
+     *
+     * @param $string
+     * @return array|string
+     */
+    protected function p( $string ) {
+        return OC_Util::sanitizeHTML($string);
+    }
+
+    // private services ---------------------------------------------------------------
+
     /**
      *
      * return the settings html

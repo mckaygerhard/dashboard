@@ -17,7 +17,7 @@ class NewsTemplate extends WidgetTemplate implements IWidgetTemplate {
     public function getContentHtml($data = array()) {
         // if problem exists
         if( isset($data['msg']) ) {
-            return '<div class="msg">'.$data['msg'].'</div>';
+            return '<div class="msg">'.$this->p($data['msg']).'</div>';
         }
 
         $html  = '<table>';
@@ -76,9 +76,9 @@ class NewsTemplate extends WidgetTemplate implements IWidgetTemplate {
             $html .= '<td>';
             $html .= '<div class="newsitem">';
             $html .= '<div class="newsTitle">&nbsp;<span class="icon-checkmark markAsRead" data-newsid="'.$item['id'].'" data-wiid="'.$this->wIId.'">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;';
-            $html .= '<a href="'.$item['url'].'" target="_blank">'.$item['title'].'</a></div>';
+            $html .= '<a href="'.$item['url'].'" target="_blank">'.$this->p($item['title']).'</a></div>';
             $html .= '<div class="newsPubDate">'.$this->l10n->l('datetime', $item['pubDate']).'</div>';
-            $html .= '<div class="newsBody">'.$item['body'].'</div>';
+            $html .= '<div class="newsBody">'.$this->p($item['body']).'</div>';
             $html .= '</div>';
             $html .= '</td>';
             $html .= '</tr>';
@@ -97,7 +97,7 @@ class NewsTemplate extends WidgetTemplate implements IWidgetTemplate {
             $html .= '<tr>';
             $html .= '<td><div class="newsitem">';
             $html .= '&nbsp;<span class="icon-checkmark markAsRead" data-newsid="'.$item['id'].'" data-wiid="'.$this->wIId.'">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;';
-            $html .= '<a href="'.$item['url'].'" target="_blank">'.$item['title'].'</a>';
+            $html .= '<a href="'.$this->p($item['url']).'" target="_blank">'.$this->p($item['title']).'</a>';
             $html .= '</div></td>';
             $html .= '</tr>';
         }

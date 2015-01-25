@@ -156,7 +156,6 @@ dashboard = {
 
             // bind event for widget content reloading
             $('#widgets .widget.' + wIId + ' .heading h1 span.iconReload').on('click', function () {
-                dashboard.showWaitSymbol();
                 $(this).removeClass('icon-play');
                 $(this).addClass('icon-loading-small');
                 dashboard.refreshWidget(wIId);
@@ -198,16 +197,20 @@ dashboard = {
                 dashboard.widgetCallback[wId]();
             }
         });
+        posting.error(function () {
+            dashboard.setWidgetStatus(wIId, 3);
+        });
     },
 
     // fetch the content-html and change the actual one
     refreshWidget: function (wIId) {
+        dashboard.showWaitSymbol();
         var url = OC.generateUrl('/apps/dashboard/widget/content');
         var data = {
             wIId: wIId
         };
-        $.post(url, data).success(function (response) {
-            dashboard.showWaitSymbol();
+        var posting = $.post(url, data);
+        posting.success(function (response) {
             dashboard.setWidgetStatus(wIId, response.status);
             $('#widgets .widget.' + wIId + ' .content').html( response.widgetHtml );
             $('#widgets .widget.' + wIId + ' .heading h1 span.iconReload').removeClass('icon-loading-small');
@@ -216,12 +219,13 @@ dashboard = {
 
             var split = wIId.split('-');
             var wId   = split[0];
-            if( dashboard.widgetCallback[wId] != 'undefined' ) {
+            if(  wId in dashboard.widgetCallback && typeof dashboard.widgetCallback[wId] == 'function' ) {
                 dashboard.widgetCallback[wId]();
             }
             dashboard.hideWaitSymbol();
         });
-        $.post(url, data).done(function () {
+        posting.error(function () {
+            dashboard.setWidgetStatus(wIId, 3);
             dashboard.hideWaitSymbol();
         });
     },
@@ -237,7 +241,6 @@ dashboard = {
         return $.post(url, data);
     },
 
-    // change the css class depending by the status for the widget
     setWidgetStatus: function (wIId, status) {
         $('#widgets .widget.' + wIId).removeClass('status-0');
         $('#widgets .widget.' + wIId).removeClass('status-1');
@@ -245,6 +248,7 @@ dashboard = {
         $('#widgets .widget.' + wIId).removeClass('status-3');
         $('#widgets .widget.' + wIId).addClass('status-' + status );
     },
+    // change the css class depending by the status for the widget
 
     // change the css class to the new dimension
     setWidgetDimension: function(wIId, dimension) {

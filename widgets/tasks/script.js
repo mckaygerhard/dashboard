@@ -9,7 +9,6 @@ $(document).ready(function () {
         call.success(function (response) {
             alert(response.success);
         });
-
     });
 
 });

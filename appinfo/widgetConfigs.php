@@ -43,7 +43,7 @@ class ocdWidgets {
 								),
 							Array(
                                 'id' 		=>	"calendar",
-                                'name'		=>	"Calender",
+                                'name'		=>	"Calendar",
                                 'refresh'	=>	60,
                                 'icon'		=>	"icons/2.png",
                                 'conf'		=>	'[{"name":"correct time (add x hours)","type":"string","id":"timezoneAdd","default":"0"}]',
@@ -139,7 +139,18 @@ class ocdWidgets {
                                 'scripts'	=>	"search",
                                 'styles'	=>	"search",
                                 'link'		=>	""
-                            )
+                            ),
+							Array(
+                                'id' 		=>	"bitcoin",
+                                'name'		=>	"Bitcoin Price",
+                                'refresh'	=>	60,
+                                'icon'		=>	"icons/201.png",
+                                'conf'		=>	'[{"name":"Price fetched from Bitstamp","type":"label"}]',
+                                'cond' 		=>	"",
+                                'scripts'	=>	"",
+                                'styles'	=>	"bitcoin",
+                                'link'		=>	"http://www.bitcoinwisdom.com"
+								),
 					  );
 		
 		/*

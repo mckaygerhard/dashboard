@@ -23,10 +23,10 @@ class MailController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     ='icons/35.png';
-        $this->refresh  =           360;
-        $this->wId      =        'mail';
-        $this->name     =        'Mail';
+        $this->icon     =         'icons/35.png';
+        $this->refresh  =                    360;
+        $this->wId      =                 'mail';
+        $this->name     = $this->l10n->t('Mail');
     }
 
     /**
@@ -162,22 +162,5 @@ class MailController extends WidgetController implements IWidgetController {
         }
         return '{'.$host.':'.$port.$way.'}'.$folder;
     }
-
-
-    private function mail_parse_headers($headers) {
-        $result = array();
-        $headers=preg_replace('/\r\n\s+/m', '',$headers);
-        preg_match_all('/([^: ]+): (.+?(?:\r\n\s(?:.+?))*)?\r\n/m', $headers, $matches);
-        foreach ($matches[1] as $key =>$value) $result[$value]=$matches[2][$key];
-        return($result);
-    }
-
-//        $attachment['data'] = imap_fetchbody($connection, $message_number, $prefix);
-//        if($part->encoding == 3) { // 3 = BASE64
-//            $attachment['data'] = base64_decode($attachment['data']);
-//        }
-//        elseif($part->encoding == 4) { // 4 = QUOTED-PRINTABLE
-//            $attachment['data'] = quoted_printable_decode($attachment['data']);
-//        }
 
 } 

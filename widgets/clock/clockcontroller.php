@@ -22,10 +22,10 @@ class ClockController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     = 'icons/5.png';
-        $this->refresh  =             0;
-        $this->wId      =       'clock';
-        $this->name     =       'Clock';
+        $this->icon     =           'icons/5.png';
+        $this->refresh  =                       0;
+        $this->wId      =                 'clock';
+        $this->name     = $this->l10n->t('Clock');
     }
 
     /**

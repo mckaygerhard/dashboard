@@ -24,10 +24,10 @@ class TasksController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     ='icons/49.png';
-        $this->refresh  =           120;
-        $this->wId      =       'tasks';
-        $this->name     =       'Tasks';
+        $this->icon     =          'icons/49.png';
+        $this->refresh  =                     120;
+        $this->wId      =                 'tasks';
+        $this->name     = $this->l10n->t('Tasks');
     }
 
     /**
@@ -59,12 +59,16 @@ class TasksController extends WidgetController implements IWidgetController {
 
     // ajax call methods ---------------------------------------------
 
+    /**
+     * @param $taskId
+     * @return string
+     */
     public function markAsDone( $taskId ) {
         //$params = array('taskID' => $taskId);
         //$tasksAppTaskController = $this->getTasksAppTaskController($params);
         //return $tasksAppTaskController->completeTask();
         // ToDo
-        return 'This function is not yet implemented.';
+        return 'This function is not yet implemented.'.$taskId;
     }
 
     // private services -------------------------------------------------

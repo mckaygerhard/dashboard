@@ -24,10 +24,10 @@ class ActivityController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     ='icons/87.png';
-        $this->refresh  =           120;
-        $this->wId      =    'activity';
-        $this->name     =    'Activity';
+        $this->icon     =             'icons/87.png';
+        $this->refresh  =                        120;
+        $this->wId      =                 'activity';
+        $this->name     = $this->l10n->t('Activity');
     }
 
     /**

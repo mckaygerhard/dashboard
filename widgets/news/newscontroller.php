@@ -23,10 +23,10 @@ class NewsController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     ='icons/98.png';
-        $this->refresh  =            60;
-        $this->wId      =        'news';
-        $this->name     =        'News';
+        $this->icon     =         'icons/98.png';
+        $this->refresh  =                     60;
+        $this->wId      =                 'news';
+        $this->name     = $this->l10n->t('News');
     }
 
     /**

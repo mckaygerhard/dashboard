@@ -22,10 +22,10 @@ class IframeController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     = 'icons/71.png';
-        $this->refresh  =              0;
-        $this->wId      =       'iframe';
-        $this->name     =       'iFrame';
+        $this->icon     =           'icons/71.png';
+        $this->refresh  =                        0;
+        $this->wId      =                 'iframe';
+        $this->name     = $this->l10n->t('iFrame');
     }
 
     /**

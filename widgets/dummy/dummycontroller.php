@@ -22,10 +22,10 @@ class DummyController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     = 'icons/9.png';
-        $this->refresh  =            60;
-        $this->wId      =       'dummy';
-        $this->name     =       'Dummy';
+        $this->icon     =           'icons/9.png';
+        $this->refresh  =                      60;
+        $this->wId      =                 'dummy';
+        $this->name     = $this->l10n->t('Dummy');
     }
 
     /**

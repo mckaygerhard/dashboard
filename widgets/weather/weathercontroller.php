@@ -25,10 +25,10 @@ class WeatherController extends WidgetController implements IWidgetController {
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     = 'icons/165.png';
-        $this->refresh  =             360;
-        $this->wId      =       'weather';
-        $this->name     =       'Weather';
+        $this->icon     =           'icons/165.png';
+        $this->refresh  =                       360;
+        $this->wId      =                 'weather';
+        $this->name     = $this->l10n->t('Weather');
     }
 
     /**

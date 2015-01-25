@@ -24,10 +24,10 @@ class BookmarksController extends WidgetController implements IWidgetController 
      * see IWidgetController interface
      */
     public function setData() {
-        $this->icon     = 'icons/83.png';
-        $this->refresh  =            360;
-        $this->wId      =    'bookmarks';
-        $this->name     =    'Bookmarks';
+        $this->icon     =              'icons/83.png';
+        $this->refresh  =                         360;
+        $this->wId      =                 'bookmarks';
+        $this->name     = $this->l10n->t('Bookmarks');
     }
 
     /**
@@ -71,6 +71,7 @@ class BookmarksController extends WidgetController implements IWidgetController 
     private function getBookmarks() {
         $filters = $this->getConfig('tagKeyword', 'Dashboard');
         /** @var array $bookmarks */
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
         $bookmarks = OC_Bookmarks_Bookmarks::findBookmarks(0, 'clickcount', $filters, true, -1);
         return $bookmarks;
     }

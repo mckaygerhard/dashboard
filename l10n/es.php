@@ -1,12 +1,17 @@
 <?php
 $TRANSLATIONS = array(
 "Dashboard" => "Escritorio",
+"Activity" => "Actividad",
+"Bookmarks" => "Marcadores",
 "Time" => "Hora",
 "click to generate normal status" => "Haga clic para generar un estado normal",
 "click to generate new status" => "Haga clic para generar un nuevo estado",
 "click to generate problem status" => "Haga clic para generar estado de problema",
 "click to generate error status" => "Haga clic para generar un estado de error",
+"Mail" => "Correo electrónico",
 "from" => "Desde",
+"News" => "Noticias",
+"Tasks" => "Tareas",
 "Temperature" => "Temperatura",
 "Pressure" => "Presión",
 "Humidity" => "Humedad",

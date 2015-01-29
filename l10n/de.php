@@ -1,6 +1,6 @@
 <?php
 $TRANSLATIONS = array(
-"Dashboard" => "Schreibtisch",
+"Dashboard" => "Dashboard",
 "Activity" => "Aktivität",
 "Bitcoin" => "Bitcoin",
 "Bookmarks" => "Lesezeichen",

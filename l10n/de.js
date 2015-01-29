@@ -1,7 +1,7 @@
 OC.L10N.register(
     "ocdashboard",
     {
-    "Dashboard" : "Schreibtisch",
+    "Dashboard" : "Dashboard",
     "Activity" : "Aktivität",
     "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Lesezeichen",

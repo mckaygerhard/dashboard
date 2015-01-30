@@ -30,6 +30,7 @@ $TRANSLATIONS = array(
 "Max" => "Max",
 "tomorrow" => "tomorrow",
 "Remove widget" => "Remove widget",
-"remove now" => "remove now"
+"remove now" => "remove now",
+"License" => "Licence"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

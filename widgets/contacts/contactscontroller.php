@@ -11,6 +11,7 @@ namespace OCA\Dashboard\Widgets\Contacts;
 use OC;
 use OCA\Dashboard\Widgets\IWidgetController;
 use OCA\Dashboard\Widgets\WidgetController;
+use OCP\App;
 
 class ContactsController extends WidgetController implements IWidgetController {
 
@@ -37,8 +38,15 @@ class ContactsController extends WidgetController implements IWidgetController {
      * @return array
      */
     public function getData() {
-        $data = array(
-        );
+        if( $this->checkDependencies() ) {
+            $data = array(
+            );
+        } else {
+            $this->setStatus($this::STATUS_PROBLEM);
+            $data = array(
+                'msg'     => 'Dependency error.'
+            );
+        }
 
         // do not remove the following line
         // it creates the status information
@@ -90,4 +98,7 @@ class ContactsController extends WidgetController implements IWidgetController {
 
     // private services -------------------------------------------------
 
+    private function checkDependencies() {
+        return App::isEnabled('contacts');
+    }
 } 

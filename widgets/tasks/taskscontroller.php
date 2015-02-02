@@ -38,7 +38,7 @@ class TasksController extends WidgetController implements IWidgetController {
      * @return array
      */
     public function getData() {
-        if( $this->checkDepedencies() ) {
+        if( $this->checkDependencies() ) {
             $data = array(
                 'tasks'     => $this->getTasks(true),
                 'calendars' => $this->getCalendars()
@@ -73,7 +73,7 @@ class TasksController extends WidgetController implements IWidgetController {
 
     // private services -------------------------------------------------
 
-    private function checkDepedencies() {
+    private function checkDependencies() {
         return App::isEnabled('calendar')&&App::isEnabled('tasks');
     }
 

@@ -3,7 +3,9 @@ OC.L10N.register(
     {
     "Dashboard" : "Πίνακας Ελέγχου",
     "Activity" : "Δραστηριότητα",
+    "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Σελιδοδείκτες",
+    "Clock" : "Ρολόι",
     "Time" : "Ώρα",
     "click to generate normal status" : "επιλέξτε για να δημιουργήσετε κανονική κατάσταση",
     "click to generate new status" : "επιλέξτε για να δημιουργήσετε νέα κατάσταση",

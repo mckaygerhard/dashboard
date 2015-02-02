@@ -31,6 +31,7 @@ OC.L10N.register(
     "Max" : "Max",
     "tomorrow" : "tomorrow",
     "Remove widget" : "Remove widget",
-    "remove now" : "remove now"
+    "remove now" : "remove now",
+    "License" : "Licence"
 },
 "nplurals=2; plural=(n != 1);");

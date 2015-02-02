@@ -1,5 +1,5 @@
 { "translations": {
-    "Dashboard" : "Instrumentbræt",
+    "Dashboard" : "Oversigt",
     "Activity" : "Aktivitet",
     "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Bogmærker",
@@ -27,7 +27,7 @@
     "Min" : "Min.",
     "Max" : "Maks.",
     "tomorrow" : "i morgen",
-    "Remove widget" : "Fjern kontrol",
+    "Remove widget" : "Fjern  kontrol",
     "remove now" : "fjern nu",
     "License" : "Licens"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -1,19 +1,22 @@
 # Dashboard
-This app let you organize widgets. Each widget present you some basic information about one topic.
-You can create as much widgets as you want to. Each widgets has its own settings area.
+This app lets you organize widgets. Each widget presents you some basic information about one topic.
+You can create as much widgets as you want to. Each widgets have its own settings area.
 
 ## depedencies
 * PHP 5.4 (tested with 5.5)
 * Database all (sqlite and mysql tested)
 * apps that are needed by widgets
 * appframework
+* owncloud > 5 (not yet tested)
+* **no** Internet Explorer Support
 
 ## translations
 The dashboard app is connected to the transiflex translation system.
 If you want to help, go there and add some translations.
 
 ## support
-If you have a idea for this app or a question, please create an issue at github.
+If you have an idea for this app, new widgets or a question, please create an issue at github.
+https://github.com/fjies/dashboard
 
 ## new widget
 Everybody is welcome to develop some new widgets. Please send them via mail or pull-message. I will check them and add if they look good.
@@ -35,11 +38,12 @@ Additionally remove the database table *dbprefix*ocDashboard_usedHashs.
 ## integrated widgets
 It is planed, that every owncloud app can register an widget at the dashboard app.
 The dashboard will call the registered classes directly from the app and include the widget.
+This means the app-developers can support their widget on their own.
 
 # developer information
 
 ## IDs
-    wIId    = wId + '-' + wNo
+    wIId = wId + '-' + wNo
     for example tasks-2
 
 * widget instance id (wIId)
@@ -52,10 +56,10 @@ Each widget has its own folder inside **owncloud/apps/dashboard/widgets/**.
 All files that belongs to this widget are inside this folder.
 The widget folder must have the following files:
 
-* script.js (everything in javascript)
-* style.css (every special style rules)
-* [widget name]controller.php (description below)
-* [widget name]template.php (description below)
+* script.js
+* style.css
+* [widget name]controller.php
+* [widget name]template.php
 
 ## javascript
 Each widget has its own javascript file 'script.js'. This will be always loaded.
@@ -77,6 +81,9 @@ You can call method inside the widget controller method like this:
         alert(response.success);
     });
 
+## css
+You can define your special styles in this file. Please start always with '#widgets .widget.[wId]'.
+
 ## widget controller
 The widget controller is a typical controller that extends WidgetController and has to implement the IWidgetController interface.
 You have to set the namespace for your widget.
@@ -86,14 +93,14 @@ The setData()-method sets the path to a icon, the interval to refresh widget inf
 The headline can be linked, therefore set a link-address in the setData()-method like $this->link = '[link-address]';.
 If you want to specify the headline, you can implement the method getName() that returns a string. This method will be automatically called in the widget template object.
 
-The getData()-method collect all the data that are needed in the template as an array and returns it. Please insert always the $this->setHash($data); line to enable the hash management for that widget.
+The getData()-method collects all the data that are needed in the template as an array and returns it. Please insert always the $this->setHash($data); line at the end to enable the hash management for that widget.
 
 ### encrypted config values
-Some values (for example password) should be encrypted stored in the database. All values with the key 'password' will be encrypted. You can add your own config-key for encryption. You just have to add your key like this (inside the widget controller object) $this->encryptAttributes[] = [key].
+Some values (for example passwords) should be encrypted stored in the database. All values with the key 'password' will be automatically encrypted. You can add your own config-key for encryption. You just have to add your key like this (inside the widget controller object) $this->encryptAttributes[] = [key].
  
  
 ## widget template
-This class is a template generation-tool for widgets. This class extends the WidgetTemplate class and implement the IWidgetTemplate. There are two methods that have to be implemented.
+This class is a template generation-tool for widgets. It extends the WidgetTemplate class and implements the IWidgetTemplate. There are two methods that have to be implemented (getContentHtml and getSettingsArray).
 
 ### content
 The getContentHtml($data = array())-method create the html-code for the content part of a widget. You can use the data-array, that has been specified in the getData()-method in the widgetController object.
@@ -101,10 +108,13 @@ The getContentHtml($data = array())-method create the html-code for the content 
 To avoid XSS and other security stuff you have to pass ALL strings and values through the p([string])-method. This is like you are using p() inside a owncloud-app-template.
     
     $this->p([string]);
-    $this is a widgettemplate object.
+
+If you have already html code, you can print it with the following, but try to avoid that.
+
+    $this->print_unescaped([string]);
 
 ### settings
-The second method is the getSettingsArray(). This returns an array with all the widget-specific settings. The template object will parse this automatically.
+The getSettingsArray()-method returns an array with all the widget-specific settings. The template object will parse this automatically.
 You can choose one of the following types for a settings item:
 
 * text (simple input field)
@@ -137,5 +147,5 @@ For type select use this array:
 You can implement the getLicenseInfo()-method to return a string with some additional information that will be displayed below the settings.
     
 ### hoverInfo
-You can set the 'hoverInfo' css class to item, that be hidden normally and displayed if the mouse hovers the widget.
+You can set the 'hoverInfo' css class to items, each item will be hidden normally and displayed if the mouse hovers the widget.
 Additionally you can specify both or just one data-attribute. The normal opacity can be set with data-opacitynormal="[0<x<1]" and the opacity while the mouse hovers the widget can set with data-opacityhover="[0<x<1]". 

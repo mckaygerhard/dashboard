@@ -1,7 +1,7 @@
 OC.L10N.register(
     "ocdashboard",
     {
-    "Dashboard" : "Instrumentbræt",
+    "Dashboard" : "Oversigt",
     "Activity" : "Aktivitet",
     "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Bogmærker",
@@ -29,7 +29,7 @@ OC.L10N.register(
     "Min" : "Min.",
     "Max" : "Maks.",
     "tomorrow" : "i morgen",
-    "Remove widget" : "Fjern kontrol",
+    "Remove widget" : "Fjern  kontrol",
     "remove now" : "fjern nu",
     "License" : "Licens"
 },

@@ -1,6 +1,6 @@
 <?php
 $TRANSLATIONS = array(
-"Dashboard" => "Instrumentbræt",
+"Dashboard" => "Oversigt",
 "Activity" => "Aktivitet",
 "Bitcoin" => "Bitcoin",
 "Bookmarks" => "Bogmærker",
@@ -28,7 +28,7 @@ $TRANSLATIONS = array(
 "Min" => "Min.",
 "Max" => "Maks.",
 "tomorrow" => "i morgen",
-"Remove widget" => "Fjern kontrol",
+"Remove widget" => "Fjern  kontrol",
 "remove now" => "fjern nu",
 "License" => "Licens"
 );

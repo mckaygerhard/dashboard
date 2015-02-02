@@ -68,6 +68,18 @@ abstract class WidgetTemplate {
         return OC_Util::sanitizeHTML($string);
     }
 
+    /**
+     *
+     * this is not a safe method
+     * but if you have to print html use this
+     *
+     * @param $string
+     * @return array|string
+     */
+    protected function print_unescaped( $string ) {
+        return $string;
+    }
+
     // private services ---------------------------------------------------------------
 
     /**

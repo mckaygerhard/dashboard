@@ -78,7 +78,7 @@ class NewsTemplate extends WidgetTemplate implements IWidgetTemplate {
             $html .= '<div class="newsTitle">&nbsp;<span class="icon-checkmark markAsRead" data-newsid="'.$item['id'].'" data-wiid="'.$this->wIId.'">&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;';
             $html .= '<a href="'.$item['url'].'" target="_blank">'.$this->p($item['title']).'</a></div>';
             $html .= '<div class="newsPubDate">'.$this->l10n->l('datetime', $item['pubDate']).'</div>';
-            $html .= '<div class="newsBody">'.$this->p($item['body']).'</div>';
+            $html .= '<div class="newsBody">'.$this->print_unescaped($item['body']).'</div>';
             $html .= '</div>';
             $html .= '</td>';
             $html .= '</tr>';

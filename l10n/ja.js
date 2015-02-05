@@ -6,6 +6,7 @@ OC.L10N.register(
     "Bitcoin" : "ビットコイン",
     "Bookmarks" : "ブックマーク",
     "Clock" : "時計",
+    "Contacts" : "コンタクト",
     "Dummy" : "ダミー",
     "Time" : "時刻",
     "iFrame" : "iFrame",

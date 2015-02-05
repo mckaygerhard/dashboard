@@ -6,6 +6,7 @@ OC.L10N.register(
     "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Lesezeichen",
     "Clock" : "Clock",
+    "Contacts" : "Kontakte",
     "Dummy" : "Platzhalter",
     "Time" : "Zeit",
     "click to generate normal status" : "Bitte klicken, um normalen Status zu generieren",

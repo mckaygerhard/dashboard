@@ -5,6 +5,7 @@ $TRANSLATIONS = array(
 "Bitcoin" => "Bitcoin",
 "Bookmarks" => "Bookmarks",
 "Clock" => "Clock",
+"Contacts" => "Contacts",
 "Dummy" => "Dummy",
 "Time" => "Time",
 "click to generate normal status" => "click to generate normal status",

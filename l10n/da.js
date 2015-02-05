@@ -1,11 +1,12 @@
 OC.L10N.register(
     "ocdashboard",
     {
-    "Dashboard" : "Oversigt",
+    "Dashboard" : "Instrumentbræt",
     "Activity" : "Aktivitet",
     "Bitcoin" : "Bitcoin",
     "Bookmarks" : "Bogmærker",
     "Clock" : "Ur",
+    "Contacts" : "Kontakter",
     "Dummy" : "Attrap",
     "Time" : "Tid",
     "click to generate normal status" : "klik for at generere normal status",

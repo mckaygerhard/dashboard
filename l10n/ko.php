@@ -5,6 +5,7 @@ $TRANSLATIONS = array(
 "Bitcoin" => "비트코인",
 "Bookmarks" => "책갈피",
 "Clock" => "시계",
+"Contacts" => "연락처",
 "Dummy" => "더미",
 "Time" => "시간",
 "click to generate normal status" => "일반 상태를 생성하려면 클릭하십시오",

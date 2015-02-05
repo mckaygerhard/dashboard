@@ -5,6 +5,7 @@ OC.L10N.register(
     "Activity" : "Aktywność",
     "Bookmarks" : "Zakładki",
     "Clock" : "Zegar",
+    "Contacts" : "Kontakty",
     "Time" : "Czas",
     "Mail" : "Poczta",
     "from" : "z",

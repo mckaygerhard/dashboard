@@ -5,6 +5,7 @@ $TRANSLATIONS = array(
 "Bitcoin" => "Bitcoin",
 "Bookmarks" => "Záložky",
 "Clock" => "Hodiny",
+"Contacts" => "Kontakty",
 "Dummy" => "Dummy",
 "Time" => "Čas",
 "click to generate normal status" => "kliknite pre generovanie normálneho stavu",

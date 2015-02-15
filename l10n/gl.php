@@ -23,7 +23,7 @@ $TRANSLATIONS = array(
 "Humidity" => "Humidade",
 "Wind" => "Vento",
 "Cloud coverage" => "Nebulosidade",
-"Sunrise" => "Amencer",
+"Sunrise" => "Alborexar",
 "&nbsp;o' clock" => "&nbsp; en punto",
 "Sunset" => "Solpor",
 "today" => "hoxe",
@@ -32,6 +32,6 @@ $TRANSLATIONS = array(
 "tomorrow" => "mañá",
 "Remove widget" => "Retirar o trebello",
 "remove now" => "retirar agora",
-"License" => "Licenza"
+"License" => "Licencia"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

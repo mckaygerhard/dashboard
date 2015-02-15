@@ -22,7 +22,7 @@
     "Humidity" : "Humidade",
     "Wind" : "Vento",
     "Cloud coverage" : "Nebulosidade",
-    "Sunrise" : "Amencer",
+    "Sunrise" : "Alborexar",
     "&nbsp;o' clock" : "&nbsp; en punto",
     "Sunset" : "Solpor",
     "today" : "hoxe",
@@ -31,6 +31,6 @@
     "tomorrow" : "mañá",
     "Remove widget" : "Retirar o trebello",
     "remove now" : "retirar agora",
-    "License" : "Licenza"
+    "License" : "Licencia"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -10,6 +10,9 @@ You can create as much widgets as you want to. Each widgets have its own setting
 * owncloud > 5 (not yet tested)
 * **no** Internet Explorer Support
 
+### widget dependencies
+* news widget max supported version 4 from news app
+
 ## translations
 The dashboard app is connected to the transiflex translation system.
 If you want to help, go there and add some translations.

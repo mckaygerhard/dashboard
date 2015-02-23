@@ -32,11 +32,7 @@
         <php min-version="5.4" max-version="5.6"/>
         <database>sqlite</database>
         <database>mysql</database>
-        <command os="linux">grep</command>
-        <command os="windows">notepad.exe</command>
-        <lib min-version="1.2">xml</lib>
-        <lib max-version="2.0">intl</lib>
         <lib>curl</lib>
-        <owncloud min-version="7.0.4" max-version="8"/>
+        <owncloud min-version="7.0.4" max-version="9"/>
     </dependencies>
 </info>

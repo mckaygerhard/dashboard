@@ -62,7 +62,7 @@ class BookmarksController extends WidgetController implements IWidgetController 
     // private services -------------------------------------------------
 
     private function checkDepedencies() {
-        return App::isEnabled('bookmarks');
+        return (App::isEnabled('bookmarks') && class_exists('OC_Bookmarks_Bookmarks'));
     }
 
     /**

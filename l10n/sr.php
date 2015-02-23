@@ -1,0 +1,31 @@
+<?php
+$TRANSLATIONS = array(
+"Dashboard" => "Командна табла",
+"Activity" => "Активност",
+"Bitcoin" => "Биткоин",
+"Bookmarks" => "Обележивачи",
+"Clock" => "Часовник",
+"Contacts" => "Контакти",
+"Dummy" => "Пробни",
+"Time" => "Време",
+"Mail" => "Пошта",
+"from" => "од",
+"News" => "Вести",
+"Tasks" => "Задаци",
+"Weather" => "Време",
+"Temperature" => "Температура",
+"Pressure" => "Притисак",
+"Humidity" => "Влажност",
+"Wind" => "Ветар",
+"Cloud coverage" => "Облачност",
+"Sunrise" => "Излазак сунца",
+"Sunset" => "Залазак сунца",
+"today" => "данас",
+"Min" => "мин",
+"Max" => "макс",
+"tomorrow" => "сутра",
+"Remove widget" => "Уклони виџет",
+"remove now" => "уклони одмах",
+"License" => "Лиценца"
+);
+$PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";

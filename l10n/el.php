@@ -15,6 +15,7 @@ $TRANSLATIONS = array(
 "from" => "από",
 "News" => "Ειδήσεις",
 "Tasks" => "Εργασίες",
+"Weather" => "Καιρός",
 "Temperature" => "Θερμοκρασία",
 "Pressure" => "Πίεση",
 "Humidity" => "Υγρασία",

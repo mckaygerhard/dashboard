@@ -16,6 +16,7 @@ OC.L10N.register(
     "from" : "από",
     "News" : "Ειδήσεις",
     "Tasks" : "Εργασίες",
+    "Weather" : "Καιρός",
     "Temperature" : "Θερμοκρασία",
     "Pressure" : "Πίεση",
     "Humidity" : "Υγρασία",

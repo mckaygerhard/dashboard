@@ -20,6 +20,7 @@ OC.L10N.register(
     "Wind" : "Ветар",
     "Cloud coverage" : "Облачност",
     "Sunrise" : "Излазак сунца",
+    "&nbsp;o' clock" : "&nbsp;сати",
     "Sunset" : "Залазак сунца",
     "today" : "данас",
     "Min" : "мин",

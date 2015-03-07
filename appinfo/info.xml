@@ -5,7 +5,7 @@
     <description>The dashboard app presents you quick and smart information.</description>
     <licence>AGPL</licence>
     <author>Florian Steffens</author>
-    <version>1.6.0beta</version>
+    <version>1.6.1</version>
     <requiremin>7</requiremin>
     <namespace>\OCA\Dashboard</namespace>
 

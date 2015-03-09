@@ -7,6 +7,7 @@ OC.L10N.register(
     "Bookmarks" : "Σελιδοδείκτες",
     "Clock" : "Ρολόι",
     "Contacts" : "Επαφές",
+    "Dummy" : "Ψεύτικος/Πλαστός",
     "Time" : "Ώρα",
     "click to generate normal status" : "επιλέξτε για να δημιουργήσετε κανονική κατάσταση",
     "click to generate new status" : "επιλέξτε για να δημιουργήσετε νέα κατάσταση",

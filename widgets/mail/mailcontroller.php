@@ -84,7 +84,9 @@ class MailController extends WidgetController implements IWidgetController {
     }
 
     private function closeConnection() {
-        imap_close($this->connection);
+        if( $this->connection ) {
+            imap_close($this->connection);
+        }
     }
 
     /**

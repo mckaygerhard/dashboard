@@ -96,7 +96,7 @@ class NewsController extends WidgetController implements IWidgetController {
      */
     private function checkDepedencies() {
         /** @noinspection PhpUndefinedMethodInspection */
-        return App::isEnabled('news');
+        return (App::isEnabled('news') && class_exists('\OCA\News\AppInfo\Application'));
     }
 
     /**
@@ -107,23 +107,20 @@ class NewsController extends WidgetController implements IWidgetController {
      * @return mixed|null
      */
     private function getNewsApp() {
-        $app = null;
-        if (class_exists('\OCA\News\App\News')) {
-            /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-            /** @noinspection PhpUndefinedClassInspection */
-            /** @noinspection PhpUndefinedNamespaceInspection */
-            $app = new \OCA\News\App\News();
-        } elseif (class_exists('\OCA\News\AppInfo\Application')) {
-            /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-            /** @noinspection PhpUndefinedClassInspection */
-            /** @noinspection PhpUndefinedNamespaceInspection */
-            $app = new \OCA\News\AppInfo\Application();
+        /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+        $app = new \OCA\News\AppInfo\Application();
+        $container = $app->getContainer();
+        $service = null;
+        try {
+            $service = $container->query('OCA\News\Service\ItemService');
+        } catch (\InvalidArgumentException $e) {
+
         }
-        if( $app ) {
-            $container = $app->getContainer();
-            return $container->query('ItemBusinessLayer');
+
+        if( !$service ) {
+            $service = $container->query('ItemService');
         }
-        return null;
+        return $service;
     }
 
     /**

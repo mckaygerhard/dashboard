@@ -59,11 +59,13 @@ class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
         $list = $data['weatherData']['list'];
         $html = '';
         $html .= '<td colspan="3"><br>';
-        foreach( $list as $item) {
-            $html .= '<div class="forecastItem">';
-            $html .= '  <img class="weatherIcon" src="'.Util::imagePath( 'dashboard', $this->getIconMapping($this->p($item['weather'][0]['icon'])) ).'" alt="weather icon" /><br>';
-            $html .= '  <div class="forecastTemp">'.substr($this->l10n->l('date', $this->p($item['dt'])), 0, -4).'<br>'.$this->round($this->p($item['temp']['day'])).$this->getTemperatureUnit($this->p($data['unit'])).'</div>';
-            $html .= '</div>';
+        if( count($list)>0 ) {
+            foreach ($list as $item) {
+                $html .= '<div class="forecastItem">';
+                $html .= '  <img class="weatherIcon" src="' . Util::imagePath('dashboard', $this->getIconMapping($this->p($item['weather'][0]['icon']))) . '" alt="weather icon" /><br>';
+                $html .= '  <div class="forecastTemp">' . substr($this->l10n->l('date', $this->p($item['dt'])), 0, -4) . '<br>' . $this->round($this->p($item['temp']['day'])) . $this->getTemperatureUnit($this->p($data['unit'])) . '</div>';
+                $html .= '</div>';
+            }
         }
         $html .= '</td>';
         return $html;

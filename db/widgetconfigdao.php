@@ -26,12 +26,13 @@ class WidgetConfigDAO {
      * @return int|\OC_DB_StatementWrapper
      */
     public function insertOrUpdateConfig($wId, $wNo, $user, $key, $value) {
+        $wNo = intval($wNo);
         $cId = $this->getConfig($wId, $wNo, $user, $key, true);
         if($cId) {
             $sql = 'UPDATE `'.$this->table.'` SET `value` = ? WHERE `id` = ? ';
             $params = array($value, $cId);
         } else {
-            $sql = 'INSERT INTO `'.$this->table.'`(`user`, `wId`, `wNo`, `key`, `value`) VALUES(?,?,?,?,?)';
+            $sql = 'INSERT INTO `'.$this->table.'`(`user`, `wid`, `wno`, `key`, `value`) VALUES(?,?,?,?,?)';
             $params = array($user, $wId, $wNo, $key, $value);
         }
         $query = $this->db->prepareQuery($sql);
@@ -51,8 +52,9 @@ class WidgetConfigDAO {
      * @return null|integer|string
      */
     public function getConfig($wId, $wNo, $user, $key, $returnId = false) {
-        $sql = 'SELECT * FROM `'.$this->table.'` WHERE `wId` = ? AND `wNo` = ? AND `user` = ? AND `key` = ?';
+        $sql = 'SELECT * FROM `'.$this->table.'` WHERE `wid` = ? AND `wno` = ? AND `user` = ? AND `key` = ?';
         $query = $this->db->prepareQuery($sql, 1);
+        $wNo = intval($wNo);
         $result = $query->execute( array($wId, $wNo, $user, $key) );
         if( $row = $result->fetchRow() ) {
             if( $returnId ) {
@@ -73,11 +75,11 @@ class WidgetConfigDAO {
      * @return int
      */
     public function getHighestNo($wId, $user) {
-        $sql = 'SELECT wNo FROM `'.$this->table.'` WHERE `wId` = ? AND `user` = ? ORDER BY wNo DESC';
+        $sql = 'SELECT `wno` FROM `'.$this->table.'` WHERE `wid` = ? AND `user` = ? ORDER BY `wno` DESC';
         $query = $this->db->prepareQuery($sql, 1);
         $result = $query->execute( array($wId, $user) );
         if( $row = $result->fetchRow() ) {
-            return intval($row['wNo']);
+            return intval($row['wno']);
         }
         return 0;
     }
@@ -95,7 +97,7 @@ class WidgetConfigDAO {
         $result = $query->execute( array($user, 'enabled', '1') );
         $arr    = array();
         while( $row = $result->fetchRow() ) {
-            $arr[] = $row['wId'].'-'.$row['wNo'];
+            $arr[] = $row['wid'].'-'.$row['wno'];
         }
         return $arr;
     }
@@ -110,8 +112,9 @@ class WidgetConfigDAO {
      * @param $user
      */
     public function removeWidgetConfigs($wId, $wNo, $user) {
-        $sql = 'DELETE FROM `'.$this->table.'` WHERE `wId` = ? AND `wNo` = ? AND `user` = ?';
+        $sql = 'DELETE FROM `'.$this->table.'` WHERE `wid` = ? AND `wno` = ? AND `user` = ?';
         $query = $this->db->prepareQuery($sql);
+        $wNo = intval($wNo);
         $query->execute( array($wId, $wNo, $user) );
     }
 }

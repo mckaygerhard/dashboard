@@ -5,7 +5,7 @@
   <overwrite>true</overwrite>
   <charset>utf8</charset>
 	<table>
-		<name>*dbprefix*dashboard_usedHashs</name>
+		<name>*dbprefix*dashboard_used_hashs</name>
 		<declaration>
 			<field>
 				<name>id</name>
@@ -16,13 +16,13 @@
 				<length>4</length>
 			</field>
 			<field>
-				<name>usedHash</name>
+				<name>used_hash</name>
 				<type>text</type>
 				<notnull>true</notnull>
 				<length>64</length>
 			</field>
 			<field>
-				<name>wIId</name>
+				<name>wiid</name>
 				<type>text</type>
 				<notnull>true</notnull>
 				<length>100</length>
@@ -59,13 +59,13 @@
 				<length>255</length>
 			</field>
 			<field>
-				<name>wId</name>
+				<name>wid</name>
 				<type>text</type>
 				<notnull>true</notnull>
 				<length>100</length>
 			</field>
 			<field>
-				<name>wNo</name>
+				<name>wno</name>
 				<type>integer</type>
 				<notnull>true</notnull>
 				<length>4</length>

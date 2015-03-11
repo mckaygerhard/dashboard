@@ -12,7 +12,7 @@ class WidgetHashDAO {
 
     public function __construct(IDb $db) {
         $this->db       = $db;
-        $this->table    = '*PREFIX*dashboard_usedHashs';
+        $this->table    = '*PREFIX*dashboard_used_hashs';
     }
 
     /**
@@ -25,7 +25,7 @@ class WidgetHashDAO {
      * @return bool
      */
     public function insertHash($wIId, $user, $usedHash) {
-        $sql = 'INSERT INTO `'.$this->table.'`(`usedHash`, `wIId`, `user`, `timestamp`) VALUES(?,?,?,?)';
+        $sql = 'INSERT INTO `'.$this->table.'`(`used_hash`, `wiid`, `user`, `timestamp`) VALUES(?,?,?,?)';
         $params = array($usedHash, $wIId, $user, time());
         $query = $this->db->prepareQuery($sql);
         return $query->execute( $params );
@@ -41,7 +41,7 @@ class WidgetHashDAO {
      * @return bool
      */
     public function updateHash($wIId, $user, $usedHash) {
-        $sql = 'UPDATE `'.$this->table.'` SET `usedHash` = ?, `timestamp` = ? WHERE `wIId` = ? AND `user` = ? ';
+        $sql = 'UPDATE `'.$this->table.'` SET `used_hash` = ?, `timestamp` = ? WHERE `wiid` = ? AND `user` = ? ';
         $params = array($usedHash, time(), $wIId, $user);
         $query = $this->db->prepareQuery($sql);
         return $query->execute( $params );
@@ -56,11 +56,11 @@ class WidgetHashDAO {
      * @return array|null
      */
     public function getHash($wIId, $user) {
-        $sql = 'SELECT * FROM `'.$this->table.'` WHERE `wIId` = ? AND `user` = ?';
+        $sql = 'SELECT * FROM `'.$this->table.'` WHERE `wiid` = ? AND `user` = ?';
         $query = $this->db->prepareQuery($sql, 1);
         $result = $query->execute( array($wIId, $user) );
         if( $row = $result->fetchRow() ) {
-            return $row['usedHash'];
+            return $row['used_hash'];
         }
         return null;
     }
@@ -86,7 +86,7 @@ class WidgetHashDAO {
      * @param $user
      */
     public function removeWidgetHashes($wIId, $user) {
-        $sql = 'DELETE FROM `'.$this->table.'` WHERE `wIId` = ? AND `user` = ?';
+        $sql = 'DELETE FROM `'.$this->table.'` WHERE `wiid` = ? AND `user` = ?';
         $query = $this->db->prepareQuery($sql);
         $query->execute( array($wIId, $user) );
     }

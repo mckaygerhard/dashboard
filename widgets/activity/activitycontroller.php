@@ -46,7 +46,7 @@ class ActivityController extends WidgetController implements IWidgetController {
             );
         } else {
             $data = array(
-                'msg'           => 'Activity app must be enabled.'
+                'msg'           => $this->l10n->t('Activity app must be enabled.')
             );
         }
 

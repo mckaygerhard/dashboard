@@ -32,7 +32,16 @@ class ActivityTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html = '';
         $html .= '<table>';
         foreach ($data['activities'] as $activity) {
-            $html .= '<tr><td><div class="priority-'.$this->p($activity['priority']).' subject"><a href="'.$this->p($activity['link']).'" title="'.$this->p($activity['subject']).'">'.\OC_Util::sanitizeHTML($this->getNiceSmallText($this->p($activity['subject']))).'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$this->getRelativeTime($this->p($activity['date'])).'</span></div></td></tr>';
+            if( !isset($activity['priority']) ) {
+                $activity['priority'] = 0;
+            }
+            $priority       = $this->p($activity['priority']);
+            $link           = $this->p($activity['link']);
+            $subject        = $this->p($activity['subject']);
+            $sSub           = $this->getNiceSmallText($this->p($activity['subject']));
+            $smallSubject   = \OC_Util::sanitizeHTML($sSub);
+            $time           = $this->getRelativeTime($this->p($activity['date']));
+            $html .= '<tr><td><div class="priority-'.$priority.' subject"><a href="'.$link.'" title="'.$subject.'">'.$smallSubject.'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$time.'</span></div></td></tr>';
         }
         $html .= '</table>';
         return $html;

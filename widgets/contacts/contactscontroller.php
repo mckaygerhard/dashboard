@@ -71,12 +71,12 @@ class ContactsController extends WidgetController implements IWidgetController {
             $id = $r['id'];
             $fn = $r['FN'];
 
-            $email = $r['EMAIL'];
+            $email = (isset($r['EMAIL'])) ? $r['EMAIL']: array();
             if (!is_array($email)) {
                 $email = array($email);
             }
 
-            $phone = $r['TEL'];
+            $phone = (isset($r['TEL'])) ? $r['TEL']: array();
             if ( !is_array($phone) ) {
                 $phone = array($phone);
             }

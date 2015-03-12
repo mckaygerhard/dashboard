@@ -16,7 +16,7 @@ use OC_L10N;
 use OCP\App;
 use OCP\Util;
 
-App::addNavigationEntry([
+App::addNavigationEntry(array(
     // the string under which your app will be referenced in owncloud
     'id' => 'dashboard',
 
@@ -34,4 +34,4 @@ App::addNavigationEntry([
     // the title of your application. This will be used in the
     // navigation or on the settings page of your app
     'name' => OC_L10N::get('dashboard')->t('Dashboard')
-]);
+));

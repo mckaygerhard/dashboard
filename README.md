@@ -4,10 +4,10 @@ You can create as much widgets as you want to. Each widgets have its own setting
 
 ## depedencies
 * PHP 5.4 (tested with 5.5)
-* Database all (sqlite and mysql tested)
+* Database all (sqlite, postgresql and mysql tested)
 * apps that are needed by widgets
 * appframework
-* owncloud > 5 (not yet tested)
+* owncloud > 5 (7 and 8 tested)
 * **no** Internet Explorer Support
 
 ### widget dependencies

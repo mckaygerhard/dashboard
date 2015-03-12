@@ -110,7 +110,7 @@ class MailController extends WidgetController implements IWidgetController {
 
         // validation
         if( $host == '' || $user == '') {
-            \OC_Log::write('dashboard', 'host oder user are missing for mail widget', \OC_Log::WARN);
+            \OC_Log::write('dashboard', 'host or user are missing for mail widget', \OC_Log::WARN);
         } else {
             $loginString = $this->getLoginString($host, $port, $folder, $cypher, $mode);
             $this->connection = $this->login($loginString, $user, $pass);
@@ -118,7 +118,6 @@ class MailController extends WidgetController implements IWidgetController {
         if( !$this->connection ) {
             $this->setStatus($this::STATUS_PROBLEM);
             \OC_Log::write('dashboard', 'could not connect to mailbox in mail widget', \OC_Log::ERROR);
-            \OC_Log::write('dashboard', imap_last_error(), \OC_Log::DEBUG);
             return false;
         } else {
             return true;

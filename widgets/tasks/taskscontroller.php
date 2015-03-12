@@ -68,7 +68,7 @@ class TasksController extends WidgetController implements IWidgetController {
         //$tasksAppTaskController = $this->getTasksAppTaskController($params);
         //return $tasksAppTaskController->completeTask();
         // ToDo
-        return 'This function is not yet implemented.'.$taskId;
+        return 'This function is not yet implemented. (id='.$taskId.')';
     }
 
     // private services -------------------------------------------------

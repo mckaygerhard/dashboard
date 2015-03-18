@@ -9,6 +9,7 @@
 namespace OCA\Dashboard\Controller;
 
 
+use OC\Server;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
 use OCA\Dashboard\Widgets\IWidgetController;
@@ -143,7 +144,7 @@ class WidgetController extends Controller {
      */
     function getAvailable() {
         $widgets = array();
-        $dir = str_replace('controller/widgetcontroller.php', '', __FILE__).'widgets/';
+        $dir = str_replace('controller'.DIRECTORY_SEPARATOR.'widgetcontroller.php', '', __FILE__).'widgets'.DIRECTORY_SEPARATOR;
         $directories    = $this->dirToArray($dir);
         foreach ($directories as $key => $dir) {
             $widgetObject   = $this->getWidgetControllerObject($key.'-0');

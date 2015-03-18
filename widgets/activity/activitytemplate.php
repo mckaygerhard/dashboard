@@ -32,16 +32,16 @@ class ActivityTemplate extends WidgetTemplate implements IWidgetTemplate {
         $html = '';
         $html .= '<table>';
         foreach ($data['activities'] as $activity) {
-            if( !isset($activity['priority']) ) {
-                $activity['priority'] = 0;
-            }
+            $prioritystyle='class="activity-section group"';
+            if( isset($activity['priority']))
+                $prioritystyle='class="activity-section group priority-'.$this->p($activity['priority']);
             $priority       = $this->p($activity['priority']);
             $link           = $this->p($activity['link']);
             $subject        = $this->p($activity['subject']);
             $sSub           = $this->getNiceSmallText($this->p($activity['subject']));
             $smallSubject   = \OC_Util::sanitizeHTML($sSub);
             $time           = $this->getRelativeTime($this->p($activity['date']));
-            $html .= '<tr><td><div class="priority-'.$priority.' subject"><a href="'.$link.'" title="'.$subject.'">'.$smallSubject.'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$time.'</span></div></td></tr>';
+            $html .= '<tr><td><div '.$prioritystyle.' subject"><a class="preview preview-dir-icon" href="'.$link.'" title="'.$subject.'">'.$smallSubject.'</a><br /><span class="hoverInfo" data-opacitynormal="0.5">'.$time.'</span></div></td></tr>';
         }
         $html .= '</table>';
         return $html;

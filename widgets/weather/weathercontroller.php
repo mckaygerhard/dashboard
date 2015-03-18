@@ -138,7 +138,7 @@ class WeatherController extends WidgetController implements IWidgetController {
         $url        = $this->getWeatherNowUrl();
         $content    = '';
         $n          = 0;
-        while( $content == '' && $n < 5) {
+        while( $content == '' && $n < 3) {
             $content    = $this->fetchContent($url);
             $n++;
             sleep(0.5);
@@ -163,7 +163,7 @@ class WeatherController extends WidgetController implements IWidgetController {
      */
     private function fetchContent($url) {
         $ch = curl_init($url);
-        $timeout = 5;
+        $timeout = 2;
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);

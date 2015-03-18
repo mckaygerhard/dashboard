@@ -9,13 +9,11 @@
 namespace OCA\Dashboard\Controller;
 
 
-use OC\Server;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
 use OCA\Dashboard\Widgets\IWidgetController;
 use OCA\Dashboard\Widgets\IWidgetTemplate;
 use OCP\AppFramework\Controller;
-use OCP\IContainer;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Util;
@@ -209,7 +207,8 @@ class WidgetController extends Controller {
         $controllerClass = 'OCA\Dashboard\Widgets\\' . ucwords($wId) . '\\' . ucwords($wId) . 'Controller';
 
         if ( class_exists($controllerClass) ) {
-            if( !$this->widgetControllerObjects[$wIId] = new $controllerClass($wNo, $this->widgetConfigDAO, $this->widgetHashDAO, $this->user, $this->l10n) ) {
+            $this->widgetControllerObjects[$wIId] = new $controllerClass($wNo, $this->widgetConfigDAO, $this->widgetHashDAO, $this->user, $this->l10n);
+            if( !$this->widgetControllerObjects[$wIId] ) {
                 Util::writeLog('dashboard', 'Could not create widget controller object (wIId = '.$wIId.')',1);
             }
         }
@@ -241,7 +240,8 @@ class WidgetController extends Controller {
         $templateClass = 'OCA\Dashboard\Widgets\\' . ucwords($wId) . '\\' . ucwords($wId) . 'Template';
 
         if ( class_exists($templateClass) ) {
-            if( !$this->widgetTemplateObjects[$wIId] = new $templateClass($wIId, $this->widgetConfigDAO, $this->l10n) ) {
+            $this->widgetTemplateObjects[$wIId] = new $templateClass($wIId, $this->widgetConfigDAO, $this->l10n);
+            if( !$this->widgetTemplateObjects[$wIId] ) {
                 Util::writeLog('dashboard', 'Could not create widget template object (wIId = '.$wIId.')',1);
             }
         }

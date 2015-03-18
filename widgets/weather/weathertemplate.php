@@ -16,6 +16,11 @@ use OCP\Util;
 class WeatherTemplate extends WidgetTemplate implements IWidgetTemplate {
 
     function getContentHtml($data = array()) {
+        // if problem exists
+        if( isset($data['msg']) ) {
+            return '<div class="msg">'.$this->p($data['msg']).'</div>';
+        }
+
         $html   = '<table>';
         $html  .= '    <tr>';
         $html  .=       $this->getTodayPart($data);

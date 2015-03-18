@@ -39,12 +39,19 @@ class WeatherController extends WidgetController implements IWidgetController {
      * @return array
      */
     public function getData() {
-        $data = array(
-            'weatherData'   => $this->getWeatherData(true),
-            'city'          => $this->getConfig('city', 'Berlin'),
-            'unit'          => $this->getConfig('unit', 'c'),
-            'weatherNow'    => $this->getWeatherNow(true)
-        );
+        if( $this->checkDependencies() ) {
+            $data = array(
+                'weatherData' => $this->getWeatherData(true),
+                'city' => $this->getConfig('city', 'Berlin'),
+                'unit' => $this->getConfig('unit', 'c'),
+                'weatherNow' => $this->getWeatherNow(true)
+            );
+        } else {
+            $this->setStatus($this::STATUS_PROBLEM);
+            $data = array(
+                'msg'     => 'Curl must be enabled.'
+            );
+        }
 
         // do not remove the following line
         // it creates the status information
@@ -55,6 +62,10 @@ class WeatherController extends WidgetController implements IWidgetController {
     // ajax call methods ---------------------------------------------
 
     // private services -------------------------------------------------
+
+    private function checkDependencies() {
+        return function_exists('curl_version');
+    }
 
     /**
      *

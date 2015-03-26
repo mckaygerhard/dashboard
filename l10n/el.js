@@ -13,6 +13,7 @@ OC.L10N.register(
     "click to generate new status" : "επιλέξτε για να δημιουργήσετε νέα κατάσταση",
     "click to generate problem status" : "επιλέξτε για να δημιουργήσετε κατάσταση προβλήματος",
     "click to generate error status" : "επιλέξτε για να δημιουργήσετε κατάσταση σφάλματος",
+    "iFrame" : "iFrame",
     "Mail" : "Ταχυδρομείο",
     "from" : "από",
     "News" : "Ειδήσεις",

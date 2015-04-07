@@ -25,6 +25,7 @@ OC.L10N.register(
     "Wind" : "Vind",
     "Cloud coverage" : "Skydække",
     "Sunrise" : "Solopgang",
+    "&nbsp;o' clock" : "&nbsp;:00",
     "Sunset" : "Solnedgang",
     "today" : "i dag",
     "Min" : "Min.",

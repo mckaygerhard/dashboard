@@ -18,7 +18,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Util;
 
-class WidgetController extends Controller {
+class RouteWidgetContentController extends Controller {
 
     private $user;
     private $widgetControllerObjects    = array();

@@ -18,7 +18,7 @@ use \OCP\AppFramework\Http\TemplateResponse;
 use \OCP\AppFramework\Controller;
 use \OCP\IL10N;
 
-class PageController extends Controller {
+class RoutePageController extends Controller {
 
     private $user;
     private $loadedScripts  = array();

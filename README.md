@@ -2,16 +2,22 @@
 This app lets you organize widgets. Each widget presents you some basic information about one topic.
 You can create as much widgets as you want to. Each widgets have its own settings area.
 
+    WANTED
+    I'm looking for help in JS.
+    If you know how js works and like to help,
+    please contact me.
+
 ## depedencies
 * PHP 5.4 (tested with 5.5)
 * Database all (sqlite, postgresql and mysql tested)
 * apps that are needed by widgets
 * appframework
-* owncloud > 5 (7 and 8 tested)
-* **no** Internet Explorer Support
+* owncloud >= 7.0.4
+* owncloud <= 8.0.2
+* **no** Internet Explorer Support (maybe one day)
 
 ### widget dependencies
-* news widget max supported version 4 from news app
+-
 
 ## translations
 The dashboard app is connected to the transiflex translation system.
@@ -31,8 +37,16 @@ If you plan to develop a new widget, please read the 'planed function -> integra
 # install or update
 To install place this app in **owncloud/apps/** and activate it in the app menu.
 If you want to update from a version < 1.5 please deactivate the old one and remove it from the apps folder.
-Additionally remove the database table *dbprefix*ocDashboard_usedHashs.
+Additionally remove the database table *dbprefix*ocDashboard_usedHashs or *dbprefix*ocDashboard_used_hashs.
 
+### update from 1.6.2
+If you like to update from version 1.6.2 to a higher one, you have to rename a table:
+* rename table '*dbprefix*dashboard_usedHashs' to '*dbprefix*dashboard_used_hashs'
+* rename column 'usedHash' to 'used_hash' in *dbprefix*dashboard_used_hashs
+* rename column 'wIId' to 'wiid' in *dbprefix*dashboard_used_hashs
+* rename colum 'wId' to 'wid' in *dbprefix*dashboard_config
+* rename colum 'wNo' to 'wno' in *dbprefix*dashboard_config
+  
 # known bugs
 * tasks can not be set as done (technical problem)
 

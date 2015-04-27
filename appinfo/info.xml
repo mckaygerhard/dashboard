@@ -5,8 +5,9 @@
     <description>The dashboard app presents you quick and smart information.</description>
     <licence>AGPL</licence>
     <author>Florian Steffens</author>
-    <version>1.6.2</version>
-    <requiremin>7</requiremin>
+    <version>1.7.0 beta</version>
+    <requiremin>7.0.4</requiremin>
+    <requiremax>8.0.2</requiremax>
     <namespace>\OCA\Dashboard</namespace>
 
     <types>
@@ -35,6 +36,6 @@
         <database>mssql</database>
         <database>pgsql</database>
         <lib>curl</lib>
-        <owncloud min-version="7.0.4" max-version="9"/>
+        <owncloud min-version="7.0.4" max-version="8.0.2"/>
     </dependencies>
 </info>

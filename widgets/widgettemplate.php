@@ -26,8 +26,6 @@ abstract class WidgetTemplate {
         $this->l10n             = $l10n;
     }
 
-    abstract function getSettingsArray();
-
     abstract function getContentHtml();
 
 

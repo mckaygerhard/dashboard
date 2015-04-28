@@ -55,6 +55,13 @@ abstract class WidgetTemplate {
         $html .= '</div>';
         return $html;
     }
+    
+    /**
+     * to override
+     */
+    public function getSettingsHtml() {
+        return Array();
+    }
 
     /**
      *

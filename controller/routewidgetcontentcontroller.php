@@ -11,6 +11,7 @@ namespace OCA\Dashboard\Controller;
 
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
+use OCA\Dashboard\Services\WidgetContentService;
 use OCA\Dashboard\Widgets\IWidgetController;
 use OCA\Dashboard\Widgets\IWidgetTemplate;
 use OCP\AppFramework\Controller;
@@ -21,20 +22,70 @@ use OCP\Util;
 class RouteWidgetContentController extends Controller {
 
     private $user;
-    private $widgetControllerObjects    = array();
-    private $widgetTemplateObjects      = array();
-    private $widgetConfigDAO;
-    private $widgetHashDAO;
+    private $l10n;
+    private $widgetContentService;
 
-    protected $l10n;
 
-    public function __construct($appName, IRequest $request, $user, WidgetConfigDAO $widgetConfigDAO, WidgetHashDAO $widgetHashDAO, IL10N $l10n){
+    public function __construct($appName, IRequest $request, $user, IL10N $l10n, WidgetContentService $widgetContentService){
         parent::__construct($appName, $request);
-        $this->user             = $user;
-        $this->widgetConfigDAO  = $widgetConfigDAO;
-        $this->widgetHashDAO    = $widgetHashDAO;
-        $this->l10n             = $l10n;
+        $this->user                 = $user;
+        $this->l10n                 = $l10n;
+        $this->widgetContentService = $widgetContentService;
     }
+
+    /**
+     *
+     * returns the complete html code for the wIId
+     *
+     * @param String $wIId
+     * @return String html
+     */
+    public function getComplete($wIId) {
+        // TODO
+        return 'ToDo';
+    }
+
+    /**
+     *
+     * return the html for the content part of the wIId
+     *
+     * @param String $wIId
+     * @return string html
+     */
+    public function getContent($wIId) {
+        // TODO
+        return 'ToDo';
+    }
+
+    /**
+     *
+     * call a widget-method
+     * you can define a key and value as strings
+     *
+     * @param $wIId
+     * @param String $key
+     * @param String $value
+     * @return bool if execution success
+     */
+    public function callMethod($wIId, $key, $value) {
+        // TODO
+        return (true);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // ROUTES ------------------------------------------------------
@@ -52,7 +103,7 @@ class RouteWidgetContentController extends Controller {
      * @param $wIId
      * @return array
      */
-    function getComplete($wIId) {
+    function x_getComplete($wIId) {
         $split  = explode('-', $wIId);
         $wId    = $split[0];
 
@@ -81,7 +132,7 @@ class RouteWidgetContentController extends Controller {
      * @param $wIId
      * @return array
      */
-    function getContent($wIId) {
+    function x_getContent($wIId) {
         $widgetController   = $this->getWidgetControllerObject($wIId);
         $widgetTemplate     = $this->getWidgetTemplateObject($wIId);
 
@@ -106,7 +157,7 @@ class RouteWidgetContentController extends Controller {
      * @param $value
      * @return array|null
      */
-    function callMethod ($wIId, $method, $value) {
+    function x_callMethod ($wIId, $method, $value) {
         $widgetController   = $this->getWidgetControllerObject($wIId);
 
         // call method if is set
@@ -127,7 +178,7 @@ class RouteWidgetContentController extends Controller {
      * @param $key
      * @param $value
      */
-    function setConfig($wIId, $key, $value) {
+    function x_setConfig($wIId, $key, $value) {
         $widgetController = $this->getWidgetControllerObject($wIId);
         $widgetController->setConfig($key, $value);
     }
@@ -140,7 +191,7 @@ class RouteWidgetContentController extends Controller {
      * @NoAdminRequired
      * @return array
      */
-    function getAvailable() {
+    function x_getAvailable() {
         $widgets = array();
         $dir = str_replace('controller'.DIRECTORY_SEPARATOR.'widgetcontroller.php', '', __FILE__).'widgets'.DIRECTORY_SEPARATOR;
         $directories    = $this->dirToArray($dir);
@@ -164,7 +215,7 @@ class RouteWidgetContentController extends Controller {
      * @param $wId
      * @return array
      */
-    function addNew($wId) {
+    function x_addNew($wId) {
         $highestNo  = $this->widgetConfigDAO->getHighestNo($wId, $this->user);
         $wNo        = intval($highestNo) + 1;
         $wIId       = $wId.'-'.$wNo;
@@ -180,7 +231,7 @@ class RouteWidgetContentController extends Controller {
      * @param $wIId
      * @return array
      */
-    function remove($wIId) {
+    function x_remove($wIId) {
         $split = explode('-', $wIId);
         $wId = $split[0];
         $wNo = $split[1];
@@ -199,7 +250,7 @@ class RouteWidgetContentController extends Controller {
      *
      * @param $wIId
      */
-    private function createWidgetControllerObject ($wIId) {
+    private function x_createWidgetControllerObject ($wIId) {
         $split = explode('-', $wIId);
         $wId = $split[0];
         $wNo = $split[1];
@@ -221,7 +272,7 @@ class RouteWidgetContentController extends Controller {
      * @param $wIId
      * @return IWidgetController
      */
-    private function getWidgetControllerObject($wIId) {
+    private function x_getWidgetControllerObject($wIId) {
         if( !isset($this->widgetControllerObjects[$wIId]) ) {
             $this->createWidgetControllerObject($wIId);
         }
@@ -234,7 +285,7 @@ class RouteWidgetContentController extends Controller {
      *
      * @param $wIId
      */
-    private function createWidgetTemplateObject ($wIId) {
+    private function x_createWidgetTemplateObject ($wIId) {
         $split = explode('-', $wIId);
         $wId   = $split[0];
         $templateClass = 'OCA\Dashboard\Widgets\\' . ucwords($wId) . '\\' . ucwords($wId) . 'Template';
@@ -254,14 +305,14 @@ class RouteWidgetContentController extends Controller {
      * @param $wIId
      * @return IWidgetTemplate
      */
-    private function getWidgetTemplateObject($wIId) {
+    private function x_getWidgetTemplateObject($wIId) {
         if( !isset($this->widgetTemplateObjects[$wIId]) ) {
             $this->createWidgetTemplateObject($wIId);
         }
         return $this->widgetTemplateObjects[$wIId];
     }
 
-    private function dirToArray($dir) {
+    private function x_dirToArray($dir) {
         $result = array();
         $cDir = scandir($dir);
         foreach ($cDir as $key => $value)

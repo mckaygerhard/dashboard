@@ -1,5 +1,6 @@
-Link: http://yuml.me/diagram/scruffy/class/draw
+Link: http://yuml.me/diagram/plain/class/draw
 Code:
+
 
 // Cool Class Diagram
 
@@ -38,21 +39,26 @@ Code:
 // ==========
 [DummyController]-^[WidgetController]
 [DummyTemplate]-^[WidgetTemplate]
-[RouteWidgetContentController]1-1[WidgetContentService]
-[RouteWidgetManagementController]1-1[WidgetManagementService]
-[WidgetController]-[WidgetConfigDAO]
-[WidgetTemplate]-[WidgetConfigDAO]
-[WidgetContentService]1-1[WidgetHashService]
-[WidgetManagementService]1-1[WidgetConfigDAO]
+[RouteWidgetContentController]-[WidgetContentService]
+[RouteWidgetManagementController]-[WidgetManagementService]
+
+[WidgetController]-[WidgetSettingsService]
+[WidgetTemplate]-[WidgetSettingsService]
+[WidgetManagementService]-[WidgetSettingsService]
+[WidgetSettingsService]-[WidgetConfigDAO]
+
+[WidgetContentService]-[WidgetHashService]
 [WidgetHashService]-[WidgetHashDAO]
-[WidgetContentService]1-*[DummyTemplate]
-[WidgetContentService]1-*[DummyController]
-[RouteWidgetSettingsController]1-1[WidgetSettingsService]
-[WidgetSettingsService]1-1[WidgetConfigDAO]
-[WidgetContentService]1-1[JsonResponse]
-[WidgetSettingsService]1-1[JsonResponse]
-[WidgetManagementService]1-1[JsonResponse]
+[WidgetContentService]-*[DummyTemplate]
+[WidgetContentService]-*[DummyController]
+[RouteWidgetSettingsController]-[WidgetSettingsService]
+
+[RouteWidgetContentController]-[JsonResponse]
+[RouteWidgetSettingsController]-[JsonResponse]
+[RouteWidgetManagementController]-[JsonResponse]
+
 [JsonResponse]-^[Response]
+[RoutePageController]-[WidgetManagementService]
 
 // implementions
 [DummyController]-.-^[\<\<IWidgetController\>\>|+setData();+getData();+getStatus();+setConfig();+getConfig(){bg:orangered}]

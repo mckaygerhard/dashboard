@@ -6,7 +6,7 @@
 * Time: 20:29
 */
 
-namespace OCA\Dashboard;
+namespace OCA\Dashboard\Services;
 
 class WidgetHashService {
 

@@ -12,12 +12,11 @@
 namespace OCA\Dashboard\AppInfo;
 
 
-use OCA\Dashboard\Controller\WidgetController;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
 use \OCP\AppFramework\App;
 use \OCP\IContainer;
-use \OCA\Dashboard\Controller\PageController;
+use \OCA\Dashboard\Controller\RoutePageController;
 use OCP\User;
 
 
@@ -33,14 +32,12 @@ class Application extends App {
 		/**
 		 * Controllers
 		 */
-        $container->registerService('PageController', function(IContainer $c) {
-            return new PageController(
+        $container->registerService('RoutePageController', function(IContainer $c) {
+            return new RoutePageController(
                 $c->query('AppName'),
                 $c->query('Request'),
                 $c->query('UserId'),
-                $c->query('WidgetConfigDAO'),
-                $c->query('L10N'),
-                $c->query('WidgetController')
+                $c->query('L10N')
             );
         });
 

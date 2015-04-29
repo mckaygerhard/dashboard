@@ -6,9 +6,9 @@
  * Time: 20:28
  */
 
-namespace OCA\Dashboard;
+namespace OCA\Dashboard\Services;
 
 
-class WidgetManagementService {
+class WidgetSettingsService {
 
 }

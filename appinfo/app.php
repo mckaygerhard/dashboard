@@ -25,7 +25,7 @@ App::addNavigationEntry(array(
     'order' => 10,
 
     // the route that will be shown on startup
-    'href' => Util::linkToRoute('dashboard.page.index'),
+    'href' => Util::linkToRoute('dashboard.routePage.index'),
 
     // the icon that will be shown in the navigation
     // this file needs to exist in img/

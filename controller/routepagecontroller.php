@@ -23,20 +23,29 @@ class RoutePageController extends Controller {
     private $user;
     private $loadedScripts  = array();
     private $loadedStyles   = array();
-    private $widgetConfigDAO;
     private $l10n;
-    private $widgetController;
 
-    public function __construct($appName, IRequest $request, $user, WidgetConfigDAO $widgetConfigDAO, IL10N $l10n, WidgetController $widgetController){
+    public function __construct($appName, IRequest $request, $user, IL10N $l10n){
         parent::__construct($appName, $request);
         $this->user             = $user;
-        $this->widgetConfigDAO  = $widgetConfigDAO;
         $this->l10n             = $l10n;
-        $this->widgetController = $widgetController;
+    }
+
+    /**
+     *
+     * main index
+     *
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function index() {
+        $params = array(
+            'user'              => $this->user,
+        );
+        return new TemplateResponse('dashboard', 'main', $params);
     }
 
 
-    // routes --------------------------------------------------------------------------------
 
     /**
      *
@@ -51,7 +60,7 @@ class RoutePageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index() {
+    public function x_index() {
         $enabledWidgets     = $this->getEnabledWidgets();
         $this->loadWidgetJs($enabledWidgets);
         $this->loadWidgetCss($enabledWidgets);
@@ -72,7 +81,7 @@ class RoutePageController extends Controller {
      *
      * @return array
      */
-    private function getEnabledWidgets() {
+    private function x_getEnabledWidgets() {
         $enabledWidgets = $this->widgetConfigDAO->findEnabledWidgets($this->user);
 
         $widgets = array();
@@ -105,7 +114,7 @@ class RoutePageController extends Controller {
      * @param $b
      * @return int
      */
-    private function sortWidgetOrder($a, $b) {
+    private function x_sortWidgetOrder($a, $b) {
         if ($a['order'] == $b['order']) {
             return 0;
         }
@@ -117,7 +126,7 @@ class RoutePageController extends Controller {
      * load all javascript files from all enabled widgets
      *
      */
-    private function loadWidgetJs() {
+    private function x_loadWidgetJs() {
         $widgets = $this->widgetController->getAvailable();
 
         foreach ($widgets as $widget) {
@@ -139,7 +148,7 @@ class RoutePageController extends Controller {
      * load all css files from all enabled widgets
      *
      */
-    private function loadWidgetCss() {
+    private function x_loadWidgetCss() {
         $widgets = $this->widgetController->getAvailable();
 
         foreach ($widgets as $widget) {
@@ -163,7 +172,7 @@ class RoutePageController extends Controller {
      * @param $wId
      * @return string
      */
-    private function getWidgetJsPath($wId) {
+    private function x_getWidgetJsPath($wId) {
         return 'dashboard/widgets/'.$wId.'/script';
     }
 
@@ -174,7 +183,7 @@ class RoutePageController extends Controller {
      * @param $wId
      * @return string
      */
-    private function getWidgetCssPath($wId) {
+    private function x_getWidgetCssPath($wId) {
         return 'dashboard/widgets/'.$wId.'/style';
     }
 

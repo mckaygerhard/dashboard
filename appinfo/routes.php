@@ -21,13 +21,33 @@ namespace OCA\Dashboard\AppInfo;
  */
 $application = new Application();
 
-$application->registerRoutes($this, array('routes' => array(
-	array('name' => 'page#index',           'url' => '/',                           'verb' => 'GET'),
-    array('name' => 'widget#get_complete',  'url' => '/widget/complete',            'verb' => 'POST'),
-    array('name' => 'widget#get_content',   'url' => '/widget/content',             'verb' => 'POST'),
-    array('name' => 'widget#call_method',   'url' => '/widget/call',                'verb' => 'POST'),
-    array('name' => 'widget#set_config',    'url' => '/widget/config',              'verb' => 'POST'),
-    array('name' => 'widget#get_available', 'url' => '/widget/getAvailable',        'verb' => 'POST'),
-    array('name' => 'widget#add_new',       'url' => '/widget/addNew',              'verb' => 'POST'),
-    array('name' => 'widget#remove',        'url' => '/widget/remove',              'verb' => 'POST'),
-)));
+$application->registerRoutes(
+    $this,
+    array(
+        'routes' => array(
+            // index
+            array('name' => 'routePage#index',                              'url' => '/',                                   'verb' => 'GET'   ),
+
+            // widget content
+            array('name' => 'routeWidgetContent#get_complete',              'url' => '/widget/content/getComplete/{wiid}',  'verb' => 'GET'   ),
+            array('name' => 'routeWidgetContent#get_content',               'url' => '/widget/content/getContent/{wiid}',   'verb' => 'GET'   ),
+            array('name' => 'routeWidgetContent#call_method',               'url' => '/widget/content/callMethod',          'verb' => 'POST'  ),
+
+            // widget settings
+            array('name' => 'routeWidgetSettings#set_config',               'url' => '/widget/settings/setConfig',          'verb' => 'POST'  ),
+            array('name' => 'routeWidgetSettings#get_config',               'url' => '/widget/settings/getConfig',          'verb' => 'GET'   ),
+
+            // widget management
+            array('name' => 'routeWidgetManagement#get_enabled_widgets',    'url' => '/widget/management/enabled',          'verb' => 'GET'   ),
+            array('name' => 'routeWidgetManagement#get_available_widgets',  'url' => '/widget/management/available',        'verb' => 'GET'   ),
+            array('name' => 'routeWidgetManagement#add_new_instance',       'url' => '/widget/management/add/{wid}',        'verb' => 'PUT'   ),
+            array('name' => 'routeWidgetManagement#remove_instance',        'url' => '/widget/management/remove/{wiid}',    'verb' => 'DELETE'),
+            array('name' => 'routeWidgetManagement#enable_widget',          'url' => '/widget/management/enable/{wid}',     'verb' => 'PUT'   ),
+            array('name' => 'routeWidgetManagement#disable_widget',         'url' => '/widget/management/disable/{wid}',    'verb' => 'PUT'   ),
+
+            // settings
+            array('name' => 'routeSettings#get_config',                     'url' => '/settings/{key}',                     'verb' => 'GET'   ),
+            array('name' => 'routeSettings#set_config',                     'url' => '/settings',                           'verb' => 'POST'  ),
+        )
+    )
+);

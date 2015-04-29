@@ -1,0 +1,59 @@
+Link: http://yuml.me/diagram/scruffy/class/draw
+Code:
+
+// Cool Class Diagram
+
+// Entities
+// *********
+
+// Package: Controller
+[RouteWidgetContentController||+getComplete($wIId);+getContent($wIId);+callMethod($wIId $key $value){bg:steelblue}]
+[RoutePageController|+index(){bg:steelblue}]
+[RouteWidgetManagementController||+getEnabled();+addNewInstance($wIId);+removeInstance($wIId);+enable($wId);+disable($wId);+getAvailable(){bg:steelblue}]
+[RouteWidgetSettingsController||+setConfig($wIId $key $value);+getConfig($wIId $key){bg:steelblue}]
+
+// Package: widgets
+[WidgetController||+getConfig();+setConfig();#getStatus();#setStatus();#setHash(){bg:lightsalmon}]
+[WidgetTemplate||+getHtml();#p($string): string;#print_unescaped($string): string{bg:lightsalmon}]
+
+// Package: widgets/dummy
+[DummyController||+setData();+getData();+generateStatus(){bg:darksalmon}]
+[DummyTemplate||+getContentHtml();+getSettingsArray();getLicenseInfo(){bg:darksalmon}]
+
+// Package: DB
+[WidgetConfigDAO||+insertOrUpdateConfig(): boolean;+getConfig(): string;+getHighestNo(): int;+findEnabledWidgets(): array\<wIId\>;+removeWidgetConfigs(){bg:green}]
+[WidgetHashDAO||+insertHash(): boolean;+updateHash(): boolean;+getHash(): string;+removeOldHashes();+removeWidgetHashes(){bg:green}]
+
+// Package: Services
+[WidgetContentService||+getComplete($wIId);+getContent($wIId);+callMethod($wIId $key $value){bg:yellow}]
+[WidgetManagementService||+getAvailable();+getEnabled();+enable();+disable();+getNumberOfInstances();-refreshAvailable(){bg:yellow}]
+[WidgetSettingsService||+setConfig($wIId $key $value);+getConfig($wIId $key){bg:yellow}]
+[WidgetHashService||+registerDataset();+removeOldHashes();+removeHashesForWidget($wIId){bg:yellow}]
+
+// Div
+[JsonResponse||+render();+setData($data);+getData();+setStatus($status);+getStatus(){bg:azure}]
+[Response]
+
+// Relations
+// ==========
+[DummyController]-^[WidgetController]
+[DummyTemplate]-^[WidgetTemplate]
+[RouteWidgetContentController]1-1[WidgetContentService]
+[RouteWidgetManagementController]1-1[WidgetManagementService]
+[WidgetController]-[WidgetConfigDAO]
+[WidgetTemplate]-[WidgetConfigDAO]
+[WidgetContentService]1-1[WidgetHashService]
+[WidgetManagementService]1-1[WidgetConfigDAO]
+[WidgetHashService]-[WidgetHashDAO]
+[WidgetContentService]1-*[DummyTemplate]
+[WidgetContentService]1-*[DummyController]
+[RouteWidgetSettingsController]1-1[WidgetSettingsService]
+[WidgetSettingsService]1-1[WidgetConfigDAO]
+[WidgetContentService]1-1[JsonResponse]
+[WidgetSettingsService]1-1[JsonResponse]
+[WidgetManagementService]1-1[JsonResponse]
+[JsonResponse]-^[Response]
+
+// implementions
+[DummyController]-.-^[\<\<IWidgetController\>\>|+setData();+getData();+getStatus();+setConfig();+getConfig(){bg:orangered}]
+[DummyTemplate]-.-^[\<\<IWidgetTemplate\>\>|+getContentHtml();+getSettingsArray();+getHtml(){bg:orangered}]

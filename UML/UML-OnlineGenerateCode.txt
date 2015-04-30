@@ -14,7 +14,7 @@ Code:
 [RouteWidgetSettingsController||+setConfig($wIId $key $value);+getConfig($wIId $key){bg:steelblue}]
 
 // Package: widgets
-[WidgetController||+getConfig();+setConfig();#getStatus();#setStatus();#setHash(){bg:lightsalmon}]
+[WidgetController||#getStatus();#setStatus();{bg:lightsalmon}]
 [WidgetTemplate||+getHtml();#p($string): string;#print_unescaped($string): string{bg:lightsalmon}]
 
 // Package: widgets/dummy
@@ -27,7 +27,7 @@ Code:
 
 // Package: Services
 [WidgetContentService||+getComplete($wIId);+getContent($wIId);+callMethod($wIId $key $value){bg:yellow}]
-[WidgetManagementService||+getAvailable();+getEnabled();+enable();+disable();+getNumberOfInstances();-refreshAvailable(){bg:yellow}]
+[WidgetManagementService||+getAvailable();+getEnabled();+enable();+disable();+addNewInstance($wIId);+removeInstance($wIId);+getNumberOfInstances();-refreshAvailable();-getNextInstanceNumber($wId){bg:yellow}]
 [WidgetSettingsService||+setConfig($wIId $key $value);+getConfig($wIId $key){bg:yellow}]
 [WidgetHashService||+registerDataset();+removeOldHashes();+removeHashesForWidget($wIId){bg:yellow}]
 
@@ -41,22 +41,18 @@ Code:
 [DummyTemplate]-^[WidgetTemplate]
 [RouteWidgetContentController]-[WidgetContentService]
 [RouteWidgetManagementController]-[WidgetManagementService]
-
 [WidgetController]-[WidgetSettingsService]
 [WidgetTemplate]-[WidgetSettingsService]
 [WidgetManagementService]-[WidgetSettingsService]
 [WidgetSettingsService]-[WidgetConfigDAO]
-
 [WidgetContentService]-[WidgetHashService]
 [WidgetHashService]-[WidgetHashDAO]
 [WidgetContentService]-*[DummyTemplate]
 [WidgetContentService]-*[DummyController]
 [RouteWidgetSettingsController]-[WidgetSettingsService]
-
 [RouteWidgetContentController]-[JsonResponse]
 [RouteWidgetSettingsController]-[JsonResponse]
 [RouteWidgetManagementController]-[JsonResponse]
-
 [JsonResponse]-^[Response]
 [RoutePageController]-[WidgetManagementService]
 

@@ -7,7 +7,7 @@
     <author>Florian Steffens</author>
     <version>1.7.0 beta</version>
     <requiremin>7.0.4</requiremin>
-    <requiremax>8.0.2</requiremax>
+    <requiremax>8.0.5</requiremax>
     <namespace>\OCA\Dashboard</namespace>
 
     <types>
@@ -36,6 +36,6 @@
         <database>mssql</database>
         <database>pgsql</database>
         <lib>curl</lib>
-        <owncloud min-version="7.0.4" max-version="8.0.2"/>
+        <owncloud min-version="7.0.4" max-version="8.0.3"/>
     </dependencies>
 </info>

@@ -11,9 +11,11 @@
 (function ($, OC) {
 
 	$(document).ready(function () {
+        //alert('start');
 
         dashboard.loadEnabledWidgets();
         dashboard.addEnabledWidgets();
+        /*
         dashboard.initControl();
 
         $('#widgets').on('change', '.widget .settings .setting', function () {
@@ -29,6 +31,7 @@
             var wIId = $(this).data('wiid');
             dashboard.removeWidget(wIId);
         });
+        */
 
 	});
 
@@ -39,7 +42,13 @@
 dashboard = {
 
     // holds all enabled widgets as array
+    // enabled widgets are the widgets,
+    // that a user added for its dashboard
     enabledWidgets: [],
+
+    // holds all widgets that are available
+    // used for adding new widget instances
+    availableWidgets: [],
 
     // holds all wIIds that are not yet added
     setToAdd: [],
@@ -52,6 +61,39 @@ dashboard = {
 
     // callback that will be called after a widget refresh
     widgetCallback: [],
+
+
+
+
+
+    // load enabled widgets
+    loadEnabledWidgets: function () {
+        var url     = OC.generateUrl('/apps/dashboard/widget/management/enabled',[]);
+        $.ajax({
+            url: url,
+            method: 'GET'
+        }).done(function (r) {
+            dashboard.enabledWidgets = r.wIIds;
+        }).fail(function () {
+            alert('Could not load enabled widget instances.');
+        });
+    },
+
+    // load available widgets
+    loadAvailableWidgets: function () {
+        var url     = OC.generateUrl('/apps/dashboard/widget/management/available',[]);
+        $.ajax({
+            url: url,
+            method: 'GET'
+        }).done(function (r) {
+            dashboard.availableWidgets = r.wIds;
+        }).fail(function () {
+            alert('Could not load available widgets.');
+        });
+    },
+
+
+
 
     // set or unset wIId from hovered widget
     setHoverWIId: function(wIId) {
@@ -134,24 +176,26 @@ dashboard = {
         }
     },
 
-    // show enabled widgets
-    loadEnabledWidgets: function () {
-        dashboard.enabledWidgets = $('#app-content').data('enabledwidgets');
-    },
 
     // fetch the html from a enabled widget and append it
     addCompleteWidget: function (wIId, callback) {
         dashboard.showWaitSymbol();
-        var url = OC.generateUrl('/apps/dashboard/widget/complete');
+        var url = OC.generateUrl('/apps/dashboard/widget/content/getComplete/' + wIId, []);
+        alert(url);
         var data = {
             wIId: wIId
         };
 
-        var posting = $.post(url, data);
-        posting.success(function (response) {
+        $.ajax({
+            url:        url,
+            method:     'GET',
+            contentType:'application/json',
+            data:       JSON.stringify(data)
+        }).done(function (response) {
+            alert('got complete widget');
             var html =  '<div class="widget ' + response.wId + ' ' + wIId + ' status-' + response.status + ' dimension-' + response.dimension + '" data-refresh="' + response.refresh + '" data-wiid="' + wIId + '" data-mode="content">' +
-                            response.widgetHtml +
-                        '</div>';
+                response.widgetHtml +
+                '</div>';
             $('#widgets').append( html );
 
             // bind event for widget content reloading
@@ -186,8 +230,7 @@ dashboard = {
                 );
             }
             dashboard.hideWaitSymbol();
-        });
-        posting.done(function() {
+
             callback();
             dashboard.hideOrShowWidgetInformation();
 
@@ -196,8 +239,9 @@ dashboard = {
             if( dashboard.widgetCallback[wId] != 'undefined' ) {
                 dashboard.widgetCallback[wId]();
             }
-        });
-        posting.error(function () {
+
+        }).fail(function () {
+            alert('Could not load complete widget.');
             dashboard.setWidgetStatus(wIId, 3);
         });
     },
@@ -306,7 +350,7 @@ dashboard = {
     },
 
     // load available widgets for widget-control
-    loadAvailableWidgets: function () {
+    x_loadAvailableWidgets: function () {
         var url = OC.generateUrl('/apps/dashboard/widget/getAvailable');
         var data = {};
         $.post(url, data).success(function (response) {
@@ -345,5 +389,17 @@ dashboard = {
 
     showWaitSymbol: function() {
         $('#app-content .wait').fadeIn();
+    },
+
+    testShowEnabledWidgets: function() {
+        dashboard.enabledWidgets.forEach(function(item){
+            alert(item);
+        });
+    },
+
+    testShowAvailableWidgets: function() {
+        dashboard.availableWidgets.forEach(function(item){
+            alert(item);
+        });
     }
 }

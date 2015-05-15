@@ -32,7 +32,7 @@ class WidgetConfigDAO {
             $sql = 'UPDATE `'.$this->table.'` SET `value` = ? WHERE `id` = ? ';
             $params = array($value, $cId);
         } else {
-            $sql = 'INSERT INTO `'.$this->table.'`(`user`, `wid`, `wno`, `key`, `value`) VALUES(?,?,?,?,?)';
+            $sql = 'INSERT INTO `' .$this->table.'`(`user`, `wid`, `wno`, `key`, `value`) VALUES(?,?,?,?,?)';
             $params = array($user, $wId, $wNo, $key, $value);
         }
         $query = $this->db->prepareQuery($sql);

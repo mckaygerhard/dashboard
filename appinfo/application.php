@@ -12,11 +12,11 @@
 namespace OCA\Dashboard\AppInfo;
 
 
-use OCA\Dashboard\Db\WidgetConfigDAO;
-use OCA\Dashboard\Db\WidgetHashDAO;
+
+use OCA\Dashboard\Controller\RoutePageController;
+use OCA\Dashboard\Controller\RouteWidgetManagementController;
 use \OCP\AppFramework\App;
 use \OCP\IContainer;
-use \OCA\Dashboard\Controller\RoutePageController;
 use OCP\User;
 
 
@@ -36,32 +36,16 @@ class Application extends App {
             return new RoutePageController(
                 $c->query('AppName'),
                 $c->query('Request'),
-                $c->query('UserId'),
-                $c->query('L10N')
+                $c->query('UserId')
             );
         });
 
-        $container->registerService('WidgetController', function(IContainer $c) {
-            return new WidgetController(
+        $container->registerService('RouteWidgetManagementController', function(IContainer $c) {
+            return new RouteWidgetManagementController(
                 $c->query('AppName'),
                 $c->query('Request'),
-                $c->query('UserId'),
-                $c->query('WidgetConfigDAO'),
-                $c->query('WidgetHashDAO'),
-                $c->query('L10N')
+                $c->query('UserId')
             );
-        });
-
-
-        /**
-         * Database Layer
-         */
-        $container->registerService('WidgetConfigDAO', function($c) {
-            return new WidgetConfigDAO($c->query('ServerContainer')->getDb());
-        });
-
-        $container->registerService('WidgetHashDAO', function($c) {
-            return new WidgetHashDAO($c->query('ServerContainer')->getDb());
         });
 
 

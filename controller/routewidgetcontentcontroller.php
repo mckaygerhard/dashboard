@@ -26,10 +26,11 @@ class RouteWidgetContentController extends Controller {
     private $widgetContentService;
 
 
-    public function __construct($appName, IRequest $request, $user, IL10N $l10n, WidgetContentService $widgetContentService){
+    public function __construct($appName, IRequest $request, $user, IL10N $l10n, WidgetContentService $widgetContentService)
+    {
         parent::__construct($appName, $request);
-        $this->user                 = $user;
-        $this->l10n                 = $l10n;
+        $this->user = $user;
+        $this->l10n = $l10n;
         $this->widgetContentService = $widgetContentService;
     }
 
@@ -40,9 +41,16 @@ class RouteWidgetContentController extends Controller {
      * @param String $wIId
      * @return String html
      */
-    public function getComplete($wIId) {
+    public function getComplete($wIId)
+    {
         // TODO
-        return 'ToDo';
+        return array(
+            'wId'       => 'dummy',
+            'wIId'      => 'dummy-0',
+            'status'    => 1,
+            'dimension' => '1x1',
+            'html'      => 'test html'
+        );
     }
 
     /**
@@ -52,7 +60,8 @@ class RouteWidgetContentController extends Controller {
      * @param String $wIId
      * @return string html
      */
-    public function getContent($wIId) {
+    public function getContent($wIId)
+    {
         // TODO
         return 'ToDo';
     }
@@ -67,7 +76,8 @@ class RouteWidgetContentController extends Controller {
      * @param String $value
      * @return bool if execution success
      */
-    public function callMethod($wIId, $key, $value) {
+    public function callMethod($wIId, $key, $value)
+    {
         // TODO
         return (true);
     }

@@ -13,16 +13,13 @@ interface IWidgetController {
 
     /**
      *
-     * you have to implement this method!
      * always set:
      *  - icon      (icon for the widget)
      *  - refresh   (refresh interval; 0=none)
      *  - name      (name (not id) of the widget)
      *
-     * this method will be automatically called from the constructor
-     *
      */
-    public function setData();
+    public function getBasicConfig();
 
     /**
      *
@@ -38,18 +35,27 @@ interface IWidgetController {
      *
      * @return mixed
      */
-    function getStatus();
+    public function getStatus();
 
     /**
      *
-     * you can set config values FOR THIS WIDGET-INSTANCE AND USER
+     * you can set config values
+     * FOR THIS WIDGET-INSTANCE AND USER
      *
      * @param $key
      * @param $value
      * @return mixed
      */
-    function setConfig($key, $value);
+    public function setConfig($key, $value);
 
-    function getConfig($key);
+    /**
+     *
+     * get config from db
+     * FOR THIS WIDGET-INSTANCE AND USER
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function getConfig($key);
 
 } 

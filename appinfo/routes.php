@@ -26,10 +26,10 @@ $application->registerRoutes(
     array(
         'routes' => array(
             // index
-            array('name' => 'routePage#index',                              'url' => '/',                                   'verb' => 'GET'   ),
+            array('name' => 'route_page#index',                              'url' => '/',                                   'verb' => 'GET'   ),
 
             // widget content
-            array('name' => 'routeWidgetContent#get_complete',              'url' => '/widget/content/getComplete/{wiid}',  'verb' => 'GET'   ),
+            array('name' => 'route_widget_content#get_complete',            'url' => '/widget/content/getComplete/{wiid}',  'verb' => 'GET'   ),
             array('name' => 'routeWidgetContent#get_content',               'url' => '/widget/content/getContent/{wiid}',   'verb' => 'GET'   ),
             array('name' => 'routeWidgetContent#call_method',               'url' => '/widget/content/callMethod',          'verb' => 'POST'  ),
 
@@ -38,8 +38,8 @@ $application->registerRoutes(
             array('name' => 'routeWidgetSettings#get_config',               'url' => '/widget/settings/getConfig',          'verb' => 'GET'   ),
 
             // widget management
-            array('name' => 'routeWidgetManagement#get_enabled_widgets',    'url' => '/widget/management/enabled',          'verb' => 'GET'   ),
-            array('name' => 'routeWidgetManagement#get_available_widgets',  'url' => '/widget/management/available',        'verb' => 'GET'   ),
+            array('name' => 'route_widget_management#get_enabled_widgets',  'url' => '/widget/management/enabled',          'verb' => 'GET'   ),
+            array('name' => 'route_widget_management#get_available_widgets','url' => '/widget/management/available',        'verb' => 'GET'   ),
             array('name' => 'routeWidgetManagement#add_new_instance',       'url' => '/widget/management/add/{wid}',        'verb' => 'PUT'   ),
             array('name' => 'routeWidgetManagement#remove_instance',        'url' => '/widget/management/remove/{wiid}',    'verb' => 'DELETE'),
             array('name' => 'routeWidgetManagement#enable_widget',          'url' => '/widget/management/enable/{wid}',     'verb' => 'PUT'   ),

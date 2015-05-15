@@ -1,6 +1,9 @@
 <?php
 
+// JS Scripts
 \OCP\Util::addScript('dashboard', 'script');
+
+// CSS Styles
 \OCP\Util::addStyle('dashboard', 'widgets');
 \OCP\Util::addStyle('dashboard', 'control');
 

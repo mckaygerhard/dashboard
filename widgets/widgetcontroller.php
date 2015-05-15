@@ -12,15 +12,11 @@ namespace OCA\Dashboard\Widgets;
 use OC;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
+use OCA\Dashboard\Service\WidgetSettingsService;
 use OCP\AppFramework\Controller;
 use OCP\IL10N;
 
 abstract class WidgetController extends Controller {
-
-    const STATUS_OKAY       = 0;
-    const STATUS_NEW        = 1;
-    const STATUS_PROBLEM    = 2;
-    const STATUS_ERROR      = 3;
 
     protected $icon;
     protected $refresh;
@@ -30,16 +26,10 @@ abstract class WidgetController extends Controller {
     protected $wNo;
     protected $dataHash;
     protected $link;
-    protected $status       =  0;
+    protected $status;
 
-    protected $widgetConfigDAO;
-    protected $widgetHashDAO;
-    protected $l10n;
-
-    // this key will be stored encrypted in the db
-    protected $encryptAttributes = array(
-        'password'
-    );
+    protected $L10N;
+    protected $widgetSettingsService;
 
 
     // abstract and magic methods ----------------------------------------------
@@ -48,20 +38,13 @@ abstract class WidgetController extends Controller {
 
     public abstract function getData();
 
-    /**
-     * @param $wNo
-     * @param WidgetConfigDAO $widgetConfigDAO
-     * @param WidgetHashDAO $widgetHashDAO
-     * @param $user
-     * @param IL10N $l10n
-     */
-    function __construct($wNo,WidgetConfigDAO $widgetConfigDAO, WidgetHashDAO $widgetHashDAO, $user, IL10N $l10n) {
+
+    function __construct($wNo,WidgetSettingsService $widgetSettingsService, $user, IL10N $l10n) {
         $this->wNo              = intval($wNo);
-        $this->widgetConfigDAO  = $widgetConfigDAO;
-        $this->widgetHashDAO    = $widgetHashDAO;
         $this->user             = $user;
-        $this->l10n             = $l10n;
+        $this->L10N             = $l10n;
         $this->setData();
+        $this->widgetSettingsService    = $widgetSettingsService;
     }
 
 
@@ -90,6 +73,18 @@ abstract class WidgetController extends Controller {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      *
      * remove old hashes
@@ -98,7 +93,7 @@ abstract class WidgetController extends Controller {
      *
      * @param $data
      */
-    protected function setHash($data) {
+    protected function x_setHash($data) {
         $this->widgetHashDAO->removeOldHashes();
         $hash = sha1(json_encode($data));
         $usedHash = $this->widgetHashDAO->getHash($this->getConfig('wIId'), $this->user);
@@ -124,7 +119,7 @@ abstract class WidgetController extends Controller {
      * {'string', 'int', 'bool'}
      * @return string
      */
-    public function getConfig ( $key, $default = '', $returnType = 'string' ) {
+    public function x_getConfig ( $key, $default = '', $returnType = 'string' ) {
         $value = null;
         switch( $key ) {
             case 'wIId':
@@ -184,7 +179,7 @@ abstract class WidgetController extends Controller {
      * @param $value
      * @return bool
      */
-    public function setConfig ( $key, $value ) {
+    public function x_setConfig ( $key, $value ) {
         if( in_array($key, $this->encryptAttributes) ) {
             /** @noinspection PhpUndefinedClassInspection */
             $value = OC::$server->getCrypto()->encrypt($value);

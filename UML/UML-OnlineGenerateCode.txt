@@ -11,14 +11,14 @@ Code:
 [RouteWidgetContentController||+getComplete($wIId);+getContent($wIId);+callMethod($wIId $key $value){bg:steelblue}]
 [RoutePageController|+index(){bg:steelblue}]
 [RouteWidgetManagementController||+getEnabled();+addNewInstance($wIId);+removeInstance($wIId);+enable($wId);+disable($wId);+getAvailable(){bg:steelblue}]
-[RouteWidgetSettingsController||+setConfig($wIId $key $value);+getConfig($wIId $key){bg:steelblue}]
+[RouteWidgetSettingsController||+setConfig($wIId $key $value);+getConfig($wIId $key $default){bg:steelblue}]
 
 // Package: widgets
-[WidgetController||#getStatus();#setStatus();{bg:lightsalmon}]
+[WidgetController|#messages;#errors;#problems|#getStatus();#generateStatus();{bg:lightsalmon}]
 [WidgetTemplate||+getHtml();#p($string): string;#print_unescaped($string): string{bg:lightsalmon}]
 
 // Package: widgets/dummy
-[DummyController||+setData();+getData();+generateStatus(){bg:darksalmon}]
+[DummyController||+getData();+someMethod($value){bg:darksalmon}]
 [DummyTemplate||+getContentHtml();+getSettingsArray();getLicenseInfo(){bg:darksalmon}]
 
 // Package: DB
@@ -55,7 +55,8 @@ Code:
 [RouteWidgetManagementController]-[JsonResponse]
 [JsonResponse]-^[Response]
 [RoutePageController]-[WidgetManagementService]
+[WidgetContentService]-[WidgetManagementService]
 
 // implementions
-[DummyController]-.-^[\<\<IWidgetController\>\>|+setData();+getData();+getStatus();+setConfig();+getConfig(){bg:orangered}]
+[DummyController]-.-^[\<\<IWidgetController\>\>|+getBasicConfig();+getData(){bg:orangered}]
 [DummyTemplate]-.-^[\<\<IWidgetTemplate\>\>|+getContentHtml();+getSettingsArray();+getHtml(){bg:orangered}]

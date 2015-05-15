@@ -3,7 +3,7 @@
 namespace OCA\Dashboard\Db;
 
 use \OCP\IDb;
-use OCP\Util;
+
 
 class WidgetHashDAO {
 

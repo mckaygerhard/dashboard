@@ -94,7 +94,7 @@ abstract class WidgetTemplate {
      * @param IWidgetController $widgetController
      * @return string
      */
-    private function getSettingsHtml(IWidgetController $widgetController) {
+    private function x_getSettingsHtml(IWidgetController $widgetController) {
         // this settings are available for every widget instance
         $defaultSettings        = $this->getDefaultSettings();
 
@@ -129,7 +129,7 @@ abstract class WidgetTemplate {
      * @param IWidgetController $widgetController
      * @return string
      */
-    private function getSettingsField($setting, $key, IWidgetController $widgetController) {
+    private function x_getSettingsField($setting, $key, IWidgetController $widgetController) {
         $type   = (isset($setting['type'])) ? $setting['type']: '';
         $value  = $this->getValueForField($key, $setting['default'], $widgetController);
         $wIId    = $widgetController->getConfig('wIId');

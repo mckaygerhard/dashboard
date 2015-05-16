@@ -26,12 +26,11 @@ class RouteWidgetContentController extends Controller {
     private $widgetContentService;
 
 
-    public function __construct($appName, IRequest $request, $user, IL10N $l10n, WidgetContentService $widgetContentService)
+    public function __construct($appName, IRequest $request, $user)
     {
         parent::__construct($appName, $request);
         $this->user = $user;
-        $this->l10n = $l10n;
-        $this->widgetContentService = $widgetContentService;
+        //$this->l10n = $l10n;
     }
 
     /**
@@ -39,6 +38,7 @@ class RouteWidgetContentController extends Controller {
      * returns the complete html code for the wIId
      *
      * @param String $wIId
+     * @NoCSRFRequired
      * @return String html
      */
     public function getComplete($wIId)
@@ -49,7 +49,8 @@ class RouteWidgetContentController extends Controller {
             'wIId'      => 'dummy-0',
             'status'    => 1,
             'dimension' => '1x1',
-            'html'      => 'test html'
+            'refresh'   => '50',
+            'widgetHtml'=> '<div class="content">test html (wIId: '.$wIId.')</div>'
         );
     }
 
@@ -57,13 +58,18 @@ class RouteWidgetContentController extends Controller {
      *
      * return the html for the content part of the wIId
      *
+     * @NoCSRFRequired
      * @param String $wIId
      * @return string html
      */
     public function getContent($wIId)
     {
         // TODO
-        return 'ToDo';
+        return array(
+            'wIId'      => 'dummy-0',
+            'status'    => 2,
+            'widgetHtml'=> '<div class="content">'.time().' (wIId: '.$wIId.')</div>'
+        );
     }
 
     /**

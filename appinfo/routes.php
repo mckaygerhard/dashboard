@@ -30,7 +30,7 @@ $application->registerRoutes(
 
             // widget content
             array('name' => 'route_widget_content#get_complete',            'url' => '/widget/content/getComplete/{wiid}',  'verb' => 'GET'   ),
-            array('name' => 'routeWidgetContent#get_content',               'url' => '/widget/content/getContent/{wiid}',   'verb' => 'GET'   ),
+            array('name' => 'route_widget_content#get_content',             'url' => '/widget/content/getContent/{wiid}',   'verb' => 'GET'   ),
             array('name' => 'routeWidgetContent#call_method',               'url' => '/widget/content/callMethod',          'verb' => 'POST'  ),
 
             // widget settings

@@ -11,29 +11,31 @@
 (function ($, OC) {
 
 	$(document).ready(function () {
-        //alert('start');
+        if( dashboard.debug ) {
+            console.log('Start with debugging');
+        }
 
-        dashboard.loadEnabledWidgets();
         dashboard.addEnabledWidgets();
+
+
+         dashboard.initControl();
         /*
-        dashboard.initControl();
 
-        $('#widgets').on('change', '.widget .settings .setting', function () {
-            dashboard.setConfig($(this).data('wiid'),$(this).attr('name'), $(this).val(),this);
-        });
+         $('#widgets').on('change', '.widget .settings .setting', function () {
+         dashboard.setConfig($(this).data('wiid'),$(this).attr('name'), $(this).val(),this);
+         });
 
-        $('#widgets').on('hover', '.widget', function () {
-            var wIId = $(this).data('wiid');
-            dashboard.setHoverWIId(wIId);
-        });
+         $('#widgets').on('hover', '.widget', function () {
+         var wIId = $(this).data('wiid');
+         dashboard.setHoverWIId(wIId);
+         });
 
-        $('#widgets').on('click', '.removeWidget', function () {
-            var wIId = $(this).data('wiid');
-            dashboard.removeWidget(wIId);
-        });
-        */
-
-	});
+         $('#widgets').on('click', '.removeWidget', function () {
+         var wIId = $(this).data('wiid');
+         dashboard.removeWidget(wIId);
+         });
+         */
+    });
 
 })(jQuery, OC);
 
@@ -62,22 +64,9 @@ dashboard = {
     // callback that will be called after a widget refresh
     widgetCallback: [],
 
+    // switch on or off the debug messages
+    debug: true,
 
-
-
-
-    // load enabled widgets
-    loadEnabledWidgets: function () {
-        var url     = OC.generateUrl('/apps/dashboard/widget/management/enabled',[]);
-        $.ajax({
-            url: url,
-            method: 'GET'
-        }).done(function (r) {
-            dashboard.enabledWidgets = r.wIIds;
-        }).fail(function () {
-            alert('Could not load enabled widget instances.');
-        });
-    },
 
     // load available widgets
     loadAvailableWidgets: function () {
@@ -87,6 +76,7 @@ dashboard = {
             method: 'GET'
         }).done(function (r) {
             dashboard.availableWidgets = r.wIds;
+            dashboard.testShowEnabledWidgets();
         }).fail(function () {
             alert('Could not load available widgets.');
         });
@@ -156,18 +146,47 @@ dashboard = {
 
     // get enabled widgets as array
     addEnabledWidgets: function () {
-        dashboard.showWaitSymbol();
-        if(dashboard.enabledWidgets.length == 0) {
-            dashboard.hideWaitSymbol();
-            dashboard.showOverlay();
-        } else {
-            dashboard.setToAdd = dashboard.enabledWidgets;
-            dashboard.addOneFromSetToAdd();
+        if( dashboard.debug ) {
+            console.log('start method addEnabledWidgets');
         }
+        dashboard.showWaitSymbol();
+
+        var url = OC.generateUrl('/apps/dashboard/widget/management/enabled',[]);
+        if( dashboard.debug ) {
+            console.log('ajax get: ' + url);
+        }
+        $.ajax({
+            url: url,
+            method: 'GET'
+        }).done(function (r) {
+            if( dashboard.debug ) {
+                console.log('response: ' + r);
+            }
+            dashboard.enabledWidgets = r.wIIds;
+            if(dashboard.enabledWidgets.length == 0) {
+                dashboard.hideWaitSymbol();
+                dashboard.showOverlay();
+            } else {
+                dashboard.setToAdd = dashboard.enabledWidgets;
+                dashboard.addOneFromSetToAdd();
+            }
+        }).fail(function () {
+            if( dashboard.debug ) {
+                console.log('Could not load enabled widget instances');
+            }
+        });
     },
 
     // add the first index wId from setToAdd array
     addOneFromSetToAdd: function() {
+        if( dashboard.debug ) {
+            console.log('start method addOneFromSetToAdd');
+        }
+
+        if( dashboard.debug ) {
+            console.log('number of remaining widget instances: ' + dashboard.setToAdd.length);
+        }
+
         if( dashboard.setToAdd.length != 0 ) {
             dashboard.addCompleteWidget(dashboard.setToAdd[0], dashboard.addOneFromSetToAdd);
             dashboard.setToAdd.splice(0,1);
@@ -179,9 +198,16 @@ dashboard = {
 
     // fetch the html from a enabled widget and append it
     addCompleteWidget: function (wIId, callback) {
+        if( dashboard.debug ) {
+            console.log('start method addCompleteWidget');
+        }
+
         dashboard.showWaitSymbol();
         var url = OC.generateUrl('/apps/dashboard/widget/content/getComplete/' + wIId, []);
-        alert(url);
+        if( dashboard.debug ) {
+            console.log('ajax get: ' + url);
+        }
+
         var data = {
             wIId: wIId
         };
@@ -192,7 +218,11 @@ dashboard = {
             contentType:'application/json',
             data:       JSON.stringify(data)
         }).done(function (response) {
-            alert('got complete widget');
+            if( dashboard.debug ) {
+                console.log('response: ' + response);
+            }
+
+            // complete widget html; append it
             var html =  '<div class="widget ' + response.wId + ' ' + wIId + ' status-' + response.status + ' dimension-' + response.dimension + '" data-refresh="' + response.refresh + '" data-wiid="' + wIId + '" data-mode="content">' +
                 response.widgetHtml +
                 '</div>';
@@ -202,7 +232,8 @@ dashboard = {
             $('#widgets .widget.' + wIId + ' .heading h1 span.iconReload').on('click', function () {
                 $(this).removeClass('icon-play');
                 $(this).addClass('icon-loading-small');
-                dashboard.refreshWidget(wIId);
+                // TODO
+                //dashboard.refreshWidget(wIId);
             });
 
             // bind event for showing settings
@@ -218,6 +249,7 @@ dashboard = {
                 }
             });
 
+            // create a timer for reloading if necessary
             var refresh = response.refresh * 1000;
             if( refresh != 0 ) {
                 dashboard.refreshIntervals[wIId] = setInterval(
@@ -231,12 +263,15 @@ dashboard = {
             }
             dashboard.hideWaitSymbol();
 
-            callback();
+            if( callback ) {
+                callback();
+            }
+
             dashboard.hideOrShowWidgetInformation();
 
             var split = wIId.split('-');
             var wId   = split[0];
-            if( dashboard.widgetCallback[wId] != 'undefined' ) {
+            if( dashboard.widgetCallback[wId] !== undefined ) {
                 dashboard.widgetCallback[wId]();
             }
 
@@ -248,13 +283,29 @@ dashboard = {
 
     // fetch the content-html and change the actual one
     refreshWidget: function (wIId) {
+        if( dashboard.debug ) {
+            console.log('start method refreshWidget (wIId = ' + wIId + ')');
+        }
+
         dashboard.showWaitSymbol();
-        var url = OC.generateUrl('/apps/dashboard/widget/content');
+        var url = OC.generateUrl('/apps/dashboard/widget/content/getContent/' + wIId, []);
+        if( dashboard.debug ) {
+            console.log('ajax get: ' + url);
+        }
+
         var data = {
             wIId: wIId
         };
-        var posting = $.post(url, data);
-        posting.success(function (response) {
+        $.ajax({
+            url:        url,
+            method:     'GET',
+            contentType:'application/json',
+            data:       JSON.stringify(data)
+        }).done(function (response) {
+            if( dashboard.debug ) {
+                console.log('response html: ' + response.widgetHtml);
+            }
+
             dashboard.setWidgetStatus(wIId, response.status);
             $('#widgets .widget.' + wIId + ' .content').html( response.widgetHtml );
             $('#widgets .widget.' + wIId + ' .heading h1 span.iconReload').removeClass('icon-loading-small');
@@ -267,8 +318,8 @@ dashboard = {
                 dashboard.widgetCallback[wId]();
             }
             dashboard.hideWaitSymbol();
-        });
-        posting.error(function () {
+        }).fail(function () {
+            alert('Could not refresh widget.');
             dashboard.setWidgetStatus(wIId, 3);
             dashboard.hideWaitSymbol();
         });

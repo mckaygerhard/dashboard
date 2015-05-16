@@ -14,6 +14,7 @@ namespace OCA\Dashboard\AppInfo;
 
 
 use OCA\Dashboard\Controller\RoutePageController;
+use OCA\Dashboard\Controller\RouteWidgetContentController;
 use OCA\Dashboard\Controller\RouteWidgetManagementController;
 use \OCP\AppFramework\App;
 use \OCP\IContainer;
@@ -42,6 +43,14 @@ class Application extends App {
 
         $container->registerService('RouteWidgetManagementController', function(IContainer $c) {
             return new RouteWidgetManagementController(
+                $c->query('AppName'),
+                $c->query('Request'),
+                $c->query('UserId')
+            );
+        });
+
+        $container->registerService('RouteWidgetContentController', function(IContainer $c) {
+            return new RouteWidgetContentController(
                 $c->query('AppName'),
                 $c->query('Request'),
                 $c->query('UserId')

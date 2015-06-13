@@ -15,7 +15,7 @@ OC.L10N.register(
     "click to generate error status" : "cliquez pour générer le statut \"erreur\"",
     "iFrame" : "iFrame",
     "Mail" : "Mail",
-    "from" : "du",
+    "from" : "de",
     "News" : "Abonnements",
     "Tasks" : "Tâches",
     "Weather" : "Météo",

@@ -6,7 +6,7 @@
  * Time: 20:28
  */
 
-namespace OCA\Dashboard\Service;
+namespace OCA\Dashboard\Services;
 
 
 use OCA\Dashboard\Db\WidgetConfigDAO;

@@ -16,50 +16,20 @@ use OCP\Util;
 
 abstract class WidgetTemplate {
 
-    protected $wIId;
-    protected $widgetConfigDAO;
-    protected $l10n;
+    protected $L10N;
 
-    function __construct($wIId, WidgetConfigDAO $widgetConfigDAO, IL10N $l10n) {
-        $this->wIId             = $wIId;
-        $this->widgetConfigDAO  = $widgetConfigDAO;
-        $this->l10n             = $l10n;
+    function __construct(IL10N $l10n) {
+        $this->L10N = $l10n;
     }
 
-    abstract function getContentHtml();
 
 
-    /**
-     *
-     * return the complete html for a widget
-     * included
-     *  - header
-     *  - content
-     *  - settings
-     *
-     * @param IWidgetController $widgetController
-     * @return string
-     */
-    public function getHtml(IWidgetController $widgetController) {
-        $html = '';
-        $html .= '<div class="heading">';
-        $html .= $this->getHeadHtml($widgetController);
-        $html .= '</div>';
-        $html .= '<div class="content">';
-        $html .= $this->getContentHtml($widgetController->getData());
-        $html .= '</div>';
-        $html .= '<div class="settings">';
-        $html .= $this->getSettingsHtml($widgetController);
-        $html .= '</div>';
-        return $html;
-    }
-    
-    /**
-     * to override
-     */
-    public function getSettingsHtml() {
-        return Array();
-    }
+
+
+
+
+
+
 
     /**
      *
@@ -85,6 +55,35 @@ abstract class WidgetTemplate {
         return $string;
     }
 
+
+
+
+
+    /**
+     *
+     * return the complete html for a widget
+     * included
+     *  - header
+     *  - content
+     *  - settings
+     *
+     * @param IWidgetController $widgetController
+     * @return string
+     */
+    public function x_getHtml(IWidgetController $widgetController) {
+        $html = '';
+        $html .= '<div class="heading">';
+        $html .= $this->getHeadHtml($widgetController);
+        $html .= '</div>';
+        $html .= '<div class="content">';
+        $html .= $this->getContentHtml($widgetController->getData());
+        $html .= '</div>';
+        $html .= '<div class="settings">';
+        $html .= $this->getSettingsHtml($widgetController);
+        $html .= '</div>';
+        return $html;
+    }
+
     // private services ---------------------------------------------------------------
 
     /**
@@ -94,7 +93,7 @@ abstract class WidgetTemplate {
      * @param IWidgetController $widgetController
      * @return string
      */
-    private function x_getSettingsHtml(IWidgetController $widgetController) {
+    private function xx_getSettingsHtml(IWidgetController $widgetController) {
         // this settings are available for every widget instance
         $defaultSettings        = $this->getDefaultSettings();
 
@@ -170,7 +169,7 @@ abstract class WidgetTemplate {
      * @param IWidgetController $widgetController
      * @return int|null|string
      */
-    private function getValueForField($key, $default, IWidgetController $widgetController) {
+    private function x_getValueForField($key, $default, IWidgetController $widgetController) {
         return $widgetController->getConfig($key, $default);
     }
 
@@ -180,7 +179,7 @@ abstract class WidgetTemplate {
      *
      * @return array
      */
-    private function getDefaultSettings() {
+    private function x_getDefaultSettings() {
         return array(
             'dimension'     => array(
                 'type'          => 'select',
@@ -219,7 +218,7 @@ abstract class WidgetTemplate {
      * @param IWidgetController $widgetController
      * @return string
      */
-    private function getHeadHtml(IWidgetController $widgetController) {
+    private function x_getHeadHtml(IWidgetController $widgetController) {
         $refresh    = $widgetController->getConfig('refresh');
         $icon       = $widgetController->getConfig('icon');
         $name       = $widgetController->getConfig('wName');

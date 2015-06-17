@@ -9,8 +9,6 @@
 namespace OCA\Dashboard\Controller;
 
 
-use OCA\Dashboard\Db\WidgetConfigDAO;
-use OCA\Dashboard\Db\WidgetHashDAO;
 use OCA\Dashboard\Services\WidgetContentService;
 use OCA\Dashboard\Widgets\IWidgetController;
 use OCA\Dashboard\Widgets\IWidgetTemplate;
@@ -26,50 +24,38 @@ class RouteWidgetContentController extends Controller {
     private $widgetContentService;
 
 
-    public function __construct($appName, IRequest $request, $user)
+    public function __construct($appName, IRequest $request, $user, IL10N $IL10N, WidgetContentService $widgetContentService)
     {
         parent::__construct($appName, $request);
-        $this->user = $user;
-        //$this->l10n = $l10n;
+        $this->user                 = $user;
+        $this->l10n                 = $IL10N;
+        $this->widgetContentService = $widgetContentService;
     }
 
     /**
      *
      * returns the complete html code for the wIId
      *
+     * @NoAdminRequired
      * @param String $wIId
-     * @NoCSRFRequired
      * @return String html
      */
     public function getComplete($wIId)
     {
-        // TODO
-        return array(
-            'wId'       => 'dummy',
-            'wIId'      => 'dummy-0',
-            'status'    => 1,
-            'dimension' => '1x1',
-            'refresh'   => '50',
-            'widgetHtml'=> '<div class="content">test html (wIId: '.$wIId.')</div>'
-        );
+        return $this->widgetContentService->getComplete($wIId);
     }
 
     /**
      *
      * return the html for the content part of the wIId
      *
-     * @NoCSRFRequired
+     * @NoAdminRequired
      * @param String $wIId
      * @return string html
      */
     public function getContent($wIId)
     {
-        // TODO
-        return array(
-            'wIId'      => 'dummy-0',
-            'status'    => 2,
-            'widgetHtml'=> '<div class="content">'.time().' (wIId: '.$wIId.')</div>'
-        );
+        return $this->widgetContentService->getContent($wIId);
     }
 
     /**

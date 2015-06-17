@@ -2,7 +2,7 @@
 
 namespace OCA\Dashboard\Widgets;
 
-class status {
+class Status {
   const STATUS_OKAY     = 0;
   const STATUS_NEW      = 1;
   const STATUS_PROBLEM  = 2;

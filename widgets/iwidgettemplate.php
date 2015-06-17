@@ -29,16 +29,4 @@ interface IWidgetTemplate {
      */
     function getSettingsArray();
 
-    /**
-     *
-     * return the complete html for a widget
-     * included
-     *  - header
-     *  - content
-     *  - settings
-     * @param IWidgetController $widgetController
-     * @return string
-     */
-    public function getHtml(IWidgetController $widgetController);
-
 }

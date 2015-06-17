@@ -215,11 +215,10 @@ dashboard = {
         $.ajax({
             url:        url,
             method:     'GET',
-            contentType:'application/json',
-            data:       JSON.stringify(data)
+            data:       data
         }).done(function (response) {
             if( dashboard.debug ) {
-                console.log('response: ' + response);
+                console.log('response: ' + $(response));
             }
 
             // complete widget html; append it
@@ -276,7 +275,10 @@ dashboard = {
             }
 
         }).fail(function () {
-            alert('Could not load complete widget.');
+            //alert('Could not load complete widget.');
+            if( dashboard.debug ) {
+                console.log('Clould not load complete widget.');
+            }
             dashboard.setWidgetStatus(wIId, 3);
         });
     },
@@ -299,8 +301,7 @@ dashboard = {
         $.ajax({
             url:        url,
             method:     'GET',
-            contentType:'application/json',
-            data:       JSON.stringify(data)
+            data:       data
         }).done(function (response) {
             if( dashboard.debug ) {
                 console.log('response html: ' + response.widgetHtml);
@@ -319,7 +320,10 @@ dashboard = {
             }
             dashboard.hideWaitSymbol();
         }).fail(function () {
-            alert('Could not refresh widget.');
+            //alert('Could not refresh widget.');
+            if( dashboard.debug ) {
+                console.log('Clould not refresh widget.');
+            }
             dashboard.setWidgetStatus(wIId, 3);
             dashboard.hideWaitSymbol();
         });

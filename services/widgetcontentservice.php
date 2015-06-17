@@ -8,7 +8,6 @@
 
 namespace OCA\Dashboard\Services;
 
-use OCA\Dashboard\Service\WidgetManagementService;
 use OCP\IL10N;
 
 
@@ -19,12 +18,12 @@ class WidgetContentService {
     private $widgetManagementService;
     private $widgetHashService;
 
-    public function __construct($user, IL10N $l10n, WidgetManagementService $widgetManagementService, WidgetHashService $widgetHashService)
+    public function __construct($user, IL10N $l10n, WidgetManagementService $widgetManagementService)
     {
         $this->user                     = $user;
         $this->l10n                     = $l10n;
         $this->widgetManagementService  = $widgetManagementService;
-        $this->widgetHashService        = $widgetHashService;
+        //$this->widgetHashService        = $widgetHashService;
     }
 
     /**
@@ -36,8 +35,21 @@ class WidgetContentService {
      */
     public function getComplete($wIId)
     {
-        // TODO
-        return 'ToDo';
+        /** @var $widgetController \OCA\Dashboard\Widgets\IWidgetController */
+        $widgetController   = $this->widgetManagementService->getInstance($wIId, 'controller');
+
+        /** @var $widgetTemplate  \OCA\Dashboard\Widgets\IWidgetTemplate */
+        $widgetTemplate     = $this->widgetManagementService->getInstance($wIId, 'template');
+
+        $data               = $widgetController->getData();
+        $html               = $widgetTemplate->getContentHtml($data);
+        $basicValues        = $widgetController->getBasicValues();
+        $status = (isset($data['status'])) ? $data['status']: 1;
+        $tmp = array(
+            'status'        => $status,
+            'widgetHtml'    => $html
+        );
+        return array_merge($tmp, $basicValues);
     }
 
     /**
@@ -50,7 +62,11 @@ class WidgetContentService {
     public function getContent($wIId)
     {
         // TODO
-        return 'ToDo';
+        return array(
+            'wIId'      => 'dummy-0',
+            'status'    => 2,
+            'widgetHtml'=> time().' (wIId: '.$wIId.')'
+        );
     }
 
     /**

@@ -6,7 +6,7 @@
  * Time: 20:54
  */
 
-namespace OCA\Dashboard\Service;
+namespace OCA\Dashboard\Services;
 
 use OCP\IL10N;
 
@@ -57,6 +57,26 @@ class WidgetManagementService {
         return 5;
     }
 
+    public function getInstance($wIId, $type='controller') {
+        $parts          = explode('-', $wIId);
+        $wId            = $parts[0];
+        $instanceNumber = $parts[1];
+        $class  = $this->getFullClassName($wIId, $type);
+        if( class_exists($class) ) {
+            if( $type === strtolower('controller') ) {
+                $widgetControllerObject = new $class($instanceNumber, $this->widgetSettingsService, $this->user, $this->l10n);
+                if( $widgetControllerObject ) {
+                    return $widgetControllerObject;
+                }
+            } elseif ( $type === strtolower('template') ) {
+                $widgetTemplateObject = new $class($this->l10n);
+                if( $widgetTemplateObject ) {
+                    return $widgetTemplateObject;
+                }
+            }
+        }
+    }
+
 
     // PRIVATE METHODS -------------------------------------
 
@@ -70,5 +90,11 @@ class WidgetManagementService {
         // TODO
         return 6;
     }
-  
+
+    private function getFullClassName($wIId, $type) {
+        $parts          = explode('-', $wIId);
+        $wId            = $parts[0];
+        return 'OCA\Dashboard\Widgets\\'.ucwords($wId).'\\'.ucwords($wId).ucwords($type);
+    }
+
 }

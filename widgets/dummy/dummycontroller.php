@@ -9,10 +9,11 @@
 namespace OCA\Dashboard\Widgets\Dummy;
 
 use OCA\Dashboard\Widgets\IWidgetController;
+use OCA\Dashboard\Widgets\status;
 use OCA\Dashboard\Widgets\WidgetController;
 
-class DummyController extends WidgetController implements IWidgetController {
 
+class DummyController extends WidgetController implements IWidgetController {
 
 
     // interface needed methods ------------------------------------
@@ -21,30 +22,28 @@ class DummyController extends WidgetController implements IWidgetController {
     /**
      * see IWidgetController interface
      */
-    public function setData() {
+    public function setBasicValues() {
         $this->icon     =           'icons/9.png';
-        $this->refresh  =                      60;
+        $this->refresh  =                       0;
         $this->wId      =                 'dummy';
-        $this->name     = $this->l10n->t('Dummy');
+        $this->name     = $this->L10N->t('Dummy');
     }
+
 
     /**
      *
-     * returns all the needed data as array
-     * you can access them in the widgetTemplate->getContentHtml with $data['abc']
+     * return values as array as parameter for the template
+     * always return
      *
      * @return array
      */
     public function getData() {
-        $data = array(
-            'time'          => time(),
-            'settingOne'    => $this->getConfig('settingOne', 'valueOne')
+        return array(
+            'wIId'      => $this->getConfig('wIId'),
+            'status'    => Status::STATUS_OKAY,
+            'settingOne'=> 'eins',
+            'time'      => time()
         );
-
-        // do not remove the following line
-        // it creates the status information
-        $this->setHash($data);
-        return $data;
     }
 
 

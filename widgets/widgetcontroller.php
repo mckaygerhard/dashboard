@@ -10,9 +10,7 @@ namespace OCA\Dashboard\Widgets;
 
 
 use OC;
-use OCA\Dashboard\Db\WidgetConfigDAO;
-use OCA\Dashboard\Db\WidgetHashDAO;
-use OCA\Dashboard\Service\WidgetSettingsService;
+use OCA\Dashboard\Services\WidgetSettingsService;
 use OCP\AppFramework\Controller;
 use OCP\IL10N;
 
@@ -34,17 +32,18 @@ abstract class WidgetController extends Controller {
 
     // abstract and magic methods ----------------------------------------------
 
-    public abstract function setData();
+    // each widget controller implements this (IWidgetController)
+    public abstract function setBasicValues();
 
-    public abstract function getData();
 
-
-    function __construct($wNo,WidgetSettingsService $widgetSettingsService, $user, IL10N $l10n) {
+    function __construct($wNo, WidgetSettingsService $widgetSettingsService, $user, IL10N $l10n) {
         $this->wNo              = intval($wNo);
         $this->user             = $user;
         $this->L10N             = $l10n;
-        $this->setData();
         $this->widgetSettingsService    = $widgetSettingsService;
+
+        // load widget specific values
+        $this->setBasicValues();
     }
 
 
@@ -72,6 +71,95 @@ abstract class WidgetController extends Controller {
             $this->status = $status;
         }
     }
+
+    /**
+     *
+     * returns all the needed data as array
+     * you can access them in the widgetTemplate->getContentHtml with $data['abc']
+     *
+     * @return array
+     */
+    public function getBasicValues() {
+        return array(
+            'wId'       => $this->getConfig('wId'),
+            'wNo'       => $this->getConfig('wNo'),
+            'wIId'      => $this->getConfig('wIId'),
+            'name'      => $this->getConfig('name'),
+            'dimension' => $this->getConfig('dimension', '1x1'),
+            'refresh'   => $this->getConfig('refresh', '30', 'int')
+        );
+    }
+
+    /**
+     *
+     * tells you the chosen value for a key
+     * if no value is set yet, the default will return
+     *
+     * @param $key
+     * @param string $default
+     * @param string $returnType
+     * {'string', 'int', 'bool'}
+     * @return string
+     */
+    public function getConfig ( $key, $default = '', $returnType = 'string' ) {
+        $value = null;
+        switch( $key ) {
+            case 'wIId':
+                $value = $this->getConfig('wId').'-'.$this->getConfig('wNo');
+                break;
+            case 'wName':
+                $value = $this->name;
+                break;
+            case 'name':
+                $value = $this->name;
+                break;
+            case 'wNo':
+                $value = $this->wNo;
+                break;
+            case 'user':
+                $value = $this->user;
+                break;
+            case 'icon':
+                $value = $this->icon;
+                break;
+            case 'refresh':
+                $value = $this->refresh;
+                break;
+            case 'wId':
+                $value = $this->wId;
+                break;
+            case 'link':
+                $value = $this->link;
+                break;
+            default:
+                $value = null;
+                //$value = $this->widgetConfigDAO->getConfig($this->wId, $this->wNo, $this->user, $key);
+                //if( isset($value) && in_array($key, $this->encryptAttributes) ) {
+                //    /** @noinspection PhpUndefinedClassInspection */
+                //    $value = OC::$server->getCrypto()->decrypt($value);
+                //}
+                break;
+        }
+        $return = isset($value) ? $value: $default;
+
+        switch( $returnType ) {
+            case 'int':
+                return intval($return);
+                break;
+            case 'bool':
+                if( $return == '1' || $return || $return == 'true' ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            default:
+                return ''.$return;
+        }
+    }
+
+
+
+
 
 
 
@@ -105,69 +193,6 @@ abstract class WidgetController extends Controller {
             $this->widgetHashDAO->removeWidgetHashes($this->getConfig('wIId'), $this->user);
             $this->widgetHashDAO->insertHash($this->getConfig('wIId'), $this->user, $hash);
             $this->setStatus($this::STATUS_NEW);
-        }
-    }
-
-    /**
-     *
-     * tells you the chosen value for a key
-     * if no value is set yet, the default will return
-     *
-     * @param $key
-     * @param string $default
-     * @param string $returnType
-     * {'string', 'int', 'bool'}
-     * @return string
-     */
-    public function x_getConfig ( $key, $default = '', $returnType = 'string' ) {
-        $value = null;
-        switch( $key ) {
-            case 'wIId':
-                $value = $this->getConfig('wId').'-'.$this->getConfig('wNo');
-                break;
-            case 'wName':
-                $value = $this->name;
-                break;
-            case 'wNo':
-                $value = $this->wNo;
-                break;
-            case 'user':
-                $value = $this->user;
-                break;
-            case 'icon':
-                $value = $this->icon;
-                break;
-            case 'refresh':
-                $value = $this->refresh;
-                break;
-            case 'wId':
-                $value = $this->wId;
-                break;
-            case 'link':
-                $value = $this->link;
-                break;
-            default:
-                $value = $this->widgetConfigDAO->getConfig($this->wId, $this->wNo, $this->user, $key);
-                if( isset($value) && in_array($key, $this->encryptAttributes) ) {
-                    /** @noinspection PhpUndefinedClassInspection */
-                    $value = OC::$server->getCrypto()->decrypt($value);
-                }
-                break;
-        }
-        $return = isset($value) ? $value: $default;
-
-        switch( $returnType ) {
-            case 'int':
-                return intval($return);
-                break;
-            case 'bool':
-                if( $return == '1' || $return || $return == 'true' ) {
-                    return true;
-                } else {
-                    return false;
-                }
-            default:
-                return ''.$return;
         }
     }
 

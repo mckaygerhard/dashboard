@@ -23,12 +23,11 @@ class RouteWidgetManagementController extends Controller {
     * return a array of widgets for this user
     *
     * @NoAdminRequired
-    * @NoCSRFRequired
     * @return array
     */
     public function getEnabledWidgets() {
         // TODO
-        return array('wIIds' => array('dummy-0'));
+        return array('wIIds' => array('dummy-0', 'dummy-1'));
     }
 
     /**
@@ -36,7 +35,6 @@ class RouteWidgetManagementController extends Controller {
      * return a array of widgets that are available
      *
      * @NoAdminRequired
-     * @NoCSRFRequired
      * @return array
      */
     public function getAvailableWidgets() {

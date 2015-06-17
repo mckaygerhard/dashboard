@@ -8,30 +8,28 @@
 
 namespace OCA\Dashboard\Widgets\Dummy;
 
-
 use OCA\Dashboard\Widgets\IWidgetTemplate;
 use OCA\Dashboard\Widgets\WidgetTemplate;
 
-class DummyTemplate extends WidgetTemplate implements IWidgetTemplate
-{
 
-    function getContentHtml($data = array())
-    {
+class DummyTemplate extends WidgetTemplate implements IWidgetTemplate {
+
+    function getContentHtml($data = array()) {
         return '<table>
                     <tr>
-                        <td><div class="time hoverInfo" data-opacitynormal="0.7">' . $this->l10n->t('Time') . ': ' . $this->l10n->l('datetime', $data['time']) . '</div></td>
+                        <td><div class="time hoverInfo" data-opacitynormal="0.7">' . $this->L10N->t('Time') . ': ' . $this->L10N->l('datetime', $data['time']) . '</div></td>
                     </tr>
                     <tr>
-                        <td><div class="generateNormal" data-wiid="' . $this->wIId . '">' . $this->l10n->t('click to generate normal status') . '</div></td>
+                        <td><div class="generateNormal" data-wiid="' . $data['wIId'] . '">' . $this->L10N->t('click to generate normal status') . '</div></td>
                     </tr>
                     <tr>
-                        <td><div class="generateNew" data-wiid="' . $this->wIId . '">' . $this->l10n->t('click to generate new status') . '</div></td>
+                        <td><div class="generateNew" data-wiid="' . $data['wIId'] . '">' . $this->L10N->t('click to generate new status') . '</div></td>
                     </tr>
                     <tr>
-                        <td><div class="generateProblem" data-wiid="' . $this->wIId . '">' . $this->l10n->t('click to generate problem status') . '</div></td>
+                        <td><div class="generateProblem" data-wiid="' . $data['wIId'] . '">' . $this->L10N->t('click to generate problem status') . '</div></td>
                     </tr>
                     <tr>
-                        <td><div class="generateError" data-wiid="' . $this->wIId . '">' . $this->l10n->t('click to generate error status') . '</div></td>
+                        <td><div class="generateError" data-wiid="' . $data['wIId'] . '">' . $this->L10N->t('click to generate error status') . '</div></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -42,8 +40,7 @@ class DummyTemplate extends WidgetTemplate implements IWidgetTemplate
                 </table>';
     }
 
-    function getSettingsArray()
-    {
+    function getSettingsArray() {
         return array(
             'settingOne' => array(
                 'type' => 'text',
@@ -53,9 +50,8 @@ class DummyTemplate extends WidgetTemplate implements IWidgetTemplate
         );
     }
 
-    protected function getLicenseInfo()
-    {
-        return 'Feel free to copy und use this dummy to develop new widgets. ';
+    protected function getLicenseInfo() {
+        return 'Feel free to copy und use this dummy to develop new widgets.';
     }
 
 }

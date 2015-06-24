@@ -63,12 +63,12 @@ class WidgetManagementService {
         $instanceNumber = $parts[1];
         $class  = $this->getFullClassName($wIId, $type);
         if( class_exists($class) ) {
-            if( $type === strtolower('controller') ) {
+            if( strtolower($type) === strtolower('controller') ) {
                 $widgetControllerObject = new $class($instanceNumber, $this->widgetSettingsService, $this->user, $this->l10n);
                 if( $widgetControllerObject ) {
                     return $widgetControllerObject;
                 }
-            } elseif ( $type === strtolower('template') ) {
+            } elseif ( strtolower($type) === strtolower('template') ) {
                 $widgetTemplateObject = new $class($this->l10n);
                 if( $widgetTemplateObject ) {
                     return $widgetTemplateObject;

@@ -15,7 +15,7 @@ use OCA\Dashboard\Widgets\WidgetTemplate;
 class DummyTemplate extends WidgetTemplate implements IWidgetTemplate {
 
     function getContentHtml($data = array()) {
-        return '<table>
+        $html = '<table>
                     <tr>
                         <td><div class="time hoverInfo" data-opacitynormal="0.7">' . $this->L10N->t('Time') . ': ' . $this->L10N->l('datetime', $data['time']) . '</div></td>
                     </tr>
@@ -33,11 +33,16 @@ class DummyTemplate extends WidgetTemplate implements IWidgetTemplate {
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><i>settingOne: ' . $this->p($data['settingOne']) . '</i></td>
-                    </tr>
-                </table>';
+                    </tr>';
+        foreach ($data['values'] as $key => $value) {
+            $html .=  '<tr>
+                        <td><i>' . $key . ': ' . $value . '</i></td>
+                    </tr>';
+        }
+
+        $html .= '</table>';
+
+        return $html;
     }
 
     function getSettingsArray() {

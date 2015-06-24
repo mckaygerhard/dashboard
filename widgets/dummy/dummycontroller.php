@@ -15,12 +15,15 @@ use OCA\Dashboard\Widgets\WidgetController;
 
 class DummyController extends WidgetController implements IWidgetController {
 
-
     // interface needed methods ------------------------------------
 
-
     /**
-     * see IWidgetController interface
+     *
+     * set basic values
+     *
+     * will be executed at end of
+     * constructor of the superclass
+     *
      */
     public function setBasicValues() {
         $this->icon     =           'icons/9.png';
@@ -28,7 +31,6 @@ class DummyController extends WidgetController implements IWidgetController {
         $this->wId      =                 'dummy';
         $this->name     = $this->L10N->t('Dummy');
     }
-
 
     /**
      *
@@ -38,10 +40,23 @@ class DummyController extends WidgetController implements IWidgetController {
      * @return array
      */
     public function getData() {
+        if( $this->getConfig('wNo') == Status::STATUS_OKAY ) {
+            $this->setStatus(Status::STATUS_OKAY);
+        } else {
+            $this->setStatus(Status::STATUS_NEW);
+        }
+
         return array(
             'wIId'      => $this->getConfig('wIId'),
-            'status'    => Status::STATUS_OKAY,
-            'settingOne'=> 'eins',
+            'status'    => $this->getStatus(),
+            'values'    => array(
+                'status'    =>  $this->getStatus(),
+                'wNo'       =>  $this->getConfig('wNo'),
+                'refresh'   =>  $this->getConfig('refresh'),
+                'wId'       =>  $this->getConfig('wId'),
+                'user'      =>  $this->getConfig('user'),
+                'link'      =>  $this->getConfig('link')
+            ),
             'time'      => time()
         );
     }

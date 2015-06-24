@@ -37,10 +37,11 @@ abstract class WidgetController extends Controller {
 
 
     function __construct($wNo, WidgetSettingsService $widgetSettingsService, $user, IL10N $l10n) {
-        $this->wNo              = intval($wNo);
-        $this->user             = $user;
-        $this->L10N             = $l10n;
+        $this->wNo                      = intval($wNo);
+        $this->user                     = $user;
+        $this->L10N                     = $l10n;
         $this->widgetSettingsService    = $widgetSettingsService;
+        $this->status                   = Status::STATUS_OKAY;
 
         // load widget specific values
         $this->setBasicValues();

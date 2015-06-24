@@ -1,6 +1,10 @@
 
 $(document).ready(function () {
 
+    if( dashboard.debug ) {
+        alert('Script for dummy widget loaded!');
+    }
+
     $('#widgets').on('click', '.generateNormal', function () {
         var wIId = $(this).data('wiid');
         var call = dashboard.callWidgetMethod(wIId, 'generateStatus', '0');

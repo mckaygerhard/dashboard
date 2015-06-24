@@ -76,7 +76,7 @@ dashboard = {
             method: 'GET'
         }).done(function (r) {
             dashboard.availableWidgets = r.wIds;
-            dashboard.testShowEnabledWidgets();
+            //dashboard.testShowEnabledWidgets();
         }).fail(function () {
             alert('Could not load available widgets.');
         });

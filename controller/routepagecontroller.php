@@ -11,6 +11,7 @@
 
 namespace OCA\Dashboard\Controller;
 
+use OCA\Dashboard\Services\WidgetCssAndJsService;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\TemplateResponse;
 use \OCP\AppFramework\Controller;
@@ -19,10 +20,12 @@ use \OCP\AppFramework\Controller;
 class RoutePageController extends Controller {
 
     private $user;
+    private $widgetCssAndJsService;
 
-    public function __construct($appName, IRequest $request, $user){
+    public function __construct($appName, IRequest $request, $user, WidgetCssAndJsService $widgetCssAndJsService){
         parent::__construct($appName, $request);
-        $this->user = $user;
+        $this->user                     = $user;
+        $this->widgetCssAndJsService    = $widgetCssAndJsService;
     }
 
     /**
@@ -33,9 +36,13 @@ class RoutePageController extends Controller {
      * @NoCSRFRequired
      */
     public function index() {
+
+        $this->widgetCssAndJsService->loadAll();
+
         $params = array(
             'user'  => $this->user,
         );
         return new TemplateResponse('dashboard', 'main', $params);
     }
+
 }

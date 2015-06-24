@@ -18,6 +18,7 @@ use OCA\Dashboard\Controller\RouteWidgetContentController;
 use OCA\Dashboard\Controller\RouteWidgetManagementController;
 use OCA\Dashboard\Db\WidgetConfigDAO;
 use OCA\Dashboard\Db\WidgetHashDAO;
+use OCA\Dashboard\Services\WidgetCssAndJsService;
 use OCA\Dashboard\Services\WidgetManagementService;
 use OCA\Dashboard\Services\WidgetSettingsService;
 use OCA\Dashboard\Services\WidgetContentService;
@@ -43,7 +44,8 @@ class Application extends App {
             return new RoutePageController(
                 $c->query('AppName'),
                 $c->query('Request'),
-                $c->query('UserId')
+                $c->query('UserId'),
+                $c->query('WidgetCssAndJsService')
             );
         });
 
@@ -95,6 +97,12 @@ class Application extends App {
         $container->registerService('WidgetSettingsService', function(IContainer $c) {
             return new WidgetSettingsService(
                 $c->query('WidgetConfigDAO')
+            );
+        });
+
+        $container->registerService('WidgetCssAndJsService', function(IContainer $c) {
+            return new WidgetCssAndJsService(
+                $c->query('WidgetManagementService')
             );
         });
 

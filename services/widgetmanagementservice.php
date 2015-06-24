@@ -77,6 +77,16 @@ class WidgetManagementService {
         }
     }
 
+    /**
+     * @param $wIId
+     * @param $type {controller, template}
+     * @return string
+     */
+    public function getFullClassName($wIId, $type) {
+        $parts          = explode('-', $wIId);
+        $wId            = $parts[0];
+        return 'OCA\Dashboard\Widgets\\'.ucwords($wId).'\\'.ucwords($wId).ucwords($type);
+    }
 
     // PRIVATE METHODS -------------------------------------
 
@@ -91,10 +101,5 @@ class WidgetManagementService {
         return 6;
     }
 
-    private function getFullClassName($wIId, $type) {
-        $parts          = explode('-', $wIId);
-        $wId            = $parts[0];
-        return 'OCA\Dashboard\Widgets\\'.ucwords($wId).'\\'.ucwords($wId).ucwords($type);
-    }
 
 }

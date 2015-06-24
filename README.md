@@ -166,3 +166,6 @@ You can implement the getLicenseInfo()-method to return a string with some addit
 ### hoverInfo
 You can set the 'hoverInfo' css class to items, each item will be hidden normally and displayed if the mouse hovers the widget.
 Additionally you can specify both or just one data-attribute. The normal opacity can be set with data-opacitynormal="[0<x<1]" and the opacity while the mouse hovers the widget can set with data-opacityhover="[0<x<1]". 
+
+### configs and basic values
+$data or values from a widget are all content and config values together. The basicConf are just a few static values. If you add some dynamic values, you get the basicValues.

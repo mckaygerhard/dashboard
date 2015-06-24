@@ -32,10 +32,6 @@ abstract class WidgetController extends Controller implements IWidgetController{
 
     // abstract and magic methods ----------------------------------------------
 
-    // each widget controller implements this (IWidgetController)
-    public abstract function setBasicValues();
-
-
     function __construct($wNo, WidgetSettingsService $widgetSettingsService, $user, IL10N $l10n) {
         $this->wNo                      = intval($wNo);
         $this->user                     = $user;
@@ -48,7 +44,7 @@ abstract class WidgetController extends Controller implements IWidgetController{
     }
 
 
-    // public services ---------------------------------------------------
+    // public methods ---------------------------------------------------
 
     /**
      *
@@ -159,7 +155,21 @@ abstract class WidgetController extends Controller implements IWidgetController{
     }
 
 
-
+    /**
+     *
+     * set basic values
+     *
+     * will be executed at end of
+     * constructor of the superclass
+     *
+     */
+    public function setBasicValues() {
+        $values         = $this::getBasicConf( $this->L10N );
+        $this->icon     =         $values['icon'];
+        $this->refresh  =      $values['refresh'];
+        $this->wId      =          $values['wId'];
+        $this->name     =         $values['name'];
+    }
 
 
 

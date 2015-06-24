@@ -40,6 +40,7 @@ $application->registerRoutes(
             // widget management
             array('name' => 'route_widget_management#get_enabled_widgets',  'url' => '/widget/management/enabled',          'verb' => 'GET'   ),
             array('name' => 'route_widget_management#get_available_widgets','url' => '/widget/management/available',        'verb' => 'GET'   ),
+            array('name' => 'route_widget_management#get_basic_conf',       'url' => '/widget/management/basicConf/{wId}',  'verb' => 'GET'   ),
             array('name' => 'routeWidgetManagement#add_new_instance',       'url' => '/widget/management/add/{wid}',        'verb' => 'PUT'   ),
             array('name' => 'routeWidgetManagement#remove_instance',        'url' => '/widget/management/remove/{wiid}',    'verb' => 'DELETE'),
             array('name' => 'routeWidgetManagement#enable_widget',          'url' => '/widget/management/enable/{wid}',     'verb' => 'PUT'   ),

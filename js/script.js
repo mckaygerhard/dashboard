@@ -18,17 +18,21 @@
         dashboard.addEnabledWidgets();
 
 
-         dashboard.initControl();
+        dashboard.initControl();
+
+        $('#widgets').on('hover', '.widget', function () {
+            var wIId = $(this).data('wiid');
+            dashboard.setHoverWIId(wIId);
+        });
+
+
         /*
 
          $('#widgets').on('change', '.widget .settings .setting', function () {
          dashboard.setConfig($(this).data('wiid'),$(this).attr('name'), $(this).val(),this);
          });
 
-         $('#widgets').on('hover', '.widget', function () {
-         var wIId = $(this).data('wiid');
-         dashboard.setHoverWIId(wIId);
-         });
+
 
          $('#widgets').on('click', '.removeWidget', function () {
          var wIId = $(this).data('wiid');
@@ -48,10 +52,6 @@ dashboard = {
     // that a user added for its dashboard
     enabledWidgets: [],
 
-    // holds all widgets that are available
-    // used for adding new widget instances
-    availableWidgets: [],
-
     // holds all wIIds that are not yet added
     setToAdd: [],
 
@@ -70,20 +70,51 @@ dashboard = {
 
     // load available widgets
     loadAvailableWidgets: function () {
+        if( dashboard.debug ) {
+            //alert('start to load available widgets');
+        }
         var url     = OC.generateUrl('/apps/dashboard/widget/management/available',[]);
         $.ajax({
             url: url,
             method: 'GET'
-        }).done(function (r) {
-            dashboard.availableWidgets = r.wIds;
-            //dashboard.testShowEnabledWidgets();
+        }).done(function (wIds) {
+            if( dashboard.debug ) {
+                console.log($(wIds));
+                console.log('available widgets: ' + wIds.length);
+            }
+            var wId;
+            for(var i = 0; i < wIds.length; i++) {
+                wId = wIds[i];
+                dashboard.addWidgetToWidgetchoice(wId);
+            }
+
         }).fail(function () {
             alert('Could not load available widgets.');
         });
     },
 
+    addWidgetToWidgetchoice: function (wId) {
+        var url     = OC.generateUrl('/apps/dashboard/widget/management/basicConf/' + wId,[]);
+        $.ajax({
+            url: url,
+            method: 'GET'
+        }).done(function (basicValues) {
+            if( dashboard.debug ) {
+                console.log($(basicValues));
+            }
+            
+            var html = '<div class="widget" data-wid="' + basicValues['wId'] + '">' +
+                '<h2>' + basicValues['name'] + '</h2>' +
+                '<div class="icon">' +
+                '<img src="' + basicValues['icon'] + '" alt="' + basicValues['wId'] + ' icon">' +
+                '</div>' +
+                '</div>';
+            $('.widgetChoice').append(html);
 
-
+        }).fail(function() {
+            alert('Could not load basic values.');
+        });
+    },
 
     // set or unset wIId from hovered widget
     setHoverWIId: function(wIId) {
@@ -160,7 +191,7 @@ dashboard = {
             method: 'GET'
         }).done(function (r) {
             if( dashboard.debug ) {
-                console.log('response: ' + r);
+                console.log('enabled widgets - response: ' + $(r));
             }
             dashboard.enabledWidgets = r.wIIds;
             if(dashboard.enabledWidgets.length == 0) {
@@ -231,8 +262,7 @@ dashboard = {
             $('#widgets .widget.' + wIId + ' .heading h1 span.iconReload').on('click', function () {
                 $(this).removeClass('icon-play');
                 $(this).addClass('icon-loading-small');
-                // TODO
-                //dashboard.refreshWidget(wIId);
+                dashboard.refreshWidget(wIId);
             });
 
             // bind event for showing settings
@@ -402,28 +432,6 @@ dashboard = {
     hideOverlay: function () {
         $('.overlayArea').fadeOut();
         $('.overlay').fadeOut();
-    },
-
-    // load available widgets for widget-control
-    x_loadAvailableWidgets: function () {
-        var url = OC.generateUrl('/apps/dashboard/widget/getAvailable');
-        var data = {};
-        $.post(url, data).success(function (response) {
-            for(var i = 0; i < response.length; i++) {
-                var html = '<div class="widget" data-wid="' + response[i]['wId'] + '">' +
-                    '<h2>' + response[i]['name'] + '</h2>' +
-                    '<div class="icon">' +
-                    '<img src="' + response[i]['icon'] + '" alt="' + response[i]['wId'] + ' icon">' +
-                    '</div>' +
-                    '</div>';
-                $('.widgetChoice').append(html);
-
-            }
-        });
-        $('.widgetChoice').on('click', '.widget', function () {
-            var wId = $(this).data('wid');
-            dashboard.addNewWidget(wId);
-        });
     },
 
     addNewWidget: function (wId) {

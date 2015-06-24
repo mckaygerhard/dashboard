@@ -17,4 +17,6 @@ interface IWidgetController {
 
     public function getBasicValues();
 
+    public static function getBasicConf( $L10N );
+
 } 

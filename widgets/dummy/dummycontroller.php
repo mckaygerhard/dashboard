@@ -11,25 +11,21 @@ namespace OCA\Dashboard\Widgets\Dummy;
 use OCA\Dashboard\Widgets\IWidgetController;
 use OCA\Dashboard\Widgets\status;
 use OCA\Dashboard\Widgets\WidgetController;
+use OCP\Util;
 
 
 class DummyController extends WidgetController implements IWidgetController {
 
+
     // interface needed methods ------------------------------------
 
-    /**
-     *
-     * set basic values
-     *
-     * will be executed at end of
-     * constructor of the superclass
-     *
-     */
-    public function setBasicValues() {
-        $this->icon     =           'icons/9.png';
-        $this->refresh  =                      20;
-        $this->wId      =                 'dummy';
-        $this->name     = $this->L10N->t('Dummy');
+    public static function getBasicConf($L10N) {
+        return array(
+            'icon'      => Util::imagePath('dashboard', 'icons/9.png'),
+            'refresh'   =>                                           0,
+            'wId'       =>                                     'dummy',
+            'name'      =>             $L10N->t('Dummy')->__toString()
+        );
     }
 
     /**

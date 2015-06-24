@@ -53,7 +53,9 @@ class Application extends App {
             return new RouteWidgetManagementController(
                 $c->query('AppName'),
                 $c->query('Request'),
-                $c->query('UserId')
+                $c->query('UserId'),
+                $c->query('WidgetManagementService'),
+                $c->query('L10N')
             );
         });
 

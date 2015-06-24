@@ -27,7 +27,7 @@ class DummyController extends WidgetController implements IWidgetController {
      */
     public function setBasicValues() {
         $this->icon     =           'icons/9.png';
-        $this->refresh  =                       0;
+        $this->refresh  =                      20;
         $this->wId      =                 'dummy';
         $this->name     = $this->L10N->t('Dummy');
     }

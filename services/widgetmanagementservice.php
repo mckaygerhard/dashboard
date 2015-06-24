@@ -69,7 +69,7 @@ class WidgetManagementService {
                     return $widgetControllerObject;
                 }
             } elseif ( strtolower($type) === strtolower('template') ) {
-                $widgetTemplateObject = new $class($this->l10n);
+                $widgetTemplateObject = new $class($this->l10n, $this->widgetSettingsService);
                 if( $widgetTemplateObject ) {
                     return $widgetTemplateObject;
                 }

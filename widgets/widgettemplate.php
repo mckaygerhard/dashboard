@@ -10,26 +10,52 @@ namespace OCA\Dashboard\Widgets;
 
 
 use OC_Util;
-use OCA\Dashboard\Db\WidgetConfigDAO;
+use OCA\Dashboard\Services\WidgetSettingsService;
 use OCP\IL10N;
 use OCP\Util;
 
-abstract class WidgetTemplate {
+abstract class WidgetTemplate implements IWidgetTemplate {
 
     protected $L10N;
+    protected $widgetSettingsService;
 
-    function __construct(IL10N $l10n) {
-        $this->L10N = $l10n;
+    function __construct(IL10N $l10n, WidgetSettingsService $widgetSettingsService) {
+        $this->L10N                     = $l10n;
+        $this->widgetSettingsService    = $widgetSettingsService;
     }
 
 
+    public abstract function getContentHtml( $data = array() );
+
+    public abstract function getSettingsArray();
+
+    /**
+     *
+     * return the complete html for a widget
+     * included
+     *  - header
+     *  - content
+     *  - settings
+     *
+     * @param $data
+     * @return string
+     */
+    public function getCompleteHtml( $data ) {
+        $html = '';
+        $html .= '<div class="heading">';
+        $html .= $this->getHeadHtml( $data );
+        $html .= '</div>';
+        $html .= '<div class="content">';
+        $html .= $this->getContentHtml( $data );
+        $html .= '</div>';
+        $html .= '<div class="settings">';
+        $html .= $this->getSettingsHtml( $data['wIId'] );
+        $html .= '</div>';
+        return $html;
+    }
 
 
-
-
-
-
-
+    // ----- protected methods --------------------------------------------
 
     /**
      *
@@ -56,44 +82,16 @@ abstract class WidgetTemplate {
     }
 
 
-
-
-
-    /**
-     *
-     * return the complete html for a widget
-     * included
-     *  - header
-     *  - content
-     *  - settings
-     *
-     * @param IWidgetController $widgetController
-     * @return string
-     */
-    public function x_getHtml(IWidgetController $widgetController) {
-        $html = '';
-        $html .= '<div class="heading">';
-        $html .= $this->getHeadHtml($widgetController);
-        $html .= '</div>';
-        $html .= '<div class="content">';
-        $html .= $this->getContentHtml($widgetController->getData());
-        $html .= '</div>';
-        $html .= '<div class="settings">';
-        $html .= $this->getSettingsHtml($widgetController);
-        $html .= '</div>';
-        return $html;
-    }
-
-    // private services ---------------------------------------------------------------
+    // ----- private methods ----------------------------------------------
 
     /**
      *
      * return the settings html
      *
-     * @param IWidgetController $widgetController
+     * @param $wIId
      * @return string
      */
-    private function xx_getSettingsHtml(IWidgetController $widgetController) {
+    private function getSettingsHtml( $wIId ) {
         // this settings are available for every widget instance
         $defaultSettings        = $this->getDefaultSettings();
 
@@ -105,14 +103,14 @@ abstract class WidgetTemplate {
 
         $return = '<table>';
         foreach( $settingsArray as $key => $setting) {
-            $return .= '<tr><td>'.$this->l10n->t($setting['name']).'</td><td>'.$this->getSettingsField($setting, $key, $widgetController).'</td></tr>';
+            $return .= '<tr><td>'.$this->L10N->t($setting['name']).'</td><td>'.$this->getSettingsField($setting, $key, $wIId).'</td></tr>';
             if( isset($setting['info']) ) {
-                $return .= '<tr><td colspan="2"><div class="settingsInfo">'.$this->l10n->t($setting['info']).'</div></td></tr>';
+                $return .= '<tr><td colspan="2"><div class="settingsInfo">'.$this->L10N->t($setting['info']).'</div></td></tr>';
             }
         }
-        $return .= '<tr><td>'.$this->l10n->t('Remove widget').'</td><td><input class="removeWidget" data-wiid="'.$this->wIId.'" type="button" value="'.$this->l10n->t('remove now').'" /></td></tr>';
+        $return .= '<tr><td>'.$this->L10N->t('Remove widget').'</td><td><input class="removeWidget" data-wiid="'.$wIId.'" type="button" value="'.$this->L10N->t('remove now').'" /></td></tr>';
         if( method_exists($this, 'getLicenseInfo') ) {
-            $return .= '<tr><td class="key">'.$this->l10n->t('License').'</td><td><div class="value">'.$this->getLicenseInfo().'</div></td></tr>';
+            $return .= '<tr><td class="key">'.$this->L10N->t('License').'</td><td><div class="value">'.$this->getLicenseInfo().'</div></td></tr>';
         }
         $return .= '</table>';
         return $return;
@@ -125,13 +123,12 @@ abstract class WidgetTemplate {
      *
      * @param $setting
      * @param $key
-     * @param IWidgetController $widgetController
+     * @param $wIId
      * @return string
      */
-    private function x_getSettingsField($setting, $key, IWidgetController $widgetController) {
+    private function getSettingsField($setting, $key, $wIId) {
         $type   = (isset($setting['type'])) ? $setting['type']: '';
-        $value  = $this->getValueForField($key, $setting['default'], $widgetController);
-        $wIId    = $widgetController->getConfig('wIId');
+        $value  = $this->getValueForField($key, $setting['default'], $wIId);
         $html   = '&nbsp;';
         switch($type) {
             case 'select':
@@ -142,13 +139,13 @@ abstract class WidgetTemplate {
                         if( $value == $key ) {
                             $html .= ' selected ';
                         }
-                        $html .= '>'.$this->l10n->t($option).'</option>';
+                        $html .= '>'.$this->L10N->t($option).'</option>';
                     }
                 }
                 $html .= '</select>';
                 break;
             case 'text':
-                $html .= '<input type="text" name="'.$key.'" data-wiid="'.$wIId.'" class="setting" value="'.$this->l10n->t($value).'" />';
+                $html .= '<input type="text" name="'.$key.'" data-wiid="'.$wIId.'" class="setting" value="'.$this->L10N->t($value).'" />';
                 break;
             case 'password':
                 $html .= '<input type="password" name="'.$key.'" data-wiid="'.$wIId.'" class="setting" />';
@@ -166,11 +163,13 @@ abstract class WidgetTemplate {
      *
      * @param $key
      * @param $default
-     * @param IWidgetController $widgetController
+     * @param $wIId
      * @return int|null|string
+     * @internal param IWidgetController $widgetController
      */
-    private function x_getValueForField($key, $default, IWidgetController $widgetController) {
-        return $widgetController->getConfig($key, $default);
+    private function getValueForField($key, $default, $wIId) {
+        // ToDo
+        return $default;
     }
 
     /**
@@ -179,7 +178,7 @@ abstract class WidgetTemplate {
      *
      * @return array
      */
-    private function x_getDefaultSettings() {
+    private function getDefaultSettings() {
         return array(
             'dimension'     => array(
                 'type'          => 'select',
@@ -215,34 +214,27 @@ abstract class WidgetTemplate {
      *  - settings icon
      *  - icon
      *
-     * @param IWidgetController $widgetController
+     * @param $data array with basic values from widgetController super class
      * @return string
      */
-    private function x_getHeadHtml(IWidgetController $widgetController) {
-        $refresh    = $widgetController->getConfig('refresh');
-        $icon       = $widgetController->getConfig('icon');
-        $name       = $widgetController->getConfig('wName');
-        if( method_exists($widgetController, 'getName')) {
-            $name     = $widgetController->getName();
-        }
+    private function getHeadHtml( $data ) {
         $html       = '<h1 class="hoverInfo" data-opacitynormal="0.5">';
 
-        $link = $widgetController->getConfig('link', '');
-        if( $link != null && $link != '' ) {
-            $html .= '<a href="'.$link.'">'.$this->l10n->t($name).'</a>';
+        if( isset($data['link']) != null && $data['link'] != '' ) {
+            $html .= '<a href="'.$data['link'].'">'.$data['name'].'</a>';
         } else {
-            $html .= $this->l10n->t($name);
+            $html .= $data['name'];
         }
 
-        if( $refresh && $refresh != 0 ) {
-            $html .= '<span class="hoverInfo icon-play iconReload" data-wiid="'.$this->wIId.'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+        if( isset($data['refresh']) && $data['refresh'] != 0 ) {
+            $html .= '<span class="hoverInfo icon-play iconReload" data-wiid="'.$data['wIId'].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         }
 
         $html .= '<span class="hoverInfo icon-settings iconSettings">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         $html .= '</h1>';
 
-        if( $icon != '' ) {
-            $html .= '<div class="icon"><img src="'.Util::imagePath('dashboard', $icon).'" alt="'.$this->wIId.' icon" /></div>';
+        if( isset($data['icon']) && $data['icon'] != '' ) {
+            $html .= '<div class="icon"><img src="'.Util::imagePath('dashboard', $data['icon']).'" alt="'.$data['wIId'].' icon" /></div>';
         }
 
         return $html;

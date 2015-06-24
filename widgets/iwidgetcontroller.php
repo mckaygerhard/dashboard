@@ -15,4 +15,6 @@ interface IWidgetController {
 
     public function setBasicValues();
 
+    public function getBasicValues();
+
 } 

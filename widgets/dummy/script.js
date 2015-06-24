@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     if( dashboard.debug ) {
-        alert('Script for dummy widget loaded!');
+        //alert('Script for dummy widget loaded!');
     }
 
     $('#widgets').on('click', '.generateNormal', function () {

@@ -33,23 +33,19 @@ class WidgetContentService {
      * @param String $wIId
      * @return String html
      */
-    public function getComplete($wIId)
-    {
+    public function getComplete($wIId) {
         /** @var $widgetController \OCA\Dashboard\Widgets\IWidgetController */
         $widgetController   = $this->widgetManagementService->getInstance($wIId, 'controller');
 
         /** @var $widgetTemplate  \OCA\Dashboard\Widgets\IWidgetTemplate */
         $widgetTemplate     = $this->widgetManagementService->getInstance($wIId, 'template');
 
-        $data               = $widgetController->getData();
-        $html               = $widgetTemplate->getContentHtml($data);
+        $contentData        = $widgetController->getData();
         $basicValues        = $widgetController->getBasicValues();
-        $status = (isset($data['status'])) ? $data['status']: 1;
-        $tmp = array(
-            'status'        => $status,
-            'widgetHtml'    => $html
-        );
-        return array_merge($tmp, $basicValues);
+        $data               = array_merge($contentData, $basicValues);
+        $data['status']     = (isset($data['status'])) ? $data['status']: 1;
+        $data['widgetHtml'] = $widgetTemplate->getCompleteHtml( $data );
+        return $data;
     }
 
     /**
@@ -59,14 +55,19 @@ class WidgetContentService {
      * @param String $wIId
      * @return string html
      */
-    public function getContent($wIId)
-    {
-        // TODO
-        return array(
-            'wIId'      => 'dummy-0',
-            'status'    => 2,
-            'widgetHtml'=> time().' (wIId: '.$wIId.')'
-        );
+    public function getContent($wIId) {
+        /** @var $widgetController \OCA\Dashboard\Widgets\IWidgetController */
+        $widgetController   = $this->widgetManagementService->getInstance($wIId, 'controller');
+
+        /** @var $widgetTemplate  \OCA\Dashboard\Widgets\IWidgetTemplate */
+        $widgetTemplate     = $this->widgetManagementService->getInstance($wIId, 'template');
+
+        $contentData        = $widgetController->getData();
+        $basicValues        = $widgetController->getBasicValues();
+        $data               = array_merge($contentData, $basicValues);
+        $data['status']     = (isset($data['status'])) ? $data['status']: 1;
+        $data['widgetHtml'] = $widgetTemplate->getContentHtml( $data );
+        return $data;
     }
 
     /**

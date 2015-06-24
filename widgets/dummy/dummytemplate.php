@@ -55,7 +55,7 @@ class DummyTemplate extends WidgetTemplate implements IWidgetTemplate {
         );
     }
 
-    protected function getLicenseInfo() {
+    public function getLicenseInfo() {
         return 'Feel free to copy und use this dummy to develop new widgets.';
     }
 

@@ -18,7 +18,7 @@ interface IWidgetTemplate {
      * @param array $data
      * @return mixed
      */
-    function getContentHtml($data = array());
+    public function getContentHtml($data = array());
 
     /**
      *
@@ -27,6 +27,10 @@ interface IWidgetTemplate {
      *
      * @return mixed
      */
-    function getSettingsArray();
+    public function getSettingsArray();
+
+    public function getLicenseInfo();
+
+    public function getCompleteHtml( $data );
 
 }

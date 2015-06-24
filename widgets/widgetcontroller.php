@@ -14,7 +14,7 @@ use OCA\Dashboard\Services\WidgetSettingsService;
 use OCP\AppFramework\Controller;
 use OCP\IL10N;
 
-abstract class WidgetController extends Controller {
+abstract class WidgetController extends Controller implements IWidgetController{
 
     protected $icon;
     protected $refresh;
